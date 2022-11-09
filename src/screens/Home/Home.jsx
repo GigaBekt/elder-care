@@ -9,7 +9,7 @@ const Home = ({ navigation, route }) => {
   const [modal, setModal] = useState(true);
 
   useEffect(() => {
-    console.log(route?.param?.modal && setModal(true));
+    route?.params?.modal ? setModal(true) : setModal(false);
     return () => setModal(false);
   }, []);
   return (

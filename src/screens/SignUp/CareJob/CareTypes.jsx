@@ -8,6 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import { View, Text, FlatList, TouchableHighlight } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import SkeletonContent from "react-native-skeleton-content";
 
 // Componenets
 import Header from "../../../components/Header";
@@ -21,6 +22,8 @@ import AdditionalInfo from "../../../Api/AdditionalInfo";
 const CareTypes = ({ navigation }) => {
   let abortController = new AbortController();
   const additionalInfo = new AdditionalInfo();
+
+  const [loader, setLoader] = useState(true);
   const [selected, setSelected] = useState([]);
   const [types, setTypes] = useState([]);
   const selectType = (item) => {
@@ -81,12 +84,16 @@ const CareTypes = ({ navigation }) => {
       })
       .catch((err) => {
         console.log(err?.response);
-      });
+      })
+      .finally(() => setLoader(false));
   };
 
   useEffect(() => {
     getServices();
-    return () => abortController.abort();
+    return () => {
+      abortController.abort();
+      setLoader(true);
+    };
   }, []);
   return (
     <SafeAreaView
@@ -105,12 +112,29 @@ const CareTypes = ({ navigation }) => {
         </Text>
         <Text style={styles.spanText}>You can select multiple</Text>
 
-        <FlatList
-          data={types}
-          renderItem={typesList}
-          keyExtractor={(item) => item.id}
-          style={{ marginTop: 24 }}
-        />
+        {loader ? (
+          <SkeletonContent
+            containerStyle={{ flex: 1, width: "100%", marginTop: 24 }}
+            duration={1500}
+            layout={[
+              { width: "100%", height: 75, marginBottom: 14 },
+              { width: "100%", height: 75, marginBottom: 14 },
+              { width: "100%", height: 75, marginBottom: 14 },
+              { width: "100%", height: 75, marginBottom: 14 },
+              { width: "100%", height: 75, marginBottom: 14 },
+            ]}
+          >
+            <Text style={styles.normalText}>Your content</Text>
+            <Text style={styles.bigText}>Other content</Text>
+          </SkeletonContent>
+        ) : (
+          <FlatList
+            data={types}
+            renderItem={typesList}
+            keyExtractor={(item) => item.id}
+            style={{ marginTop: 24 }}
+          />
+        )}
       </View>
 
       <Next active={2} navigate={() => navigation.navigate("Experiance")} />

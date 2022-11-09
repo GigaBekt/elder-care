@@ -41,7 +41,7 @@ const Hobbies = ({ show, close }) => {
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <View>
-            <ModalHeader name="Hobbies" />
+            <ModalHeader close={() => close(false)} name="Hobbies" />
             <Text style={styles.mainHeding}>Hobbies and Interests</Text>
             <Text style={styles.paraText}>
               Choose your hobbies and interests
