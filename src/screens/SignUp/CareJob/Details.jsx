@@ -39,7 +39,7 @@ const Details = ({ navigation }) => {
     });
     setCertifications(modified);
   };
-  const renderExperiance = ({ item }) => {
+  const renderExperiance = (item) => {
     return (
       <TouchableHighlight
         onPress={() => changeCheck(item)}
@@ -68,7 +68,7 @@ const Details = ({ navigation }) => {
     );
   };
 
-  const renderCertifications = ({ item }) => {
+  const renderCertifications = (item) => {
     return (
       <TouchableHighlight
         onPress={() => changeCheckCert(item)}
@@ -175,11 +175,12 @@ const Details = ({ navigation }) => {
         <View>
           <Text style={styles.listHeading}>I have experience with:</Text>
           <View style={{ marginVertical: 15 }}>
-            <FlatList
+            {experiance.map((item) => renderExperiance(item))}
+            {/* <FlatList
               data={experiance}
               renderItem={renderExperiance}
               keyExtractor={(item) => item.id}
-            />
+            /> */}
           </View>
         </View>
 
@@ -192,11 +193,7 @@ const Details = ({ navigation }) => {
         >
           <Text style={styles.listHeading}>I have experience with:</Text>
           <View style={{ marginVertical: 15 }}>
-            <FlatList
-              data={certifications}
-              renderItem={renderCertifications}
-              keyExtractor={(item) => item.id}
-            />
+            {certifications.map((item) => renderCertifications(item))}
           </View>
         </View>
 
@@ -206,11 +203,7 @@ const Details = ({ navigation }) => {
 
         <View>
           <View>
-            <FlatList
-              data={certifications}
-              renderItem={renderCertifications}
-              keyExtractor={(item) => item.id}
-            />
+            {certifications.map((item) => renderCertifications(item))}
           </View>
         </View>
       </ScrollView>
