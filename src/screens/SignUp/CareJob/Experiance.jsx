@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableHighlight,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, FlatList, TouchableHighlight } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-// import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import SkeletonContent from "react-native-skeleton-content";
 // Componenets
 import Header from "../../../components/Header";
 import Next from "../Components/Next";
@@ -73,26 +67,21 @@ const Experiance = ({ navigation }) => {
           How much paid senior caregiving experience do you have?
         </Text>
 
-        {!loader ? (
-          <Text>loading...</Text>
+        {loader ? (
+          <SkeletonContent
+            containerStyle={{ flex: 1, width: "100%", marginTop: 24 }}
+            duration={1500}
+            layout={[
+              { width: "100%", height: 55, marginBottom: 14 },
+              { width: "100%", height: 55, marginBottom: 14 },
+              { width: "100%", height: 55, marginBottom: 14 },
+              { width: "100%", height: 55, marginBottom: 14 },
+            ]}
+          >
+            <Text style={styles.normalText}>Your content</Text>
+            <Text style={styles.bigText}>Other content</Text>
+          </SkeletonContent>
         ) : (
-          // <SkeletonPlaceholder borderRadius={4}>
-          //   <SkeletonPlaceholder.Item flexDirection="row" alignItems="center">
-          //     <SkeletonPlaceholder.Item
-          //       width={60}
-          //       height={60}
-          //       borderRadius={50}
-          //     />
-          //     <SkeletonPlaceholder.Item marginLeft={20}>
-          //       <SkeletonPlaceholder.Item width={120} height={20} />
-          //       <SkeletonPlaceholder.Item
-          //         marginTop={6}
-          //         width={80}
-          //         height={20}
-          //       />
-          //     </SkeletonPlaceholder.Item>
-          //   </SkeletonPlaceholder.Item>
-          // </SkeletonPlaceholder>
           <FlatList
             data={experiance}
             renderItem={experiances}

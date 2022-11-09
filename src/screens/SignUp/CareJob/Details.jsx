@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
   FlatList,
   TouchableHighlight,
   TextInput,
+  ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Checkbox from "expo-checkbox";
@@ -14,43 +15,14 @@ import Header from "../../../components/Header";
 import Next from "../Components/Next";
 // CSS
 import styles from "../styles";
+import AdditionalInfo from "../../../Api/AdditionalInfo";
 
 const Details = ({ navigation }) => {
-  const [experiance, setExperiance] = useState([
-    {
-      id: 1,
-      name: "Alzheimer dementia",
-      checked: false,
-    },
-    {
-      id: 2,
-      name: "Hospice / end of life care",
-      checked: false,
-    },
-  ]);
+  const additionalInfo = new AdditionalInfo();
+  const abortController = new AbortController();
+  const [experiance, setExperiance] = useState([]);
 
-  const [certifications, setCertifications] = useState([
-    {
-      id: 1,
-      name: "Home health Aide or Equivalent",
-      checked: false,
-    },
-    {
-      id: 2,
-      name: "Cerified Nursing Assistent",
-      checked: false,
-    },
-    {
-      id: 3,
-      name: "Registered Nurse",
-      checked: false,
-    },
-    {
-      id: 4,
-      name: "CPR Training",
-      checked: false,
-    },
-  ]);
+  const [certifications, setCertifications] = useState([]);
 
   const changeCheck = (prop) => {
     const modified = experiance.map((item) => {
@@ -125,6 +97,46 @@ const Details = ({ navigation }) => {
     );
   };
 
+  const getCerfications = () => {
+    additionalInfo
+      .certifications()
+      .then((res) => {
+        if (res.status === 200) {
+          const { data } = res.data;
+          data.map((element) => {
+            element.check = false;
+          });
+          setCertifications(data);
+        }
+      })
+      .catch((err) => {
+        console.log(err?.response);
+      });
+  };
+
+  const getExperiance = () => {
+    additionalInfo
+      .careExperiance()
+      .then((res) => {
+        if (res.status === 200) {
+          const { data } = res.data;
+          data.map((element) => {
+            element.check = false;
+          });
+          setExperiance(data);
+        }
+      })
+      .catch((err) => {
+        console.log(err?.response);
+      });
+  };
+
+  useEffect(() => {
+    getCerfications();
+    getExperiance();
+    return () => abortController.abort();
+  }, []);
+
   return (
     <SafeAreaView
       style={{
@@ -133,7 +145,7 @@ const Details = ({ navigation }) => {
         justifyContent: "space-between",
       }}
     >
-      <View style={{ paddingHorizontal: 13 }}>
+      <ScrollView style={{ paddingHorizontal: 13 }}>
         <View style={{ paddingVertical: 24 }}>
           <Header navigation={navigation} name="Sign Up" />
         </View>
@@ -171,7 +183,13 @@ const Details = ({ navigation }) => {
           </View>
         </View>
 
-        <View>
+        <View
+          style={{
+            paddingBottom: 11,
+            borderBottomColor: "#E5E7EB",
+            borderBottomWidth: 1,
+          }}
+        >
           <Text style={styles.listHeading}>I have experience with:</Text>
           <View style={{ marginVertical: 15 }}>
             <FlatList
@@ -181,7 +199,21 @@ const Details = ({ navigation }) => {
             />
           </View>
         </View>
-      </View>
+
+        <Text style={[styles.mainHeading, { marginBottom: 24, marginTop: 24 }]}>
+          Additional information
+        </Text>
+
+        <View>
+          <View>
+            <FlatList
+              data={certifications}
+              renderItem={renderCertifications}
+              keyExtractor={(item) => item.id}
+            />
+          </View>
+        </View>
+      </ScrollView>
 
       <Next active={4} navigate={() => navigation.navigate("Upload")} />
     </SafeAreaView>

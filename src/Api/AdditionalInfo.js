@@ -10,7 +10,7 @@ class AdditionalInfo {
     return api.getAxiosInstance().get("/care-experiences");
   }
   certifications() {
-    return api.getAxiosInstance().get("/certifications");
+    return api.getAxiosInstance().get("/care-certifications");
   }
 }
 

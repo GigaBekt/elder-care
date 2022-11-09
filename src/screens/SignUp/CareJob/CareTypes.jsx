@@ -22,39 +22,7 @@ const CareTypes = ({ navigation }) => {
   let abortController = new AbortController();
   const additionalInfo = new AdditionalInfo();
   const [selected, setSelected] = useState([]);
-  const types = [
-    {
-      id: 1,
-      name: "Household tasks",
-      description: "Errands, housekeeping and meal prep.",
-      icon: <ForkKnife color="#1249CB" size={32} />,
-    },
-    {
-      id: 2,
-      name: "Personal care",
-      description: "Bathing, dressing and feeding",
-      icon: <Bathtub color="#1249CB" size={32} />,
-    },
-
-    {
-      id: 4,
-      name: "Companionship",
-      description: "Sharing hobbies and lending an ear",
-      icon: <Heart color="#1249CB" size={32} />,
-    },
-    {
-      id: 5,
-      name: "Transportation",
-      description: "Trips to appointments and errands.",
-      icon: <Car color="#1249CB" size={32} />,
-    },
-    {
-      id: 6,
-      name: "Mobility assistance",
-      description: "Lift, transfers, physical activity, etc.",
-      icon: <MapPinLine color="#1249CB" size={32} />,
-    },
-  ];
+  const [types, setTypes] = useState([]);
   const selectType = (item) => {
     const findItem = selected.indexOf(item.id);
     if (findItem !== -1) {
@@ -65,26 +33,42 @@ const CareTypes = ({ navigation }) => {
       setSelected([...selected, item.id]);
     }
   };
-  const typesList = ({ item }) => (
-    <TouchableHighlight underlayColor="none" onPress={() => selectType(item)}>
-      <View
-        style={[
-          styles.singleBox,
-          selected.includes(item.id) ? styles.active : "",
-        ]}
-      >
-        <View>{item.icon}</View>
+
+  const typesList = ({ item }) => {
+    const renderIcon = () => {
+      if (item.icon == "Car") {
+        return <Car color="#1249CB" size={32} />;
+      } else if (item.icon == "ForkKnife") {
+        return <ForkKnife color="#1249CB" size={32} />;
+      } else if (item.icon == "Heart") {
+        return <Heart color="#1249CB" size={32} />;
+      } else if (item.icon == "MapPinLine") {
+        return <MapPinLine color="#1249CB" size={32} />;
+      } else if (item.icon == "Bathtub") {
+        return <Bathtub color="#1249CB" size={32} />;
+      }
+    };
+    return (
+      <TouchableHighlight underlayColor="none" onPress={() => selectType(item)}>
         <View
-          style={{
-            marginLeft: 16,
-          }}
+          style={[
+            styles.singleBox,
+            selected.includes(item.id) ? styles.active : "",
+          ]}
         >
-          <Text style={styles.textHeader}>{item.name}</Text>
-          <Text style={styles.text}>{item.description}.</Text>
+          <View>{renderIcon()}</View>
+          <View
+            style={{
+              marginLeft: 16,
+            }}
+          >
+            <Text style={styles.textHeader}>{item.name}</Text>
+            <Text style={styles.text}>{item.description}.</Text>
+          </View>
         </View>
-      </View>
-    </TouchableHighlight>
-  );
+      </TouchableHighlight>
+    );
+  };
 
   const getServices = () => {
     additionalInfo
@@ -92,6 +76,7 @@ const CareTypes = ({ navigation }) => {
       .then((res) => {
         if (res.status === 200) {
           const { data } = res.data;
+          setTypes(data);
         }
       })
       .catch((err) => {
