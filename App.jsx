@@ -23,11 +23,11 @@ function App() {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Login" component={Auth} />
           <Stack.Screen name="Caretypes" component={CareTypes} />
           <Stack.Screen name="Details" component={Details} />
           <Stack.Screen name="Experiance" component={Experiance} />
           <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Login" component={Auth} />
           <Stack.Screen name="Verify" component={Verify} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Carejob location" component={Location} />

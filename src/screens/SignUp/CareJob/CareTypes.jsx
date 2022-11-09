@@ -100,7 +100,9 @@ const CareTypes = ({ navigation }) => {
         <View style={{ paddingVertical: 24 }}>
           <Header navigation={navigation} name="Sign Up" />
         </View>
-        <Text style={styles.headingText}>Where are you located?</Text>
+        <Text style={styles.headingText}>
+          What type of care do you want to provide?
+        </Text>
         <Text style={styles.spanText}>You can select multiple</Text>
 
         <FlatList

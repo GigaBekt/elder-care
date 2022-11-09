@@ -2,17 +2,18 @@ import { useEffect, useState } from "react";
 import {
   View,
   Text,
-  FlatList,
   TouchableHighlight,
   TextInput,
   ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Checkbox from "expo-checkbox";
+import SkeletonContent from "react-native-skeleton-content";
 
 // Componenets
 import Header from "../../../components/Header";
 import Next from "../Components/Next";
+import Checkbox from "expo-checkbox";
+
 // CSS
 import styles from "../styles";
 import AdditionalInfo from "../../../Api/AdditionalInfo";
@@ -21,6 +22,7 @@ const Details = ({ navigation }) => {
   const additionalInfo = new AdditionalInfo();
   const abortController = new AbortController();
   const [experiance, setExperiance] = useState([]);
+  const [loader, setLoader] = useState(true);
 
   const [certifications, setCertifications] = useState([]);
 
@@ -42,6 +44,7 @@ const Details = ({ navigation }) => {
   const renderExperiance = (item) => {
     return (
       <TouchableHighlight
+        key={item.id}
         onPress={() => changeCheck(item)}
         style={{ marginBottom: 11 }}
         underlayColor="none"
@@ -71,6 +74,7 @@ const Details = ({ navigation }) => {
   const renderCertifications = (item) => {
     return (
       <TouchableHighlight
+        key={item.id}
         onPress={() => changeCheckCert(item)}
         style={{ marginBottom: 11 }}
         underlayColor="none"
@@ -111,7 +115,8 @@ const Details = ({ navigation }) => {
       })
       .catch((err) => {
         console.log(err?.response);
-      });
+      })
+      .finally(() => setLoader(false));
   };
 
   const getExperiance = () => {
@@ -128,13 +133,17 @@ const Details = ({ navigation }) => {
       })
       .catch((err) => {
         console.log(err?.response);
-      });
+      })
+      .finally(() => setLoader(false));
   };
 
   useEffect(() => {
     getCerfications();
     getExperiance();
-    return () => abortController.abort();
+    return () => {
+      abortController.abort();
+      setLoader(true);
+    };
   }, []);
 
   return (
@@ -168,44 +177,75 @@ const Details = ({ navigation }) => {
           </View>
         </View>
 
-        <Text style={[styles.mainHeading, { marginBottom: 24 }]}>
-          Experiances
-        </Text>
-
-        <View>
-          <Text style={styles.listHeading}>I have experience with:</Text>
-          <View style={{ marginVertical: 15 }}>
-            {experiance.map((item) => renderExperiance(item))}
-            {/* <FlatList
-              data={experiance}
-              renderItem={renderExperiance}
-              keyExtractor={(item) => item.id}
-            /> */}
-          </View>
-        </View>
-
-        <View
-          style={{
-            paddingBottom: 11,
-            borderBottomColor: "#E5E7EB",
-            borderBottomWidth: 1,
-          }}
-        >
-          <Text style={styles.listHeading}>I have experience with:</Text>
-          <View style={{ marginVertical: 15 }}>
-            {certifications.map((item) => renderCertifications(item))}
-          </View>
-        </View>
-
-        <Text style={[styles.mainHeading, { marginBottom: 24, marginTop: 24 }]}>
-          Additional information
-        </Text>
-
-        <View>
+        {loader ? (
+          <SkeletonContent
+            containerStyle={{ flex: 1, width: "100%", marginTop: 24 }}
+            duration={1500}
+            layout={[
+              { width: "100%", height: 55, marginBottom: 14 },
+              { width: "100%", height: 55, marginBottom: 14 },
+              { width: "100%", height: 55, marginBottom: 14 },
+              { width: "100%", height: 55, marginBottom: 14 },
+            ]}
+          >
+            <Text style={styles.normalText}>Your content</Text>
+            <Text style={styles.bigText}>Other content</Text>
+          </SkeletonContent>
+        ) : (
           <View>
-            {certifications.map((item) => renderCertifications(item))}
+            <Text style={[styles.mainHeading, { marginBottom: 24 }]}>
+              Experiances
+            </Text>
+
+            <View>
+              <Text style={styles.listHeading}>I have experience with:</Text>
+              <View style={{ marginVertical: 15 }}>
+                {experiance.map((item) => renderExperiance(item))}
+              </View>
+            </View>
+
+            <View
+              style={{
+                paddingBottom: 11,
+                borderBottomColor: "#E5E7EB",
+                borderBottomWidth: 1,
+              }}
+            >
+              <Text style={styles.listHeading}>I have experience with:</Text>
+              <View style={{ marginVertical: 15 }}>
+                {certifications.map((item) => renderCertifications(item))}
+              </View>
+            </View>
           </View>
-        </View>
+        )}
+
+        {loader ? (
+          <SkeletonContent
+            containerStyle={{ flex: 1, width: "100%", marginTop: 24 }}
+            duration={1500}
+            layout={[
+              { width: "100%", height: 55, marginBottom: 14 },
+              { width: "100%", height: 55, marginBottom: 14 },
+              { width: "100%", height: 55, marginBottom: 14 },
+              { width: "100%", height: 55, marginBottom: 14 },
+            ]}
+          >
+            <Text style={styles.normalText}>Your content</Text>
+            <Text style={styles.bigText}>Other content</Text>
+          </SkeletonContent>
+        ) : (
+          <View>
+            <Text
+              style={[styles.mainHeading, { marginBottom: 24, marginTop: 24 }]}
+            >
+              Additional information
+            </Text>
+
+            <View>
+              {certifications.map((item) => renderCertifications(item))}
+            </View>
+          </View>
+        )}
       </ScrollView>
 
       <Next active={4} navigate={() => navigation.navigate("Upload")} />

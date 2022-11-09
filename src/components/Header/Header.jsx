@@ -2,9 +2,6 @@ import { CaretLeft } from "phosphor-react-native";
 import { View, Text, TouchableHighlight } from "react-native";
 
 //
-import Material from "react-native-vector-icons/MaterialIcons";
-
-//
 import styles from "./styles";
 
 const Header = ({ navigation, name }) => {

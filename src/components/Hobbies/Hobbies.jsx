@@ -55,6 +55,7 @@ const Hobbies = ({ show, close }) => {
             >
               {data.map((item) => (
                 <TouchableHighlight
+                  key={item.id}
                   underlayColor="none"
                   onPress={() => selectHobbie(item)}
                 >
