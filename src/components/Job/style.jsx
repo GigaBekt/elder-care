@@ -14,6 +14,7 @@ const style = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
     elevation: 2,
+    marginBottom: 24,
   },
   header: {
     flexDirection: "row",
@@ -53,6 +54,7 @@ const style = StyleSheet.create({
     fontWeight: "400",
     fontSize: 12,
     lineHeight: 16,
+    textTransform: "capitalize",
     color: "#111827",
   },
   footer: {

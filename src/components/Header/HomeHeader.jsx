@@ -7,7 +7,13 @@ const Header = () => {
   return (
     <View style={style.headerMainBox}>
       <View style={style.homeHeader}>
-        <Text style={style.headerHeading}>Find Task</Text>
+        <Text
+          //
+          //
+          style={style.headerHeading}
+        >
+          Find Task
+        </Text>
         <Text style={style.balance}>
           Balance: <Text style={style.amount}>$0.00</Text>
         </Text>

@@ -2,9 +2,9 @@ import { CalendarBlank, Clock } from "phosphor-react-native";
 import { Text, View, Image, TouchableHighlight } from "react-native";
 
 // CSS
-import style from "./style";
+import style from "../Job/style";
 
-const Job = ({ item }) => {
+const Proposal = ({ item }) => {
   return (
     <TouchableHighlight
       underlayColor="none"
@@ -24,11 +24,7 @@ const Job = ({ item }) => {
           </View>
         </View>
 
-        <View style={style.body}>
-          <Text style={style.bodyText}>{item.description}</Text>
-        </View>
-
-        <View style={style.footer}>
+        <View style={[style.footer, { marginTop: 16 }]}>
           <View style={style.singleBox}>
             <View style={style.circle}>
               <CalendarBlank weight="bold" size={20} color="#1249CB" />
@@ -53,4 +49,4 @@ const Job = ({ item }) => {
     </TouchableHighlight>
   );
 };
-export default Job;
+export default Proposal;

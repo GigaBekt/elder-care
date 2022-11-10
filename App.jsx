@@ -14,7 +14,6 @@ import CareTypes from "./src/screens/SignUp/CareJob/CareTypes";
 import Experiance from "./src/screens/SignUp/CareJob/Experiance";
 import Details from "./src/screens/SignUp/CareJob/Details";
 import Upload from "./src/screens/SignUp/CareJob/Upload";
-
 import Caregiver from "./src/screens/Caregiver/HomeScreen";
 
 const Stack = createNativeStackNavigator();
@@ -29,7 +28,6 @@ const App = () => {
             component={Caregiver}
             options={{ headerShown: false }}
           />
-
           <Stack.Screen name="Login" component={Auth} />
           <Stack.Screen name="Caretypes" component={CareTypes} />
           <Stack.Screen name="Details" component={Details} />
