@@ -14,20 +14,26 @@ import CareTypes from "./src/screens/SignUp/CareJob/CareTypes";
 import Experiance from "./src/screens/SignUp/CareJob/Experiance";
 import Details from "./src/screens/SignUp/CareJob/Details";
 import Upload from "./src/screens/SignUp/CareJob/Upload";
-import Home from "./src/screens/Home";
+
+import Caregiver from "./src/screens/Caregiver/HomeScreen";
 
 const Stack = createNativeStackNavigator();
 
-function App() {
+const App = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen
+            name="HomeScreen"
+            component={Caregiver}
+            options={{ headerShown: false }}
+          />
+
           <Stack.Screen name="Login" component={Auth} />
           <Stack.Screen name="Caretypes" component={CareTypes} />
           <Stack.Screen name="Details" component={Details} />
           <Stack.Screen name="Experiance" component={Experiance} />
-          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Verify" component={Verify} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Carejob location" component={Location} />
@@ -36,6 +42,6 @@ function App() {
       </NavigationContainer>
     </SafeAreaProvider>
   );
-}
+};
 
 export default App;

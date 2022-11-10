@@ -21,8 +21,6 @@ const Auth = ({ navigation }) => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "#F9FAFB" }}>
-      {/* <StatusBar barStyle="light-content" /> */}
-
       <View style={style.head} />
       <ScrollView style={style.content}>
         <KeyboardAvoidingView

@@ -46,5 +46,64 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     alignItems: "flex-end",
   },
+  homeHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  headerHeading: {
+    fontStyle: "normal",
+    fontWeight: "600",
+    fontSize: 24,
+    lineHeight: 28,
+    color: "#031647",
+  },
+  balance: {
+    fontStyle: "normal",
+    fontWeight: "400",
+    fontSize: 14,
+    lineHeight: 15,
+    color: "#111827",
+  },
+  amount: {
+    color: "#6B7280",
+  },
+  tab: {
+    flexDirection: "row",
+    marginTop: 18,
+    marginBottom: 16,
+  },
+  singleTab: {
+    marginRight: 36,
+    position: "relative",
+  },
+  tabMenuText: {
+    fontStyle: "normal",
+    fontWeight: "400",
+    fontSize: 14,
+    lineHeight: 16,
+    color: "#6B7280",
+  },
+  activeNav: {
+    width: "100%",
+    backgroundColor: "#1249CB",
+    height: 2,
+    position: "absolute",
+    bottom: -16,
+  },
+  headerMainBox: {
+    backgroundColor: "#fff",
+    paddingHorizontal: 13,
+    shadowColor: "#000",
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 1,
+    elevation: 1,
+    paddingTop: 70,
+  },
+  activeMenu: {
+    color: "#1249CB",
+    fontWeight: "500",
+  },
 });
 export default styles;
