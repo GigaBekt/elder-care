@@ -72,6 +72,7 @@ const Home = ({ navigation, route }) => {
   return (
     <>
       <Hobbies show={modal} close={setModal} />
+
       <View style={{ flex: 1, backgroundColor: "#F9FAFB" }}>
         <Header />
         <View style={{ paddingHorizontal: 13, marginTop: 24 }}>

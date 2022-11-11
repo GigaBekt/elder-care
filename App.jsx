@@ -4,6 +4,7 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { StatusBar } from "react-native";
 
 // Screens
 import Auth from "./src/screens/Auth";
@@ -15,12 +16,15 @@ import Experiance from "./src/screens/SignUp/CareJob/Experiance";
 import Details from "./src/screens/SignUp/CareJob/Details";
 import Upload from "./src/screens/SignUp/CareJob/Upload";
 import Caregiver from "./src/screens/Caregiver/HomeScreen";
+import SendProposal from "./src/components/SendProposal";
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
     <SafeAreaProvider>
+      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen
@@ -36,6 +40,7 @@ const App = () => {
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Carejob location" component={Location} />
           <Stack.Screen name="Upload" component={Upload} />
+          <Stack.Screen component={SendProposal} name="SendProposal" />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

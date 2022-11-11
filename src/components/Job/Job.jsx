@@ -8,7 +8,7 @@ const Job = ({ item }) => {
   return (
     <TouchableHighlight
       underlayColor="none"
-      onPress={() => console.log(item.id, "itemId")}
+      onPress={() => console.log(item.id)}
       style={style.box}
     >
       <>

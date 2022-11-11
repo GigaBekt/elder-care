@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { View, Text, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 //Componenets
 import Proposal from "../../../components/Proposal";
+import SendProposal from "../../../components/SendProposal";
 
 const Proposals = () => {
   const proposals = [
@@ -56,31 +58,44 @@ const Proposals = () => {
     },
   ];
 
+  const [isOpen, setOpen] = useState(false);
+  const [id, setId] = useState("");
+
+  const openModal = (id) => {
+    setId(id);
+    setOpen(true);
+  };
   const renderItem = ({ item }) => {
-    return <Proposal item={item} />;
+    return <Proposal item={item} openModal={openModal} />;
   };
 
   return (
-    <SafeAreaView style={{ backgroundColor: "#F9FAFB", paddingHorizontal: 13 }}>
-      <Text
-        style={{
-          fontStyle: "noraml",
-          fontStyle: "normal",
-          fontWeight: "600",
-          fontSize: 28,
-        }}
-      >
-        Proposals
-      </Text>
+    <>
+      <SendProposal item={id} show={isOpen} close={() => setOpen(false)} />
 
-      <View style={{ paddingVertical: 24 }}>
-        <FlatList
-          data={proposals}
-          keyExtractor={(item) => item.id}
-          renderItem={renderItem}
-        />
-      </View>
-    </SafeAreaView>
+      <SafeAreaView
+        style={{ backgroundColor: "#F9FAFB", paddingHorizontal: 13 }}
+      >
+        <Text
+          style={{
+            fontStyle: "noraml",
+            fontStyle: "normal",
+            fontWeight: "600",
+            fontSize: 28,
+          }}
+        >
+          Proposals
+        </Text>
+
+        <View style={{ paddingVertical: 24 }}>
+          <FlatList
+            data={proposals}
+            keyExtractor={(item) => item.id}
+            renderItem={renderItem}
+          />
+        </View>
+      </SafeAreaView>
+    </>
   );
 };
 export default Proposals;
