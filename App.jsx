@@ -27,6 +27,10 @@ const App = () => {
 
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+          {/* <Stack.Group screenOptions={{ presentation: "modal" }}>
+            <Stack.Screen name="Login" component={Auth} />
+          </Stack.Group> */}
+
           <Stack.Screen
             name="HomeScreen"
             component={Caregiver}
