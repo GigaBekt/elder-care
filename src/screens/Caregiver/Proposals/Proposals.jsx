@@ -81,7 +81,7 @@ const Proposals = () => {
             fontStyle: "noraml",
             fontStyle: "normal",
             fontWeight: "600",
-            fontSize: 28,
+            fontSize: 24,
           }}
         >
           Proposals

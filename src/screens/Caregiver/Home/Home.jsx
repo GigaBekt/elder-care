@@ -1,18 +1,27 @@
-import { useEffect, useState, useCallback } from "react";
-import { FlatList, View } from "react-native";
+import { useEffect, useState } from "react";
+import { View, useWindowDimensions } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { TabView, SceneMap } from "react-native-tab-view";
 
 // Components
 import Hobbies from "../../../components/Hobbies";
-import Job from "../../../components/Job/Job";
 import Header from "../../../components/Header/HomeHeader";
+import MostRecent from "./components/MostRecent";
+import Urgent from "./components/Urgent";
+import Active from "./components/Active";
 
 const Home = ({ navigation, route }) => {
-  const [modal, setModal] = useState(true);
-  useEffect(() => {
-    route?.params?.modal ? setModal(true) : setModal(false);
-    return () => setModal(false);
-  }, []);
+  const MostRecentPage = () => <MostRecent mostRecent={mostRecent} />;
+  const UrgentPage = () => <Urgent urgent={mostRecent} />;
+  const ActivePage = () => <Active urgent={mostRecent} />;
 
+  const renderScene = SceneMap({
+    recent: MostRecentPage,
+    urgent: UrgentPage,
+    active: ActivePage,
+  });
+
+  const [modal, setModal] = useState(true);
   const mostRecent = [
     {
       id: 1,
@@ -66,24 +75,30 @@ const Home = ({ navigation, route }) => {
     },
   ];
 
-  const renderItem = ({ item }) => {
-    return <Job item={item} />;
-  };
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
+    { key: "recent", title: "Most Recent" },
+    { key: "urgent", title: "urgent" },
+    { key: "active", title: "active" },
+  ]);
+  const layout = useWindowDimensions();
+
+  useEffect(() => {
+    route?.params?.modal ? setModal(true) : setModal(false);
+    return () => setModal(false);
+  }, []);
   return (
     <>
       <Hobbies show={modal} close={setModal} />
-
-      <View style={{ flex: 1, backgroundColor: "#F9FAFB" }}>
-        <Header />
-        <View style={{ paddingHorizontal: 13, marginTop: 24 }}>
-          <FlatList
-            data={mostRecent}
-            keyExtractor={(item) => item.id}
-            renderItem={renderItem}
-            style={{ marginBottom: 150 }}
-          />
-        </View>
-      </View>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#F9FAFB" }}>
+        <TabView
+          renderTabBar={(props) => <Header props={props} setIndex={setIndex} />}
+          navigationState={{ index, routes }}
+          renderScene={renderScene}
+          onIndexChange={setIndex}
+          initialLayout={{ width: layout.width }}
+        />
+      </SafeAreaView>
     </>
   );
 };

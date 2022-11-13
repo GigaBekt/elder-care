@@ -25,26 +25,22 @@ const styles = StyleSheet.create({
 
   modalHeader: {
     flexDirection: "row",
-    // justifyContent: "center",
     alignItems: "center",
     width: "100%",
   },
   modalText: {
-    // width: "90%",
     fontStyle: "normal",
     fontWeight: "400",
     fontSize: 14,
     lineHeight: 16,
     color: "#031647",
-    textAlign: "right",
-    justifyContent: "flex-end",
-    width: "58%",
-    alignItems: "flex-end",
+    width: "100%",
+    textAlign: "center",
+    position: "relative",
   },
   btn: {
-    width: "42%",
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
+    right: 0,
+    position: "absolute",
   },
   homeHeader: {
     flexDirection: "row",
@@ -83,6 +79,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 16,
     color: "#6B7280",
+    textTransform: "capitalize",
   },
   activeNav: {
     width: "100%",
@@ -99,7 +96,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 1,
     elevation: 1,
-    paddingTop: 70,
+    // paddingTop: 50,
   },
   activeMenu: {
     color: "#1249CB",
