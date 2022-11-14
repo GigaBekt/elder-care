@@ -126,7 +126,7 @@ const Home = ({ navigation, route }) => {
         <TabView
           lazy
           renderTabBar={(props) => (
-            <Header props={props} setIndex={setIndex} count={2} />
+            <Header props={props} setIndex={setIndex} count={1} />
           )}
           navigationState={{ index, routes }}
           renderScene={renderScene}

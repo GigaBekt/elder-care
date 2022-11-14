@@ -42,7 +42,7 @@ const Header = ({ props, setIndex, count }) => {
               >
                 {item.title}
               </Text>
-              {item.title == "active" && (
+              {item.title == "active" && count > 0 && (
                 <View style={style.count}>
                   <Text style={style.countText}>{count}</Text>
                 </View>
