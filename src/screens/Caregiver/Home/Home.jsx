@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { View, useWindowDimensions } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { TabView, SceneMap } from "react-native-tab-view";
 
 // Components
@@ -13,7 +12,7 @@ import Active from "./components/Active";
 const Home = ({ navigation, route }) => {
   const MostRecentPage = () => <MostRecent mostRecent={mostRecent} />;
   const UrgentPage = () => <Urgent urgent={mostRecent} />;
-  const ActivePage = () => <Active urgent={mostRecent} />;
+  const ActivePage = () => <Active activeJobs={activeJobs} />;
 
   const renderScene = SceneMap({
     recent: MostRecentPage,
@@ -74,6 +73,39 @@ const Home = ({ navigation, route }) => {
         "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
     },
   ];
+  const activeJobs = [
+    {
+      id: 1,
+      firstName: "Bruce",
+      lastName: "Wayne",
+      type: "personal care",
+      date: "26 January, 12:38 PM",
+      hours: 1,
+      description:
+        "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
+      status: "started",
+    },
+    {
+      id: 2,
+      firstName: "Peter",
+      lastName: "Parker",
+      type: "personal care",
+      date: "26 January, 12:38 PM",
+      hours: 1,
+      description:
+        "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
+    },
+    {
+      id: 3,
+      firstName: "I am",
+      lastName: "Ironman",
+      type: "personal care",
+      date: "26 January, 12:38 PM",
+      hours: 1,
+      description:
+        "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
+    },
+  ];
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -90,15 +122,18 @@ const Home = ({ navigation, route }) => {
   return (
     <>
       <Hobbies show={modal} close={setModal} />
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#F9FAFB" }}>
+      <View style={{ flex: 1, backgroundColor: "#F9FAFB", paddingTop: 50 }}>
         <TabView
-          renderTabBar={(props) => <Header props={props} setIndex={setIndex} />}
+          lazy
+          renderTabBar={(props) => (
+            <Header props={props} setIndex={setIndex} count={2} />
+          )}
           navigationState={{ index, routes }}
           renderScene={renderScene}
           onIndexChange={setIndex}
           initialLayout={{ width: layout.width }}
         />
-      </SafeAreaView>
+      </View>
     </>
   );
 };

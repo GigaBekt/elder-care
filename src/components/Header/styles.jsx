@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 18,
     marginBottom: 16,
+    alignItems: "center",
   },
   singleTab: {
     marginRight: 36,
@@ -101,6 +102,24 @@ const styles = StyleSheet.create({
   activeMenu: {
     color: "#1249CB",
     fontWeight: "500",
+  },
+  count: {
+    backgroundColor: "#4AA47B",
+    borderRadius: 50,
+    height: 18,
+    width: 18,
+    // paddingVertical: 5,
+    // paddingHorizontal: 5,
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: 6,
+  },
+  countText: {
+    fontWeight: "500",
+    fontSize: 12,
+    lineHeight: 14,
+    color: "#fff",
+    textAlign: "center",
   },
 });
 export default styles;

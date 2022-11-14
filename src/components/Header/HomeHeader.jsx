@@ -3,7 +3,7 @@ import { View, Text, TouchableHighlight } from "react-native";
 // CSS
 import style from "./styles";
 
-const Header = ({ props, setIndex }) => {
+const Header = ({ props, setIndex, count }) => {
   const data = [
     { id: 0, title: "Most Recent" },
     { id: 1, title: "urgent" },
@@ -25,7 +25,15 @@ const Header = ({ props, setIndex }) => {
             underlayColor="none"
             onPress={() => setIndex(index)}
           >
-            <View style={style.singleTab}>
+            <View
+              style={[
+                style.singleTab,
+                item.title == "active" && {
+                  flexDirection: "row",
+                  alignItems: "center",
+                },
+              ]}
+            >
               <Text
                 style={[
                   style.tabMenuText,
@@ -34,6 +42,11 @@ const Header = ({ props, setIndex }) => {
               >
                 {item.title}
               </Text>
+              {item.title == "active" && (
+                <View style={style.count}>
+                  <Text style={style.countText}>{count}</Text>
+                </View>
+              )}
               {props.navigationState.index === index && (
                 <View style={style.activeNav} />
               )}

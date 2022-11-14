@@ -9,7 +9,7 @@ const Urgent = ({ urgent }) => {
   };
 
   return (
-    <View style={{ paddingHorizontal: 13, marginTop: 24 }}>
+    <View style={{ marginTop: 24 }}>
       <FlatList
         data={urgent}
         keyExtractor={(item) => item.id}

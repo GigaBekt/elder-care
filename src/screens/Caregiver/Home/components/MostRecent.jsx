@@ -9,7 +9,7 @@ const MostRecent = ({ mostRecent }) => {
   };
 
   return (
-    <View style={{ paddingHorizontal: 13, marginTop: 24 }}>
+    <View style={{ marginTop: 24 }}>
       <FlatList
         data={mostRecent}
         keyExtractor={(item) => item.id}
