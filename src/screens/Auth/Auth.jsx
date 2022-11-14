@@ -22,19 +22,21 @@ const Auth = ({ navigation }) => {
   const phoneInput = useRef(null);
 
   const Next = () => {
-    auth
-      .sendCode(formattedValue)
-      .then((res) => {
-        if (res.status === 200) {
-          navigation.navigate("Verify", { number: formattedValue });
-        }
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err?.response);
-      });
-  };
+    navigation.navigate("Verify", { number: formattedValue });
 
+    // value.length > 4 &&
+    //   auth
+    //     .sendCode(formattedValue)
+    //     .then((res) => {
+    //       if (res.status === 200) {
+    //         navigation.navigate("Verify", { number: formattedValue });
+    //       }
+    //       console.log(res);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err?.response);
+    //     });
+  };
   return (
     <View style={{ flex: 1, backgroundColor: "#F9FAFB" }}>
       <View style={style.head} />

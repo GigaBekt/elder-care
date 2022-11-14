@@ -7,7 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import SkeletonContent from "react-native-skeleton-content";
+// import SkeletonContent from "react-native-skeleton-content";
 
 // Componenets
 import Header from "../../../components/Header";
@@ -178,19 +178,20 @@ const Details = ({ navigation }) => {
         </View>
 
         {loader ? (
-          <SkeletonContent
-            containerStyle={{ flex: 1, width: "100%", marginTop: 24 }}
-            duration={1500}
-            layout={[
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-            ]}
-          >
-            <Text style={styles.normalText}>Your content</Text>
-            <Text style={styles.bigText}>Other content</Text>
-          </SkeletonContent>
+          // <SkeletonContent
+          //   containerStyle={{ flex: 1, width: "100%", marginTop: 24 }}
+          //   duration={1500}
+          //   layout={[
+          //     { width: "100%", height: 55, marginBottom: 14 },
+          //     { width: "100%", height: 55, marginBottom: 14 },
+          //     { width: "100%", height: 55, marginBottom: 14 },
+          //     { width: "100%", height: 55, marginBottom: 14 },
+          //   ]}
+          // >
+          //   <Text style={styles.normalText}>Your content</Text>
+          //   <Text style={styles.bigText}>Other content</Text>
+          // </SkeletonContent>
+          <Text>Loading...</Text>
         ) : (
           <View>
             <Text style={[styles.mainHeading, { marginBottom: 24 }]}>
@@ -220,19 +221,20 @@ const Details = ({ navigation }) => {
         )}
 
         {loader ? (
-          <SkeletonContent
-            containerStyle={{ flex: 1, width: "100%", marginTop: 24 }}
-            duration={1500}
-            layout={[
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-            ]}
-          >
-            <Text style={styles.normalText}>Your content</Text>
-            <Text style={styles.bigText}>Other content</Text>
-          </SkeletonContent>
+          // <SkeletonContent
+          //   containerStyle={{ flex: 1, width: "100%", marginTop: 24 }}
+          //   duration={1500}
+          //   layout={[
+          //     { width: "100%", height: 55, marginBottom: 14 },
+          //     { width: "100%", height: 55, marginBottom: 14 },
+          //     { width: "100%", height: 55, marginBottom: 14 },
+          //     { width: "100%", height: 55, marginBottom: 14 },
+          //   ]}
+          // >
+          //   <Text style={styles.normalText}>Your content</Text>
+          //   <Text style={styles.bigText}>Other content</Text>
+          // </SkeletonContent>
+          <Text>Loading..</Text>
         ) : (
           <View>
             <Text

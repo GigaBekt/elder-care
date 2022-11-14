@@ -56,6 +56,10 @@ const Verify = ({ navigation, route }) => {
       });
   };
 
+  const reSend = () => {
+    console.log("resend");
+  };
+
   return (
     <SafeAreaView style={styles.height}>
       <View style={{ paddingVertical: 24, paddingHorizontal: 13 }}>
@@ -88,7 +92,7 @@ const Verify = ({ navigation, route }) => {
         />
         <TouchableHighlight
           underlayColor={"none"}
-          onPress={counter == "0" ? () => reSend() : (e) => e.preventDefault()}
+          onPress={counter == "0" && reSend()}
         >
           <Text
             style={[

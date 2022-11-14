@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { View, Text, FlatList, TouchableHighlight } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import SkeletonContent from "react-native-skeleton-content";
+// import SkeletonContent from "react-native-skeleton-content";
 // Componenets
 import Header from "../../../components/Header";
 import Next from "../Components/Next";
@@ -68,19 +68,20 @@ const Experiance = ({ navigation }) => {
         </Text>
 
         {loader ? (
-          <SkeletonContent
-            containerStyle={{ flex: 1, width: "100%", marginTop: 24 }}
-            duration={1500}
-            layout={[
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-            ]}
-          >
-            <Text style={styles.normalText}>Your content</Text>
-            <Text style={styles.bigText}>Other content</Text>
-          </SkeletonContent>
+          // <SkeletonContent
+          //   containerStyle={{ flex: 1, width: "100%", marginTop: 24 }}
+          //   duration={1500}
+          //   layout={[
+          //     { width: "100%", height: 55, marginBottom: 14 },
+          //     { width: "100%", height: 55, marginBottom: 14 },
+          //     { width: "100%", height: 55, marginBottom: 14 },
+          //     { width: "100%", height: 55, marginBottom: 14 },
+          //   ]}
+          // >
+          //   <Text style={styles.normalText}>Your content</Text>
+          //   <Text style={styles.bigText}>Other content</Text>
+          // </SkeletonContent>
+          <Text>Loading...</Text>
         ) : (
           <FlatList
             data={experiance}

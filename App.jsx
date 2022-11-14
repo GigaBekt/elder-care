@@ -1,5 +1,5 @@
-// In App.js in a new project
-
+// import "./ignoreWarnings";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -22,7 +22,7 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <SafeAreaProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
 
       <NavigationContainer>
@@ -47,7 +47,7 @@ const App = () => {
           <Stack.Screen component={SendProposal} name="SendProposal" />
         </Stack.Navigator>
       </NavigationContainer>
-    </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 };
 
