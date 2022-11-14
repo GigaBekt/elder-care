@@ -30,13 +30,13 @@ const App = () => {
           {/* <Stack.Group screenOptions={{ presentation: "modal" }}>
             <Stack.Screen name="Login" component={Auth} />
           </Stack.Group> */}
+          <Stack.Screen name="Login" component={Auth} />
 
           <Stack.Screen
             name="HomeScreen"
             component={Caregiver}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="Login" component={Auth} />
           <Stack.Screen name="Caretypes" component={CareTypes} />
           <Stack.Screen name="Details" component={Details} />
           <Stack.Screen name="Experiance" component={Experiance} />

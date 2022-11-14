@@ -12,6 +12,9 @@ class AdditionalInfo {
   certifications() {
     return api.getAxiosInstance().get("/care-certifications");
   }
+  hobbies() {
+    return api.getAxiosInstance().get("/hobbies");
+  }
 }
 
 export default AdditionalInfo;

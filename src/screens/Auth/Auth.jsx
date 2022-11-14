@@ -4,20 +4,36 @@ import {
   KeyboardAvoidingView,
   TouchableHighlight,
   Text,
-  StatusBar,
   ScrollView,
 } from "react-native";
 
 // Components
 import PhoneInput from "react-native-phone-number-input";
 
+// API
+import AuthApi from "../../Api/auth";
 // CSS
 import style from "./Style";
 
 const Auth = ({ navigation }) => {
+  const auth = new AuthApi();
   const [value, setValue] = useState("");
   const [formattedValue, setFormattedValue] = useState("");
   const phoneInput = useRef(null);
+
+  const Next = () => {
+    auth
+      .sendCode(formattedValue)
+      .then((res) => {
+        if (res.status === 200) {
+          navigation.navigate("Verify", { number: formattedValue });
+        }
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err?.response);
+      });
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: "#F9FAFB" }}>
@@ -54,10 +70,7 @@ const Auth = ({ navigation }) => {
           </View>
         </KeyboardAvoidingView>
 
-        <TouchableHighlight
-          onPress={() => navigation.navigate("Verify")}
-          style={style.btn}
-        >
+        <TouchableHighlight onPress={() => Next()} style={style.btn}>
           <Text style={style.btnText}>Continue</Text>
         </TouchableHighlight>
       </ScrollView>

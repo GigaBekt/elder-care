@@ -20,7 +20,7 @@ const Home = ({ navigation, route }) => {
     active: ActivePage,
   });
 
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
   const mostRecent = [
     {
       id: 1,
@@ -116,9 +116,10 @@ const Home = ({ navigation, route }) => {
   const layout = useWindowDimensions();
 
   useEffect(() => {
-    route?.params?.modal ? setModal(true) : setModal(false);
+    route?.params?.modal && setModal(true);
     return () => setModal(false);
   }, []);
+
   return (
     <>
       <Hobbies show={modal} close={setModal} />

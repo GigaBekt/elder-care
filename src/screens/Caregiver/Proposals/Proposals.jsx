@@ -73,15 +73,14 @@ const Proposals = () => {
     <>
       <SendProposal item={id} show={isOpen} close={() => setOpen(false)} />
 
-      <SafeAreaView
-        style={{ backgroundColor: "#F9FAFB", paddingHorizontal: 13 }}
-      >
+      <SafeAreaView style={{ backgroundColor: "#F9FAFB" }}>
         <Text
           style={{
             fontStyle: "noraml",
             fontStyle: "normal",
             fontWeight: "600",
             fontSize: 24,
+            paddingHorizontal: 13,
           }}
         >
           Proposals

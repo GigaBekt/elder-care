@@ -1,23 +1,22 @@
 import { Modal, Text, TouchableHighlight, View } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
 // Components
 import ModalHeader from "../Header/ModalHeader";
-import { ArrowRight } from "phosphor-react-native";
+import { ArrowRight, Basketball } from "phosphor-react-native";
+import Icons from "./Icons";
+// API
+import AdditionalInfo from "../../Api/AdditionalInfo";
 
+// CSS
 import styles from "./styles";
+
 const Hobbies = ({ show, close }) => {
-  const data = [
-    { id: 1, name: "🎸 Instruments" },
-    { id: 2, name: "🏀 Basketball" },
-    { id: 3, name: "🎵 Music" },
-    { id: 11, name: "🏂 Snowboarder" },
-    { id: 24, name: "👨‍🍳 Baking" },
-    { id: 32, name: "🎨 Art" },
-    { id: 322, name: "💃 Dance" },
-  ];
-
+  const renderIcons = (props) => <Icons props={props} />;
+  const additionalInfo = new AdditionalInfo();
+  const [data, setData] = useState([]);
+  const [loader, setLoader] = useState(true);
   const [selected, setSelected] = useState([]);
-
   const selectHobbie = (item) => {
     const findItem = selected.indexOf(item.id);
     if (findItem !== -1) {
@@ -28,6 +27,25 @@ const Hobbies = ({ show, close }) => {
       setSelected([...selected, item.id]);
     }
   };
+
+  const getHobbies = () => {
+    additionalInfo
+      .hobbies()
+      .then((res) => {
+        if (res.status === 200) {
+          setData(res.data.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err?.response);
+      })
+      .finally(() => setLoader(false));
+  };
+
+  useEffect(() => {
+    show && getHobbies();
+    return () => setLoader(true);
+  }, []);
 
   return (
     <Modal
@@ -53,22 +71,27 @@ const Hobbies = ({ show, close }) => {
                 marginTop: 24,
               }}
             >
-              {data.map((item) => (
-                <TouchableHighlight
-                  key={item.id}
-                  underlayColor="none"
-                  onPress={() => selectHobbie(item)}
-                >
-                  <View
-                    style={[
-                      styles.singleHobbie,
-                      selected.includes(item.id) ? styles.activeBox : "",
-                    ]}
+              {!loader &&
+                data.map((item) => (
+                  <TouchableHighlight
+                    key={item.id}
+                    underlayColor="none"
+                    onPress={() => selectHobbie(item)}
                   >
-                    <Text>{item.name}</Text>
-                  </View>
-                </TouchableHighlight>
-              ))}
+                    <View
+                      style={[
+                        styles.singleHobbie,
+                        selected.includes(item.id) ? styles.activeBox : "",
+                        { alignItems: "center", flexDirection: "row" },
+                      ]}
+                    >
+                      <Text style={{ marginRight: 4 }}>
+                        {renderIcons(item)}
+                      </Text>
+                      <Text>{item.name}</Text>
+                    </View>
+                  </TouchableHighlight>
+                ))}
             </View>
           </View>
 

@@ -15,11 +15,13 @@ import SmoothPinCodeInput from "react-native-smooth-pincode-input";
 import Header from "../../components/Header";
 
 // API
+import Auth from "../../Api/auth";
 
 // CSS
 import styles from "./styles";
 
 const Verify = ({ navigation, route }) => {
+  const auth = new Auth();
   const [password, setPassword] = useState("");
   const [full, setFull] = useState(false);
   const [number, setNumber] = useState("");
@@ -34,8 +36,24 @@ const Verify = ({ navigation, route }) => {
     return () => clearInterval(interval);
   }, [counter]);
 
+  useEffect(() => {
+    setNumber(route?.params.number);
+  }, []);
+
   const verify = () => {
-    navigation.navigate("SignUp");
+    console.log(number, password);
+    auth
+      .verify(number, password)
+      .then((res) => {
+        if (res.status === 200) {
+          console.log(res.data);
+          navigation.navigate("SignUp");
+        }
+      })
+      .catch((err) => {
+        // Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+        console.log(err?.response.data);
+      });
   };
 
   return (
