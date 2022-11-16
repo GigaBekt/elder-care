@@ -14,6 +14,12 @@ const SignUp = ({ navigation }) => {
     setActive(props);
   };
 
+  const next = () => {
+    activeDiv === "CareGiver"
+      ? navigation.navigate("CareGiver location")
+      : navigation.navigate("CareTaker location");
+  };
+
   return (
     <SafeAreaView
       style={{
@@ -29,12 +35,12 @@ const SignUp = ({ navigation }) => {
         <View style={styles.content}>
           <TouchableHighlight
             underlayColor="none"
-            onPress={() => active("caregiver")}
+            onPress={() => active("CareTaker")}
           >
             <View
               style={[
                 styles.singleBox,
-                activeDiv === "caregiver" ? styles.active : "",
+                activeDiv === "CareTaker" ? styles.active : "",
               ]}
             >
               {Heart()}
@@ -53,12 +59,12 @@ const SignUp = ({ navigation }) => {
 
           <TouchableHighlight
             underlayColor="none"
-            onPress={() => active("carejob")}
+            onPress={() => active("CareGiver")}
           >
             <View
               style={[
                 styles.singleBox,
-                activeDiv === "carejob" ? styles.active : "",
+                activeDiv === "CareGiver" ? styles.active : "",
               ]}
             >
               {Handshake()}
@@ -79,7 +85,7 @@ const SignUp = ({ navigation }) => {
 
       <TouchableHighlight
         underlayColor="none"
-        onPress={() => navigation.navigate("Carejob location")}
+        onPress={() => next()}
         style={{ paddingHorizontal: 13 }}
       >
         <View style={styles.btn}>

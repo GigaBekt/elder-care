@@ -3,9 +3,9 @@ import { FlatList, View } from "react-native";
 // Components
 import Job from "../../../../components/Job/Job";
 
-const Urgent = ({ urgent, openModal }) => {
+const Urgent = ({ urgent }) => {
   const renderItem = ({ item }) => {
-    return <Job item={item} openModal={openModal} />;
+    return <Job item={item} />;
   };
 
   return (

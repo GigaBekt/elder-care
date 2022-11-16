@@ -59,8 +59,8 @@ const Experiance = ({ navigation }) => {
         justifyContent: "space-between",
       }}
     >
-      <View style={{ paddingHorizontal: 13 }}>
-        <View style={{ paddingVertical: 24 }}>
+      <View>
+        <View style={{ paddingVertical: 24, paddingHorizontal: 13 }}>
           <Header navigation={navigation} name="Sign Up" />
         </View>
         <Text style={styles.headingText}>
@@ -86,7 +86,7 @@ const Experiance = ({ navigation }) => {
             data={experiance}
             renderItem={experiances}
             keyExtractor={(item) => item.id}
-            style={{ marginTop: 24 }}
+            style={{ paddingTop: 24 }}
           />
         )}
       </View>

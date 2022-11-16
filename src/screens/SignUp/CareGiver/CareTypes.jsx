@@ -40,15 +40,15 @@ const CareTypes = ({ navigation }) => {
   const typesList = ({ item }) => {
     const renderIcon = () => {
       if (item.icon == "Car") {
-        return <Car color="#1249CB" size={32} />;
+        return <Car weight="duotone" color="#1249CB" size={32} />;
       } else if (item.icon == "ForkKnife") {
-        return <ForkKnife color="#1249CB" size={32} />;
+        return <ForkKnife weight="duotone" color="#1249CB" size={32} />;
       } else if (item.icon == "Heart") {
-        return <Heart color="#1249CB" size={32} />;
+        return <Heart weight="duotone" color="#1249CB" size={32} />;
       } else if (item.icon == "MapPinLine") {
-        return <MapPinLine color="#1249CB" size={32} />;
+        return <MapPinLine weight="duotone" color="#1249CB" size={32} />;
       } else if (item.icon == "Bathtub") {
-        return <Bathtub color="#1249CB" size={32} />;
+        return <Bathtub weight="duotone" color="#1249CB" size={32} />;
       }
     };
     return (
@@ -103,8 +103,8 @@ const CareTypes = ({ navigation }) => {
         justifyContent: "space-between",
       }}
     >
-      <View style={{ paddingHorizontal: 13 }}>
-        <View style={{ paddingVertical: 24 }}>
+      <View>
+        <View style={{ paddingVertical: 24, paddingHorizontal: 13 }}>
           <Header navigation={navigation} name="Sign Up" />
         </View>
         <Text style={styles.headingText}>
@@ -132,7 +132,7 @@ const CareTypes = ({ navigation }) => {
             data={types}
             renderItem={typesList}
             keyExtractor={(item) => item.id}
-            style={{ marginTop: 24 }}
+            style={{ paddingTop: 24 }}
           />
         )}
       </View>

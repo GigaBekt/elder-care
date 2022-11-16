@@ -1,13 +1,13 @@
 import { ArrowRight } from "phosphor-react-native";
 import { View, Text, TouchableHighlight } from "react-native";
-// Comp
+
 // CSS
 import styles from "../styles";
 const Next = ({ navigate, active }) => {
   const dots = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }];
 
   return (
-    <View style={{ paddingHorizontal: 13 }}>
+    <View style={{ paddingTop: 10, paddingHorizontal: 13 }}>
       <View style={styles.dotsWithBtn}>
         <View style={styles.dotBox}>
           {dots.map((dot) => (

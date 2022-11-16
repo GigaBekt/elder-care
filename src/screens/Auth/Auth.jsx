@@ -5,6 +5,7 @@ import {
   TouchableHighlight,
   Text,
   ScrollView,
+  FocusAwareStatusBar,
 } from "react-native";
 
 // Components
@@ -22,17 +23,19 @@ const Auth = ({ navigation }) => {
   const phoneInput = useRef(null);
 
   const Next = () => {
-    auth
-      .sendCode(formattedValue)
-      .then((res) => {
-        if (res.status === 200) {
-          navigation.navigate("Verify", { number: formattedValue });
-        }
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err?.response);
-      });
+    navigation.navigate("Verify", { number: formattedValue });
+
+    // auth
+    //   .sendCode(formattedValue)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       navigation.navigate("Verify", { number: formattedValue });
+    //     }
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err?.response);
+    //   });
   };
 
   return (

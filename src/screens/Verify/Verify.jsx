@@ -41,21 +41,29 @@ const Verify = ({ navigation, route }) => {
   }, []);
 
   const verify = () => {
-    console.log(number, password);
-    auth
-      .verify(number, password)
-      .then((res) => {
-        if (res.status === 200) {
-          console.log(res.data);
-          navigation.navigate("SignUp");
-        }
-      })
-      .catch((err) => {
-        // Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
-        console.log(err?.response.data);
-      });
-  };
+    navigation.navigate("SignUp");
 
+    // auth
+    //   .verify(number, password)
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       console.log(res.data);
+    //       navigation.navigate("SignUp");
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     // Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+    //     console.log(err?.response.data);
+    //   });
+  };
+  const reSend = () => {
+    auth
+      .sendCode(number)
+      .then((res) => {
+        console.log(res.data.data);
+      })
+      .catch((err) => console.log(err?.response));
+  };
   return (
     <SafeAreaView style={styles.height}>
       <View style={{ paddingVertical: 24, paddingHorizontal: 13 }}>

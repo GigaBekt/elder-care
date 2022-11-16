@@ -30,10 +30,10 @@ const styles = StyleSheet.create({
   },
   modalText: {
     fontStyle: "normal",
-    fontWeight: "400",
+    fontWeight: "500",
     fontSize: 14,
     lineHeight: 16,
-    color: "#031647",
+    color: "#111827",
     width: "100%",
     textAlign: "center",
     position: "relative",

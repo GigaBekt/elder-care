@@ -2,7 +2,9 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   content: {
     flexDirection: "column",
-    paddingHorizontal: 13,
+    // paddingHorizontal: 53,
+    // width: "94%",
+    // marginLeft: "4%",
   },
   singleBox: {
     backgroundColor: "#FFFFFF",
@@ -19,8 +21,10 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
-
     elevation: 3,
+
+    width: "92%",
+    marginLeft: "4%",
   },
   active: {
     borderWidth: 2,
@@ -77,11 +81,13 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 18,
     lineHeight: 21,
+    paddingHorizontal: 13,
   },
   box: {
     marginBottom: 24,
   },
   spanText: {
+    paddingHorizontal: 13,
     fontStyle: "normal",
     fontWeight: "400",
     fontSize: 13,

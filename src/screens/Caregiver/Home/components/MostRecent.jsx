@@ -3,9 +3,9 @@ import { FlatList, View } from "react-native";
 // Components
 import Job from "../../../../components/Job/Job";
 
-const MostRecent = ({ mostRecent }) => {
+const MostRecent = ({ mostRecent, openModal }) => {
   const renderItem = ({ item }) => {
-    return <Job item={item} />;
+    return <Job item={item} openModal={openModal} />;
   };
 
   return (

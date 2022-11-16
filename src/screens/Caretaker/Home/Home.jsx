@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, useWindowDimensions } from "react-native";
+import { View, Text, useWindowDimensions } from "react-native";
 import { TabView, SceneMap } from "react-native-tab-view";
 
 // Components
@@ -9,38 +9,8 @@ import MostRecent from "./components/MostRecent";
 import Urgent from "./components/Urgent";
 import Active from "./components/Active";
 import AddReview from "../../../components/AddReview/AddReview";
-import SendProposal from "../../../components/SendProposal";
 
 const Home = ({ navigation, route }) => {
-  const openModal = (id) => {
-    setId(id);
-    setOpen(true);
-  };
-
-  const [isOpen, setOpen] = useState(false);
-  const [id, setId] = useState("");
-
-  const MostRecentPage = () => (
-    <MostRecent mostRecent={mostRecent} openModal={openModal} />
-  );
-  const UrgentPage = () => <Urgent urgent={mostRecent} openModal={openModal} />;
-  const ActivePage = () => (
-    <Active
-      activeJobs={activeJobs}
-      setReview={setReview}
-      setOpenReview={setOpenReview}
-    />
-  );
-
-  const renderScene = SceneMap({
-    recent: MostRecentPage,
-    urgent: UrgentPage,
-    active: ActivePage,
-  });
-
-  const [review, setReview] = useState({});
-  const [openReview, setOpenReview] = useState(false);
-  const [modal, setModal] = useState(true);
   const mostRecent = [
     {
       id: 1,
@@ -127,44 +97,15 @@ const Home = ({ navigation, route }) => {
     },
   ];
 
-  const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    { key: "recent", title: "Most Recent" },
-    { key: "urgent", title: "urgent" },
-    { key: "active", title: "active" },
-  ]);
-  const layout = useWindowDimensions();
-
   useEffect(() => {
-    console.log(route);
     route?.params?.modal && setModal(true);
     return () => setModal(false);
   }, []);
 
-  console.log(openReview);
-
   return (
     <>
-      <SendProposal item={id} show={isOpen} close={() => setOpen(false)} />
-
-      <Hobbies show={modal} close={setModal} />
-      <AddReview
-        item={review}
-        show={openReview}
-        close={() => setOpenReview(false)}
-      />
-
       <View style={{ flex: 1, backgroundColor: "#F9FAFB", paddingTop: 50 }}>
-        <TabView
-          lazy
-          renderTabBar={(props) => (
-            <Header props={props} setIndex={setIndex} count={1} />
-          )}
-          navigationState={{ index, routes }}
-          renderScene={renderScene}
-          onIndexChange={setIndex}
-          initialLayout={{ width: layout.width }}
-        />
+        <Text>test</Text>
       </View>
     </>
   );

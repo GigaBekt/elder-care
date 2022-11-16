@@ -4,11 +4,11 @@ import { Text, View, Image, TouchableHighlight } from "react-native";
 // CSS
 import style from "./style";
 
-const Job = ({ item }) => {
+const Job = ({ item, openModal }) => {
   return (
     <TouchableHighlight
       underlayColor="none"
-      onPress={() => console.log(item.id)}
+      onPress={() => openModal(item.id)}
       style={style.box}
     >
       <>

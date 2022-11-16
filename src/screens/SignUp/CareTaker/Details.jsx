@@ -177,78 +177,16 @@ const Details = ({ navigation }) => {
           </View>
         </View>
 
-        {loader ? (
-          <SkeletonContent
-            containerStyle={{ flex: 1, width: "100%", marginTop: 24 }}
-            duration={1500}
-            layout={[
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-            ]}
-          >
-            <Text style={styles.normalText}>Your content</Text>
-            <Text style={styles.bigText}>Other content</Text>
-          </SkeletonContent>
-        ) : (
-          <View>
-            <Text style={[styles.mainHeading, { marginBottom: 24 }]}>
-              Experiances
-            </Text>
-
-            <View>
-              <Text style={styles.listHeading}>I have experience with:</Text>
-              <View style={{ marginVertical: 15 }}>
-                {experiance.map((item) => renderExperiance(item))}
-              </View>
-            </View>
-
-            <View
-              style={{
-                paddingBottom: 11,
-                borderBottomColor: "#E5E7EB",
-                borderBottomWidth: 1,
-              }}
-            >
-              <Text style={styles.listHeading}>I have experience with:</Text>
-              <View style={{ marginVertical: 15 }}>
-                {certifications.map((item) => renderCertifications(item))}
-              </View>
-            </View>
-          </View>
-        )}
-
-        {loader ? (
-          <SkeletonContent
-            containerStyle={{ flex: 1, width: "100%", marginTop: 24 }}
-            duration={1500}
-            layout={[
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-            ]}
-          >
-            <Text style={styles.normalText}>Your content</Text>
-            <Text style={styles.bigText}>Other content</Text>
-          </SkeletonContent>
-        ) : (
-          <View>
-            <Text
-              style={[styles.mainHeading, { marginBottom: 24, marginTop: 24 }]}
-            >
-              Additional information
-            </Text>
-
-            <View>
-              {certifications.map((item) => renderCertifications(item))}
-            </View>
-          </View>
-        )}
+        <Text>
+          By clicking “Submit”, you are agree yo our Terms of Use and Privacy
+          Policy
+        </Text>
       </ScrollView>
 
-      <Next active={4} navigate={() => navigation.navigate("Upload")} />
+      <Next
+        active={4}
+        navigate={() => navigation.navigate("HomeScreenTaker")}
+      />
     </SafeAreaView>
   );
 };
