@@ -32,7 +32,7 @@ const Location = ({ navigation }) => {
   };
 
   const [test, setTest] = useState([]);
-  const GOOGLE_API_KEY = "AIzaSyDybpu6XDK1m_pdDmIMM86bEwtiQ8CrUok";
+
   const GOOGLE_PACES_API_BASE_URL =
     "https://maps.googleapis.com/maps/api/place";
   const getLocations = () => {
