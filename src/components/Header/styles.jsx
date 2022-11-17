@@ -92,12 +92,10 @@ const styles = StyleSheet.create({
   headerMainBox: {
     backgroundColor: "#fff",
     paddingHorizontal: 13,
-    shadowColor: "#000",
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 1,
-    elevation: 1,
-    // paddingTop: 50,
+
+    borderBottomColor: "#E5E7EB",
+    borderBottomWidth: 1,
+    paddingTop: 50,
   },
   activeMenu: {
     color: "#1249CB",

@@ -1,19 +1,26 @@
 import axios from "axios";
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   View,
   Text,
   SafeAreaView,
   FlatList,
-  TouchableHighlight,
   Image,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
+import {
+  Placeholder,
+  PlaceholderMedia,
+  PlaceholderLine,
+  Fade,
+} from "rn-placeholder";
 
 import style from "../../../components/Header/styles";
 import messageStyle from "./style";
 
 const Messages = () => {
+  const abortController = new AbortController();
   const [loader, setLoader] = useState(true);
   const [data, setData] = useState([
     {
@@ -36,7 +43,7 @@ const Messages = () => {
     },
   ]);
   const renderItem = ({ item, index }) => (
-    <TouchableHighlight onPress={() => console.log("click", item.id)}>
+    <Pressable onPress={() => console.log("click", item.id)}>
       <View
         style={[
           messageStyle.messageMainBox,
@@ -59,7 +66,7 @@ const Messages = () => {
           </Text>
         </View>
       </View>
-    </TouchableHighlight>
+    </Pressable>
   );
 
   const [active, setActive] = useState("Active");
@@ -80,13 +87,17 @@ const Messages = () => {
     getMessages(props);
   };
 
-  useMemo(() => {
+  useEffect(() => {
     getMessages("Active");
+    return () => {
+      setLoader(true);
+      abortController.abort();
+    };
   }, []);
 
   return (
     <>
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#F9FAFB" }}>
+      <View style={{ flex: 1, backgroundColor: "#F9FAFB" }}>
         <View style={style.headerMainBox}>
           <View style={style.homeHeader}>
             <Text style={style.headerHeading}>Messages</Text>
@@ -126,7 +137,30 @@ const Messages = () => {
 
         <View style={{ backgroundColor: "#F9FAFB", paddingHorizontal: 13 }}>
           {loader ? (
-            <Text>Loading...</Text>
+            <>
+              <Placeholder
+                style={{ marginTop: 24 }}
+                Animation={Fade}
+                // Left={PlaceholderMedia}
+                Left={(props) => (
+                  <PlaceholderMedia isRound={true} style={[props.style]} />
+                )}
+              >
+                <PlaceholderLine width={30} />
+                <PlaceholderLine width={100} />
+              </Placeholder>
+              <Placeholder
+                style={{ marginTop: 24 }}
+                Animation={Fade}
+                // Left={PlaceholderMedia}
+                Left={(props) => (
+                  <PlaceholderMedia isRound={true} style={[props.style]} />
+                )}
+              >
+                <PlaceholderLine width={30} />
+                <PlaceholderLine width={100} />
+              </Placeholder>
+            </>
           ) : (
             <FlatList
               data={data}
@@ -136,7 +170,7 @@ const Messages = () => {
             />
           )}
         </View>
-      </SafeAreaView>
+      </View>
     </>
   );
 };

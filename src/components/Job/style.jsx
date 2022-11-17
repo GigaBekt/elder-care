@@ -44,6 +44,7 @@ const style = StyleSheet.create({
     lineHeight: 16,
     color: "#111827",
     marginLeft: 12,
+    textTransform: "capitalize",
   },
   type: {
     paddingVertical: 6,
@@ -88,6 +89,14 @@ const style = StyleSheet.create({
     fontSize: 12,
     lineHeight: 14,
     color: "#6B7280",
+  },
+  taskText: {
+    fontStyle: "normal",
+    fontWeight: "400",
+    fontSize: 13,
+    lineHeight: 14,
+    color: "#4B5563",
+    marginTop: 16,
   },
 });
 export default style;

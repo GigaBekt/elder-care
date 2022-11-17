@@ -3,7 +3,7 @@ import { View, Text, TouchableHighlight } from "react-native";
 // CSS
 import style from "./styles";
 
-const Header = ({ props, setIndex, count }) => {
+const Header = ({ props, setIndex, count, idx }) => {
   const data = [
     { id: 0, title: "Most Recent" },
     { id: 1, title: "urgent" },
@@ -35,10 +35,7 @@ const Header = ({ props, setIndex, count }) => {
               ]}
             >
               <Text
-                style={[
-                  style.tabMenuText,
-                  props.navigationState.index === index && style.activeMenu,
-                ]}
+                style={[style.tabMenuText, idx === index && style.activeMenu]}
               >
                 {item.title}
               </Text>
@@ -47,9 +44,7 @@ const Header = ({ props, setIndex, count }) => {
                   <Text style={style.countText}>{count}</Text>
                 </View>
               )}
-              {props.navigationState.index === index && (
-                <View style={style.activeNav} />
-              )}
+              {idx === index && <View style={style.activeNav} />}
             </View>
           </TouchableHighlight>
         ))}

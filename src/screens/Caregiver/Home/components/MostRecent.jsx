@@ -1,3 +1,4 @@
+import React from "react";
 import { FlatList, View } from "react-native";
 
 // Components
@@ -18,4 +19,4 @@ const MostRecent = ({ mostRecent, openModal }) => {
     </View>
   );
 };
-export default MostRecent;
+export default React.memo(MostRecent);

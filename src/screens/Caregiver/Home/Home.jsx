@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { View, useWindowDimensions } from "react-native";
 import { TabView, SceneMap } from "react-native-tab-view";
+
+// API
+import Tasks from "../../../Api/tasks";
 
 // Components
 import Hobbies from "../../../components/Hobbies";
@@ -10,20 +13,26 @@ import Urgent from "./components/Urgent";
 import Active from "./components/Active";
 import AddReview from "../../../components/AddReview/AddReview";
 import SendProposal from "../../../components/SendProposal";
+import Loader from "./Loader";
 
 const Home = ({ navigation, route }) => {
+  const tasks = new Tasks();
+  const abortController = new AbortController();
+  const [loader, setLoader] = useState(true);
+  const [isOpen, setOpen] = useState(false);
+  const [id, setId] = useState("");
   const openModal = (id) => {
     setId(id);
     setOpen(true);
   };
-
-  const [isOpen, setOpen] = useState(false);
-  const [id, setId] = useState("");
-
-  const MostRecentPage = () => (
-    <MostRecent mostRecent={mostRecent} openModal={openModal} />
-  );
-  const UrgentPage = () => <Urgent urgent={mostRecent} openModal={openModal} />;
+  const MostRecentPage = () =>
+    loader ? (
+      <Loader />
+    ) : (
+      <MostRecent mostRecent={data} openModal={openModal} />
+    );
+  const UrgentPage = () =>
+    loader ? <Loader /> : <Urgent urgent={data} openModal={openModal} />;
   const ActivePage = () => (
     <Active
       activeJobs={activeJobs}
@@ -32,67 +41,23 @@ const Home = ({ navigation, route }) => {
     />
   );
 
-  const renderScene = SceneMap({
-    recent: MostRecentPage,
-    urgent: UrgentPage,
-    active: ActivePage,
-  });
+  const renderScene = ({ route }) => {
+    switch (route.key) {
+      case "recent":
+        return <MostRecentPage />;
+      case "urgent":
+        return <UrgentPage />;
+      case "active":
+        return <ActivePage />;
+      default:
+        return null;
+    }
+  };
 
   const [review, setReview] = useState({});
   const [openReview, setOpenReview] = useState(false);
-  const [modal, setModal] = useState(true);
-  const mostRecent = [
-    {
-      id: 1,
-      firstName: "Bruce",
-      lastName: "Wayne",
-      type: "personal care",
-      date: "26 January, 12:38 PM",
-      hours: 1,
-      description:
-        "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
-    },
-    {
-      id: 2,
-      firstName: "Barry",
-      lastName: "Allen",
-      type: "personal care",
-      date: "26 January, 12:38 PM",
-      hours: 2,
-      description:
-        "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
-    },
-    {
-      id: 3,
-      firstName: "Oliver",
-      lastName: "Queen",
-      type: "personal care",
-      date: "26 January, 12:38 PM",
-      hours: 3,
-      description:
-        "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
-    },
-    {
-      id: 21,
-      firstName: "Thoams",
-      lastName: "Wayne",
-      type: "personal care",
-      date: "26 January, 12:38 PM",
-      hours: 42,
-      description:
-        "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
-    },
-    {
-      id: 31,
-      firstName: "Martha",
-      lastName: "Kane",
-      type: "personal care",
-      date: "26 January, 12:38 PM",
-      hours: 1,
-      description:
-        "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
-    },
-  ];
+  const [modal, setModal] = useState(false);
+  const [data, setData] = useState([]);
   const activeJobs = [
     {
       id: 1,
@@ -136,12 +101,34 @@ const Home = ({ navigation, route }) => {
   const layout = useWindowDimensions();
 
   useEffect(() => {
-    console.log(route);
     route?.params?.modal && setModal(true);
     return () => setModal(false);
   }, []);
 
-  console.log(openReview);
+  const getTasks = (type) => {
+    setLoader(true);
+    tasks
+      .getTasks(type, "1|0SgYZTMEPZoxWgmxnCQPVWagRaXl4rA38w25ZwXH")
+      .then((res) => {
+        console.log("running fatch,");
+        if (res.status === 200) {
+          setData(res.data.data);
+        }
+      })
+      .catch((err) => console.log(err?.response))
+      .finally(() => setLoader(false));
+  };
+
+  useEffect(() => {
+    if (index === 0) {
+      getTasks("recent");
+    } else if (index === 1) {
+      getTasks("urgent");
+    } else if (index === 2) {
+      console.log("canceld");
+    }
+    return () => abortController.abort();
+  }, [index]);
 
   return (
     <>
@@ -155,8 +142,15 @@ const Home = ({ navigation, route }) => {
       />
 
       <View style={{ flex: 1, backgroundColor: "#F9FAFB", paddingTop: 50 }}>
-        <TabView
-          lazy
+        <Header idx={index} setIndex={setIndex} count={1} />
+        {index === 0 && MostRecentPage()}
+        {index === 1 && UrgentPage()}
+        {index === 2 && ActivePage()}
+
+        {/* <TabView
+          // lazy
+          swipeEnabled={false}
+          onTabPress={(props) => console.log(props)}
           renderTabBar={(props) => (
             <Header props={props} setIndex={setIndex} count={1} />
           )}
@@ -164,7 +158,11 @@ const Home = ({ navigation, route }) => {
           renderScene={renderScene}
           onIndexChange={setIndex}
           initialLayout={{ width: layout.width }}
-        />
+          getAccessibilityLabel={({ route }) => {
+            route.accessibilityLabel;
+            console.log(route, "toure");
+          }}
+        /> */}
       </View>
     </>
   );

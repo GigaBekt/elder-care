@@ -1,112 +1,78 @@
 import { useEffect, useState } from "react";
-import { View, Text, useWindowDimensions } from "react-native";
-import { TabView, SceneMap } from "react-native-tab-view";
+import {
+  View,
+  Text,
+  Image,
+  SafeAreaView,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
+import { Plus } from "phosphor-react-native";
 
 // Components
-import Hobbies from "../../../components/Hobbies";
-import Header from "../../../components/Header/HomeHeader";
-import MostRecent from "./components/MostRecent";
-import Urgent from "./components/Urgent";
-import Active from "./components/Active";
-import AddReview from "../../../components/AddReview/AddReview";
+import style from "./style";
+import Tasks from "../../../Api/tasks";
+import TasksComp from "../../../components/Tasks";
+import NoTasks from "./components/NoTasks";
 
 const Home = ({ navigation, route }) => {
-  const mostRecent = [
-    {
-      id: 1,
-      firstName: "Bruce",
-      lastName: "Wayne",
-      type: "personal care",
-      date: "26 January, 12:38 PM",
-      hours: 1,
-      description:
-        "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
-    },
-    {
-      id: 2,
-      firstName: "Barry",
-      lastName: "Allen",
-      type: "personal care",
-      date: "26 January, 12:38 PM",
-      hours: 2,
-      description:
-        "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
-    },
-    {
-      id: 3,
-      firstName: "Oliver",
-      lastName: "Queen",
-      type: "personal care",
-      date: "26 January, 12:38 PM",
-      hours: 3,
-      description:
-        "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
-    },
-    {
-      id: 21,
-      firstName: "Thoams",
-      lastName: "Wayne",
-      type: "personal care",
-      date: "26 January, 12:38 PM",
-      hours: 42,
-      description:
-        "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
-    },
-    {
-      id: 31,
-      firstName: "Martha",
-      lastName: "Kane",
-      type: "personal care",
-      date: "26 January, 12:38 PM",
-      hours: 1,
-      description:
-        "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
-    },
-  ];
-  const activeJobs = [
-    {
-      id: 1,
-      firstName: "Bruce",
-      lastName: "Wayne",
-      type: "personal care",
-      date: "26 January, 12:38 PM",
-      hours: 1,
-      description:
-        "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
-      status: "started",
-    },
-    {
-      id: 2,
-      firstName: "Peter",
-      lastName: "Parker",
-      type: "personal care",
-      date: "26 January, 12:38 PM",
-      hours: 1,
-      description:
-        "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
-    },
-    {
-      id: 3,
-      firstName: "I am",
-      lastName: "Ironman",
-      type: "personal care",
-      date: "26 January, 12:38 PM",
-      hours: 1,
-      description:
-        "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
-    },
-  ];
+  const tasks = new Tasks();
 
+  const [data, setData] = useState([]);
+
+  const getTasks = () => {
+    tasks
+      .myTasks("1|0SgYZTMEPZoxWgmxnCQPVWagRaXl4rA38w25ZwXH")
+      .then((res) => {
+        if (res.status === 200) {
+          console.log(res.data.data);
+          setData(res.data.data);
+        }
+      })
+      .catch((err) => console.log(err?.response));
+  };
   useEffect(() => {
-    route?.params?.modal && setModal(true);
-    return () => setModal(false);
+    getTasks();
   }, []);
 
   return (
     <>
-      <View style={{ flex: 1, backgroundColor: "#F9FAFB", paddingTop: 50 }}>
-        <Text>test</Text>
-      </View>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#F9FAFB" }}>
+        <View style={style.headingBox}>
+          <Text style={style.heading}>My Tasks</Text>
+          {data.length > 0 && (
+            <TouchableOpacity
+              style={[style.btn, { marginTop: 0, paddingHorizontal: 18 }]}
+              onPress={() => console.log("click")}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "100%",
+                }}
+              >
+                <Text style={style.btnText}>Create Task</Text>
+                <Plus size={22} color="#fff" />
+              </View>
+            </TouchableOpacity>
+          )}
+        </View>
+
+        {data.length > 0 ? (
+          <FlatList
+            style={{ paddingTop: 16 }}
+            data={data}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item, index }) => (
+              <TasksComp key={index} item={item} />
+            )}
+          />
+        ) : (
+          <NoTasks />
+        )}
+      </SafeAreaView>
     </>
   );
 };

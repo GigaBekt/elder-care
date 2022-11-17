@@ -1,3 +1,4 @@
+import React from "react";
 import { FlatList, View } from "react-native";
 
 // Components
@@ -18,4 +19,4 @@ const Urgent = ({ urgent, openModal }) => {
     </View>
   );
 };
-export default Urgent;
+export default React.memo(Urgent);
