@@ -6,10 +6,6 @@ import {
   TextInput,
   Text,
   TouchableOpacity,
-  FlatList,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
@@ -23,6 +19,7 @@ import styles from "../styles";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Suggestions from "./Suggestions";
+import Next from "../Components/Next";
 
 const Location = ({ navigation }) => {
   const [open, setOpen] = useState(false);
@@ -114,6 +111,22 @@ const Location = ({ navigation }) => {
     getLocations();
   }, [debouncedValue]);
 
+  const [keyboardStatus, setKeyboardStatus] = useState(undefined);
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
+      setKeyboardStatus("Keyboard Shown");
+    });
+    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
+      setKeyboardStatus("Keyboard Hidden");
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <SafeAreaView
@@ -152,10 +165,25 @@ const Location = ({ navigation }) => {
             </View>
           </View>
         </View>
-        <KeyboardAvoidingView
+
+        <Next
+          bgColor={term.length > 0}
+          navigate={
+            term.length > 0
+              ? () => navigation.navigate("Details Taker")
+              : (e) => e.preventDefault()
+          }
+        />
+        {/* <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
-          <View style={{ paddingHorizontal: 13 }}>
+          <View
+          // style={
+          //   keyboardStatus === "Keyboard Shown"
+          //     ? { paddingHorizontal: 0 }
+          //     : { paddingHorizontal: 13 }
+          // }
+          >
             <TouchableOpacity
               onPress={
                 term.length > 0
@@ -181,7 +209,7 @@ const Location = ({ navigation }) => {
               </View>
             </TouchableOpacity>
           </View>
-        </KeyboardAvoidingView>
+        </KeyboardAvoidingView> */}
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );

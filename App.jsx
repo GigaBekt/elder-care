@@ -38,7 +38,7 @@ const App = () => {
           {/* <Stack.Group screenOptions={{ presentation: "modal" }}>
             <Stack.Screen name="Login" component={Auth} />
           </Stack.Group> */}
-          <Stack.Screen name="CareTaker location" component={LocationTaker} />
+          <Stack.Screen name="Details Taker" component={DetailsTaker} />
 
           <Stack.Screen name="Login" component={Auth} />
           <Stack.Screen name="SignUp" component={SignUp} />
@@ -60,9 +60,9 @@ const App = () => {
           />
 
           <Stack.Screen name="CareGiver location" component={Location} />
+          <Stack.Screen name="CareTaker location" component={LocationTaker} />
 
           <Stack.Screen name="Details" component={Details} />
-          <Stack.Screen name="Details Taker" component={DetailsTaker} />
 
           <Stack.Screen name="Upload" component={Upload} />
           <Stack.Screen name="Caretypes" component={CareTypes} />
