@@ -5,14 +5,15 @@ import {
   TouchableHighlight,
   Text,
   ScrollView,
-  FocusAwareStatusBar,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Components
 import PhoneInput from "react-native-phone-number-input";
 
 // API
 import AuthApi from "../../Api/auth";
+
 // CSS
 import style from "./Style";
 
@@ -22,20 +23,26 @@ const Auth = ({ navigation }) => {
   const [formattedValue, setFormattedValue] = useState("");
   const phoneInput = useRef(null);
 
-  const Next = () => {
-    navigation.navigate("Verify", { number: formattedValue });
+  const saveNumber = async () => {
+    try {
+      await AsyncStorage.setItem("phone_number", formattedValue);
+    } catch (e) {
+      console.log(e, "error phone number");
+    }
+  };
 
-    // auth
-    //   .sendCode(formattedValue)
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       navigation.navigate("Verify", { number: formattedValue });
-    //     }
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err?.response);
-    //   });
+  const Next = () => {
+    auth
+      .sendCode(formattedValue)
+      .then((res) => {
+        if (res.status === 200) {
+          navigation.navigate("Verify", { number: formattedValue });
+          saveNumber();
+        }
+      })
+      .catch((err) => {
+        console.log(err?.response);
+      });
   };
 
   return (

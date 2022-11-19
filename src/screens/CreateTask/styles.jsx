@@ -205,6 +205,41 @@ const styles = StyleSheet.create({
     lineHeight: 23,
     color: "#1249CB",
   },
+
+  selectDate: {
+    fontStyle: "normal",
+    fontWeight: "400",
+    fontSize: 16,
+    lineHeight: 23,
+    color: "#9CA3AF",
+  },
+  circle: {
+    width: 6,
+    height: 6,
+    backgroundColor: "#374151",
+    borderRadius: 50,
+  },
+  singleBoxList: {
+    marginTop: 4,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  listText: {
+    fontStyle: "normal",
+    fontWeight: "400",
+    fontSize: 14,
+    lineHeight: 23,
+    color: "#374151",
+    marginLeft: 8,
+  },
+  paraText: {
+    fontStyle: "normal",
+    fontWeight: "400",
+    fontSize: 13,
+    lineHeight: 18,
+    color: "#4B5563",
+    marginTop: 4,
+  },
 });
 
 export default styles;

@@ -2,149 +2,115 @@ import { useEffect, useState } from "react";
 import {
   View,
   Text,
-  TouchableHighlight,
   TextInput,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import SkeletonContent from "react-native-skeleton-content";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Componenets
 import Header from "../../../components/Header";
-import Next from "../Components/Next";
-import Checkbox from "expo-checkbox";
+import Next from "./Next";
+import { MapPin, Minus, Plus } from "phosphor-react-native";
+import useDebounce from "../../../Debounce";
+import Textarea from "../../../components/Textarea/Textarea";
 
 // CSS
 import styles from "../styles";
-import AdditionalInfo from "../../../Api/AdditionalInfo";
+import axios from "axios";
+// API
+import Tasks from "../../../Api/tasks";
 
 const Details = ({ navigation }) => {
-  const additionalInfo = new AdditionalInfo();
-  const abortController = new AbortController();
-  const [experiance, setExperiance] = useState([]);
-  const [loader, setLoader] = useState(true);
+  const tasks = new Tasks();
+  const [details, setDetails] = useState("");
+  const [term, setTerm] = useState("");
+  const [list, setList] = useState([]);
+  const [zipCode, setZipCode] = useState("");
 
-  const [certifications, setCertifications] = useState([]);
-
-  const changeCheck = (prop) => {
-    const modified = experiance.map((item) => {
-      if (item.id === prop.id) return { ...item, checked: !item.checked };
-      return item;
-    });
-    setExperiance(modified);
-  };
-
-  const changeCheckCert = (prop) => {
-    const modified = certifications.map((item) => {
-      if (item.id === prop.id) return { ...item, checked: !item.checked };
-      return item;
-    });
-    setCertifications(modified);
-  };
-  const renderExperiance = (item) => {
-    return (
-      <TouchableHighlight
-        key={item.id}
-        onPress={() => changeCheck(item)}
-        style={{ marginBottom: 11 }}
-        underlayColor="none"
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <Text style={styles.checkboxText}>{item.name}</Text>
-          <Checkbox
-            style={{
-              borderRadius: 3,
-              borderColor: "#9CA3AF",
-              borderWidth: 1,
-            }}
-            value={item.checked}
-            onValueChange={() => changeCheck(item)}
-            color={item.checked ? "#1249CB" : undefined}
-          />
-        </View>
-      </TouchableHighlight>
-    );
-  };
-
-  const renderCertifications = (item) => {
-    return (
-      <TouchableHighlight
-        key={item.id}
-        onPress={() => changeCheckCert(item)}
-        style={{ marginBottom: 11 }}
-        underlayColor="none"
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-        >
-          <Text style={styles.checkboxText}>{item.name}</Text>
-          <Checkbox
-            style={{
-              borderRadius: 3,
-              borderColor: "#9CA3AF",
-              borderWidth: 1,
-            }}
-            value={item.checked}
-            onValueChange={() => changeCheckCert(item)}
-            color={item.checked ? "#1249CB" : undefined}
-          />
-        </View>
-      </TouchableHighlight>
-    );
-  };
-
-  const getCerfications = () => {
-    additionalInfo
-      .certifications()
+  const GOOGLE_PACES_API_BASE_URL =
+    "https://maps.googleapis.com/maps/api/place";
+  const getLocations = () => {
+    axios
+      .post(
+        `${GOOGLE_PACES_API_BASE_URL}/autocomplete/json?key=AIzaSyDybpu6XDK1m_pdDmIMM86bEwtiQ8CrUok&input=${term}&language=en`
+      )
       .then((res) => {
-        if (res.status === 200) {
-          const { data } = res.data;
-          data.map((element) => {
-            element.check = false;
-          });
-          setCertifications(data);
-        }
+        setList(res.data.predictions);
       })
       .catch((err) => {
         console.log(err?.response);
-      })
-      .finally(() => setLoader(false));
+      });
   };
 
-  const getExperiance = () => {
-    additionalInfo
-      .careExperiance()
-      .then((res) => {
-        if (res.status === 200) {
-          const { data } = res.data;
-          data.map((element) => {
-            element.check = false;
-          });
-          setExperiance(data);
-        }
-      })
-      .catch((err) => {
-        console.log(err?.response);
-      })
-      .finally(() => setLoader(false));
+  const onPredictionTapped = async (placeId) => {
+    const apiUrl = `${GOOGLE_PACES_API_BASE_URL}/details/json?key=AIzaSyDybpu6XDK1m_pdDmIMM86bEwtiQ8CrUok&language=en&place_id=${placeId}`;
+    try {
+      const results = await axios.request({
+        method: "post",
+        url: apiUrl,
+      });
+      if (results) {
+        setTerm(results.data.result.formatted_address);
+        setOpen(false);
+        const zipCode = results.data.result.address_components.find(
+          (item) => item.types[0] === "postal_code"
+        );
+        setZipCode(zipCode !== undefined && zipCode);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
+
+  const [open, setOpen] = useState(false);
+
+  const onChange = (props) => {
+    setOpen(true);
+    setTerm(props);
+  };
+
+  const debouncedValue = useDebounce(term, 500);
 
   useEffect(() => {
-    getCerfications();
-    getExperiance();
-    return () => {
-      abortController.abort();
-      setLoader(true);
-    };
-  }, []);
+    getLocations();
+  }, [debouncedValue]);
+
+  const createTask = async () => {
+    try {
+      const dateTime = await AsyncStorage.getItem("datetime");
+      const duration = await AsyncStorage.getItem("duration");
+      const careServiceId = await AsyncStorage.getItem("care_service_id");
+      const location = {
+        zip: zipCode.long_name,
+        address: term,
+      };
+      // const tokn = await AsyncStorage.getItem("token");
+      const token = "3|n8FLYUrUFyV8R8KWVUY1x41cVnIkhQiaGxRzXRIR";
+
+      console.log(dateTime, parseInt(duration), careServiceId, location, token);
+
+      if (dateTime && careServiceId && duration !== null) {
+        tasks
+          .createTask(
+            dateTime,
+            parseInt(duration),
+            careServiceId,
+            location,
+            token
+          )
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err?.response);
+          });
+      }
+    } catch (e) {
+      // error reading value
+    }
+  };
 
   return (
     <SafeAreaView
@@ -159,96 +125,79 @@ const Details = ({ navigation }) => {
           <Header navigation={navigation} name="Sign Up" />
         </View>
         <Text style={[styles.headingText, { paddingHorizontal: 0 }]}>
-          Share a few more details about yourself
+          Give us more details
         </Text>
 
-        <View style={{ marginVertical: 24 }}>
-          <View style={{ marginBottom: 16 }}>
-            <TextInput
-              style={styles.textInputExperiance}
-              placeholder="Your name"
-            />
-          </View>
-          <View>
-            <TextInput
-              style={styles.textInputExperiance}
-              placeholder="Your lastname"
-            />
-          </View>
+        <View style={{ marginTop: 24 }}>
+          <Textarea
+            placeholder="Details..."
+            value={details}
+            setText={setDetails}
+          />
         </View>
 
-        {loader ? (
-          <SkeletonContent
-            containerStyle={{ flex: 1, width: "100%", marginTop: 24 }}
-            duration={1500}
-            layout={[
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-            ]}
-          >
-            <Text style={styles.normalText}>Your content</Text>
-            <Text style={styles.bigText}>Other content</Text>
-          </SkeletonContent>
-        ) : (
-          <View>
-            <Text style={[styles.mainHeading, { marginBottom: 24 }]}>
-              Experiances
+        <View style={{ marginTop: 8 }}>
+          <View style={styles.singleBoxList}>
+            <View style={styles.circle} />
+            <Text style={styles.listText}>First example of message</Text>
+          </View>
+
+          <View style={styles.singleBoxList}>
+            <View style={styles.circle} />
+            <Text style={styles.listText}>Second example goes here</Text>
+          </View>
+
+          <View style={styles.singleBoxList}>
+            <View style={styles.circle} />
+            <Text style={styles.listText}>
+              Third message example can go here
             </Text>
+          </View>
+        </View>
+        <Text
+          style={[styles.headingText, { paddingHorizontal: 0, marginTop: 24 }]}
+        >
+          Care Location
+        </Text>
+        <Text style={styles.paraText}>Set location of the job</Text>
 
-            <View>
-              <Text style={styles.listHeading}>I have experience with:</Text>
-              <View style={{ marginVertical: 15 }}>
-                {experiance.map((item) => renderExperiance(item))}
-              </View>
-            </View>
+        <View style={styles.textInput}>
+          <TextInput
+            value={term}
+            onChangeText={(text) => onChange(text)}
+            style={{ width: "90%" }}
+            placeholder="Enter Address"
+          />
+          <MapPin />
+        </View>
 
-            <View
+        {list.length > 0 &&
+          open &&
+          list.map((item, index) => (
+            <TouchableOpacity
+              key={index}
               style={{
-                paddingBottom: 11,
-                borderBottomColor: "#E5E7EB",
-                borderBottomWidth: 1,
+                marginTop: 10,
+                paddingVertical: 10,
+                paddingHorizontal: 10,
+                borderWidth: 1,
+                borderColor: "#D1D5DB",
+                borderRadius: 8,
+              }}
+              onPress={() => {
+                onPredictionTapped(item.place_id, item.description);
               }}
             >
-              <Text style={styles.listHeading}>I have experience with:</Text>
-              <View style={{ marginVertical: 15 }}>
-                {certifications.map((item) => renderCertifications(item))}
-              </View>
-            </View>
-          </View>
-        )}
-
-        {loader ? (
-          <SkeletonContent
-            containerStyle={{ flex: 1, width: "100%", marginTop: 24 }}
-            duration={1500}
-            layout={[
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-              { width: "100%", height: 55, marginBottom: 14 },
-            ]}
-          >
-            <Text style={styles.normalText}>Your content</Text>
-            <Text style={styles.bigText}>Other content</Text>
-          </SkeletonContent>
-        ) : (
-          <View>
-            <Text
-              style={[styles.mainHeading, { marginBottom: 24, marginTop: 24 }]}
-            >
-              Additional information
-            </Text>
-
-            <View>
-              {certifications.map((item) => renderCertifications(item))}
-            </View>
-          </View>
-        )}
+              <Text>{item.description}</Text>
+            </TouchableOpacity>
+          ))}
       </ScrollView>
 
-      <Next active={4} navigate={() => navigation.navigate("Upload")} />
+      <Next
+        active={3}
+        bgColor={details.length > 0 && term.length > 0}
+        navigate={() => createTask()}
+      />
     </SafeAreaView>
   );
 };

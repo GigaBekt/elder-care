@@ -4,7 +4,7 @@ import { View, Text, TouchableHighlight } from "react-native";
 // CSS
 import styles from "../styles";
 const Next = ({ navigate, active, bgColor }) => {
-  const dots = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }];
+  const dots = [{ id: 1 }, { id: 2 }, { id: 3 }];
 
   return (
     <View style={{ paddingTop: 10, paddingHorizontal: 13 }}>

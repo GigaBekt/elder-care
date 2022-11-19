@@ -12,6 +12,20 @@ class Tasks {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
+  createTask(datetime, duration_minutes, care_service_id, location, token) {
+    return api.getAxiosInstance().post(
+      "/tasks",
+      {
+        datetime,
+        duration_minutes,
+        care_service_id,
+        location,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+  }
 }
 
 export default Tasks;

@@ -41,20 +41,17 @@ const Verify = ({ navigation, route }) => {
   }, []);
 
   const verify = () => {
-    navigation.navigate("SignUp");
-
-    // auth
-    //   .verify(number, password)
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       console.log(res.data);
-    //       navigation.navigate("SignUp");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     // Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
-    //     console.log(err?.response.data);
-    //   });
+    auth
+      .verify(number, password)
+      .then((res) => {
+        if (res.status === 200) {
+          navigation.navigate("SignUp");
+        }
+      })
+      .catch((err) => {
+        // Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+        console.log(err?.response.data);
+      });
   };
   const reSend = () => {
     auth

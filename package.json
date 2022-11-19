@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "@expo-google-fonts/roboto": "^0.2.2",
+    "@react-native-async-storage/async-storage": "~1.15.0",
+    "@react-native-community/datetimepicker": "4.0.0",
     "@react-native-community/masked-view": "0.1.10",
     "@react-native-masked-view/masked-view": "0.2.6",
     "@react-navigation/bottom-tabs": "^6.4.0",
@@ -29,6 +31,7 @@
     "react-native": "0.64.3",
     "react-native-gesture-handler": "~2.1.0",
     "react-native-linear-gradient": "^2.6.2",
+    "react-native-modal-datetime-picker": "^14.0.0",
     "react-native-pager-view": "5.4.9",
     "react-native-phone-number-input": "^2.1.0",
     "react-native-reanimated": "~2.3.1",

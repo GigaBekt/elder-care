@@ -2,7 +2,7 @@ import { Image, TouchableOpacity, View, Text } from "react-native";
 import style from "../style";
 import { Plus } from "phosphor-react-native";
 
-const NoTasks = () => {
+const NoTasks = ({ navigation }) => {
   return (
     <View style={style.content}>
       <Image source={require("../../../../Assets/Graphic.png")} />
@@ -15,7 +15,7 @@ const NoTasks = () => {
             width: 200,
           },
         ]}
-        onPress={() => console.log("click")}
+        onPress={() => navigation.navigate("createTask first")}
       >
         <View
           style={{

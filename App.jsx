@@ -9,47 +9,57 @@ import Auth from "./src/screens/Auth";
 import Verify from "./src/screens/Verify";
 import SignUp from "./src/screens/SignUp";
 
+// CareGiver
+import Caregiver from "./src/screens/Caregiver/HomeScreen";
 import Location from "./src/screens/SignUp/CareGiver/Location";
 import CareTypes from "./src/screens/SignUp/CareGiver/CareTypes";
 import Experiance from "./src/screens/SignUp/CareGiver/Experiance";
 import Details from "./src/screens/SignUp/CareGiver/Details";
 import Upload from "./src/screens/SignUp/CareGiver/Upload";
-
-import Caregiver from "./src/screens/Caregiver/HomeScreen";
-import CareTaker from "./src/screens/Caretaker/HomeScreen";
-
 import SendProposal from "./src/components/SendProposal";
 
+// CareTaker
+import CareTaker from "./src/screens/Caretaker/HomeScreen";
 import LocationTaker from "./src/screens/SignUp/CareTaker/Location";
 import DetailsTaker from "./src/screens/SignUp/CareTaker/Details";
+
+// Create Task
+import CareTypeTask from "./src/screens/CreateTask/components/CareTypes";
+import TaskDuration from "./src/screens/CreateTask/components/Duration";
+import TaskDetails from "./src/screens/CreateTask/components/Details";
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
     <SafeAreaProvider>
-      {/* <StatusBar barStyle="dark-content" backgroundColor="#fff" /> */}
-
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           {/* <Stack.Group screenOptions={{ presentation: "modal" }}>
             <Stack.Screen name="Login" component={Auth} />
           </Stack.Group> */}
+          <Stack.Screen name="CareTaker location" component={LocationTaker} />
+
+          <Stack.Screen name="Login" component={Auth} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+
           <Stack.Screen
             name="HomeScreenTaker"
             component={CareTaker}
             options={{ headerShown: false }}
           />
+
+          <Stack.Screen name="createTask first" component={CareTypeTask} />
+          <Stack.Screen name="createTask second" component={TaskDuration} />
+          <Stack.Screen name="createTask third" component={TaskDetails} />
+
           <Stack.Screen
             name="HomeScreen"
             component={Caregiver}
             options={{ headerShown: false }}
           />
 
-          <Stack.Screen name="Login" component={Auth} />
-          <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="CareGiver location" component={Location} />
-          <Stack.Screen name="CareTaker location" component={LocationTaker} />
 
           <Stack.Screen name="Details" component={Details} />
           <Stack.Screen name="Details Taker" component={DetailsTaker} />

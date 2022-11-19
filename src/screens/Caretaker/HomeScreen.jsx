@@ -1,6 +1,10 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import { ChatCircleText, MagnifyingGlass } from "phosphor-react-native";
+import {
+  ChatCircleText,
+  MagnifyingGlass,
+  UserCircle,
+} from "phosphor-react-native";
 
 import Messages from "./Messages";
 import Profile from "./Profile";
@@ -29,9 +33,9 @@ const HomeScreen = () => {
             );
           } else if (route.name === "Profile") {
             iconName = focused ? (
-              <ChatCircleText color="#1249CB" size={24} />
+              <UserCircle color="#1249CB" size={24} />
             ) : (
-              <ChatCircleText color="#6B7280" size={24} />
+              <UserCircle color="#6B7280" size={24} />
             );
           }
           return iconName;

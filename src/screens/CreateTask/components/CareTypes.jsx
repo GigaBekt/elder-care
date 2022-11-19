@@ -9,10 +9,10 @@ import { useEffect, useState } from "react";
 import { View, Text, FlatList, TouchableHighlight } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SkeletonContent from "react-native-skeleton-content";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // Componenets
 import Header from "../../../components/Header";
-import Next from "../Components/Next";
+import Next from "./Next";
 // CSS
 import styles from "../styles";
 
@@ -20,46 +20,47 @@ import styles from "../styles";
 import AdditionalInfo from "../../../Api/AdditionalInfo";
 
 const CareTypes = ({ navigation }) => {
-  let abortController = new AbortController();
+  const abortController = new AbortController();
   const additionalInfo = new AdditionalInfo();
 
   const [loader, setLoader] = useState(true);
-  const [selected, setSelected] = useState([]);
+  const [selected, setSelected] = useState("");
   const [types, setTypes] = useState([]);
-  const selectType = (item) => {
-    const findItem = selected.indexOf(item.id);
-    if (findItem !== -1) {
-      const activeList = selected.slice();
-      activeList.splice(findItem, 1);
-      setSelected(activeList);
-    } else {
-      setSelected([...selected, item.id]);
+
+  const saveId = async (value) => {
+    try {
+      await AsyncStorage.setItem("care_service_id", value);
+    } catch (e) {
+      // save error
     }
   };
 
+  const renderIcon = (item) => {
+    if (item.icon == "Car") {
+      return <Car weight="duotone" color="#1249CB" size={32} />;
+    } else if (item.icon == "ForkKnife") {
+      return <ForkKnife weight="duotone" color="#1249CB" size={32} />;
+    } else if (item.icon == "Heart") {
+      return <Heart weight="duotone" color="#1249CB" size={32} />;
+    } else if (item.icon == "MapPinLine") {
+      return <MapPinLine weight="duotone" color="#1249CB" size={32} />;
+    } else if (item.icon == "Bathtub") {
+      return <Bathtub weight="duotone" color="#1249CB" size={32} />;
+    }
+  };
   const typesList = ({ item }) => {
-    const renderIcon = () => {
-      if (item.icon == "Car") {
-        return <Car weight="duotone" color="#1249CB" size={32} />;
-      } else if (item.icon == "ForkKnife") {
-        return <ForkKnife weight="duotone" color="#1249CB" size={32} />;
-      } else if (item.icon == "Heart") {
-        return <Heart weight="duotone" color="#1249CB" size={32} />;
-      } else if (item.icon == "MapPinLine") {
-        return <MapPinLine weight="duotone" color="#1249CB" size={32} />;
-      } else if (item.icon == "Bathtub") {
-        return <Bathtub weight="duotone" color="#1249CB" size={32} />;
-      }
-    };
     return (
-      <TouchableHighlight underlayColor="none" onPress={() => selectType(item)}>
+      <TouchableHighlight
+        underlayColor="none"
+        onPress={() => {
+          setSelected(item.id);
+          saveId(item.id);
+        }}
+      >
         <View
-          style={[
-            styles.singleBox,
-            selected.includes(item.id) ? styles.active : "",
-          ]}
+          style={[styles.singleBox, selected === item.id ? styles.active : ""]}
         >
-          <View>{renderIcon()}</View>
+          <View>{renderIcon(item)}</View>
           <View
             style={{
               marginLeft: 16,
@@ -95,6 +96,10 @@ const CareTypes = ({ navigation }) => {
       setLoader(true);
     };
   }, []);
+
+  const save = () => {
+    navigation.navigate("createTask second");
+  };
   return (
     <SafeAreaView
       style={{
@@ -105,12 +110,11 @@ const CareTypes = ({ navigation }) => {
     >
       <View>
         <View style={{ paddingVertical: 24, paddingHorizontal: 13 }}>
-          <Header navigation={navigation} name="Sign Up" />
+          <Header navigation={navigation} name="Create Job" />
         </View>
         <Text style={styles.headingText}>
-          What type of care do you want to provide?
+          What kind of help are you looking for?
         </Text>
-        <Text style={styles.spanText}>You can select multiple</Text>
 
         {loader ? (
           <SkeletonContent
@@ -123,10 +127,7 @@ const CareTypes = ({ navigation }) => {
               { width: "100%", height: 75, marginBottom: 14 },
               { width: "100%", height: 75, marginBottom: 14 },
             ]}
-          >
-            <Text style={styles.normalText}>Your content</Text>
-            <Text style={styles.bigText}>Other content</Text>
-          </SkeletonContent>
+          />
         ) : (
           <FlatList
             data={types}
@@ -137,7 +138,7 @@ const CareTypes = ({ navigation }) => {
         )}
       </View>
 
-      <Next active={2} navigate={() => navigation.navigate("Experiance")} />
+      <Next active={1} bgColor={selected} navigate={() => save()} />
     </SafeAreaView>
   );
 };

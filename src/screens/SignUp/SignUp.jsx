@@ -15,9 +15,12 @@ const SignUp = ({ navigation }) => {
   };
 
   const next = () => {
-    activeDiv === "CareGiver"
-      ? navigation.navigate("CareGiver location")
-      : navigation.navigate("CareTaker location");
+    if (activeDiv.length > 0) {
+      activeDiv === "CareGiver"
+        ? navigation.navigate("CareGiver location")
+        : navigation.navigate("CareTaker location");
+    }
+    return;
   };
 
   return (

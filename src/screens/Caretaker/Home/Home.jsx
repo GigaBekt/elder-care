@@ -26,6 +26,7 @@ const Home = ({ navigation, route }) => {
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data.data);
+
           setData(res.data.data);
         }
       })
@@ -43,7 +44,7 @@ const Home = ({ navigation, route }) => {
           {data.length > 0 && (
             <TouchableOpacity
               style={[style.btn, { marginTop: 0, paddingHorizontal: 18 }]}
-              onPress={() => console.log("click")}
+              onPress={() => navigation.navigate("createTask first")}
             >
               <View
                 style={{
@@ -70,7 +71,7 @@ const Home = ({ navigation, route }) => {
             )}
           />
         ) : (
-          <NoTasks />
+          <NoTasks navigation={navigation} />
         )}
       </SafeAreaView>
     </>
