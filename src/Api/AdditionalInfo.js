@@ -15,6 +15,9 @@ class AdditionalInfo {
   hobbies() {
     return api.getAxiosInstance().get("/hobbies");
   }
+  getTypes() {
+    return api.getAxiosInstance().get("/user-types");
+  }
 }
 
 export default AdditionalInfo;

@@ -53,30 +53,36 @@ const Details = ({ navigation }) => {
     }
   };
 
+  const saveToken = async (value) => {
+    try {
+      await AsyncStorage.setItem("token", value);
+    } catch (e) {
+      console.log(e, "save token");
+    }
+  };
   const next = async () => {
+    console.log("click");
     try {
       const phone = await AsyncStorage.getItem("phone_number");
-      // const user_type_id = await AsyncStorage.getItem("user_type_id");
+      const user_type_id = await AsyncStorage.getItem("user_type_id");
       const zipcode = await AsyncStorage.getItem("zipcode");
       const location = await AsyncStorage.getItem("location");
       if (
         phone !== null &&
-        // user_type_id !== null &&
+        user_type_id !== null &&
         location !== null &&
         zipcode !== null
       ) {
         const data = new FormData();
         data.append("phone_number", phone);
-
-        data.append("user_type_id", "8f2238fc-b199-43e8-bf64-2fec5483ed7d");
+        data.append("user_type_id", user_type_id);
         data.append("profile[first_name]", name);
         data.append("profile[last_name]", lastname);
         image &&
           data.append("profile[image]", {
-            // uri: image,
             type: `image.${image.split(".").slice(-1)}`,
             name: "image.jpg",
-            uri: Platform.OS === "ios" ? image.replace("file://", "") : image,
+            uri: image,
           });
         data.append("location[zip]", zipcode);
         data.append("location[address]", location);
@@ -85,12 +91,16 @@ const Details = ({ navigation }) => {
           .regisCareTaker(data)
           .then((res) => {
             console.log(res.data);
+            saveToken(res.data.data.access_token);
             saveInformation(res.data.data);
             navigation.navigate("HomeScreenTaker");
           })
           .catch((err) => console.log(err?.response));
 
         // value previously stored
+      } else {
+        console.log("error");
+        console.log(phone, user_type_id, location, zipcode, "@@");
       }
     } catch (e) {
       console.log(e, "catch");

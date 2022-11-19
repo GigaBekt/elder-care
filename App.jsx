@@ -2,7 +2,8 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { StatusBar } from "react-native";
+// import { StatusBar } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Screens
 import Auth from "./src/screens/Auth";
@@ -31,6 +32,17 @@ import TaskDetails from "./src/screens/CreateTask/components/Details";
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+  const [authorized, setAuthorized] = React.useState(false);
+  const getTasks = async () => {
+    const token = await AsyncStorage.getItem("token");
+    if (token) {
+      setAuthorized(true);
+    } else setAuthorized(false);
+  };
+
+  React.useEffect(() => {
+    getTasks();
+  }, []);
   return (
     <SafeAreaProvider>
       <NavigationContainer>
@@ -38,16 +50,19 @@ const App = () => {
           {/* <Stack.Group screenOptions={{ presentation: "modal" }}>
             <Stack.Screen name="Login" component={Auth} />
           </Stack.Group> */}
-          <Stack.Screen name="Details Taker" component={DetailsTaker} />
 
-          <Stack.Screen name="Login" component={Auth} />
+          {authorized ? (
+            <Stack.Screen
+              name="HomeScreenTaker"
+              component={CareTaker}
+              options={{ headerShown: false }}
+            />
+          ) : (
+            <Stack.Screen name="Login" component={Auth} />
+          )}
+
+          {/* <Stack.Screen name="Login" component={Auth} /> */}
           <Stack.Screen name="SignUp" component={SignUp} />
-
-          <Stack.Screen
-            name="HomeScreenTaker"
-            component={CareTaker}
-            options={{ headerShown: false }}
-          />
 
           <Stack.Screen name="createTask first" component={CareTypeTask} />
           <Stack.Screen name="createTask second" component={TaskDuration} />
@@ -58,11 +73,17 @@ const App = () => {
             component={Caregiver}
             options={{ headerShown: false }}
           />
+          {/* <Stack.Screen
+            name="HomeScreenTaker"
+            component={CareTaker}
+            options={{ headerShown: false }}
+          /> */}
 
           <Stack.Screen name="CareGiver location" component={Location} />
           <Stack.Screen name="CareTaker location" component={LocationTaker} />
 
           <Stack.Screen name="Details" component={Details} />
+          <Stack.Screen name="Details Taker" component={DetailsTaker} />
 
           <Stack.Screen name="Upload" component={Upload} />
           <Stack.Screen name="Caretypes" component={CareTypes} />

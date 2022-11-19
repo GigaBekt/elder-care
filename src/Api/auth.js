@@ -19,20 +19,6 @@ class Auth {
       .post("/auth/otp/verify", { phone_number, code });
   }
 
-  // regisCareTaker(formData) {
-  //   return api.getAxiosInstance().post(
-  //     "/auth/user/caretaker",
-  //     {
-  //       data: formData,
-  //     },
-  //     {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //       },
-  //     }
-  //   );
-  // }
-
   regisCareTaker(formData) {
     return this.axiosInstance({
       method: "post",

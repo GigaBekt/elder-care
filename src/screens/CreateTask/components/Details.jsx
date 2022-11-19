@@ -79,6 +79,7 @@ const Details = ({ navigation }) => {
 
   const createTask = async () => {
     try {
+      const token = await AsyncStorage.getItem("token");
       const dateTime = await AsyncStorage.getItem("datetime");
       const duration = await AsyncStorage.getItem("duration");
       const careServiceId = await AsyncStorage.getItem("care_service_id");
@@ -86,10 +87,8 @@ const Details = ({ navigation }) => {
         zip: zipCode.long_name,
         address: term,
       };
-      // const tokn = await AsyncStorage.getItem("token");
-      const token = "3|n8FLYUrUFyV8R8KWVUY1x41cVnIkhQiaGxRzXRIR";
 
-      console.log(dateTime, parseInt(duration), careServiceId, location, token);
+      // console.log(dateTime, parseInt(duration), careServiceId, location, token);
 
       if (dateTime && careServiceId && duration !== null) {
         tasks
@@ -102,12 +101,16 @@ const Details = ({ navigation }) => {
           )
           .then((res) => {
             console.log(res);
+            if (res.status === 200 || res.status === 201) {
+              navigation.push("HomeScreenTaker");
+            }
           })
           .catch((err) => {
             console.log(err?.response);
           });
       }
     } catch (e) {
+      console.log(e, "catch create job");
       // error reading value
     }
   };

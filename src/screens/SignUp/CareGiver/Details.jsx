@@ -23,9 +23,7 @@ const Details = ({ navigation }) => {
   const abortController = new AbortController();
   const [experiance, setExperiance] = useState([]);
   const [loader, setLoader] = useState(true);
-
   const [certifications, setCertifications] = useState([]);
-
   const changeCheck = (prop) => {
     const modified = experiance.map((item) => {
       if (item.id === prop.id) return { ...item, checked: !item.checked };

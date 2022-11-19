@@ -114,7 +114,7 @@ const Verify = ({ navigation, route }) => {
         <View
           style={
             full
-              ? { backgroundColor: "#FFDC00" }
+              ? { backgroundColor: "#1249CB" }
               : { backgroundColor: "#D1D5DB" }
           }
         >
@@ -123,7 +123,9 @@ const Verify = ({ navigation, route }) => {
             underlayColor="none"
             onPress={() => verify()}
           >
-            <Text style={styles.textInputButton}>Verify</Text>
+            <Text style={[styles.textInputButton, full && { color: "#fff" }]}>
+              Verify
+            </Text>
           </TouchableHighlight>
         </View>
       </KeyboardAvoidingView>
