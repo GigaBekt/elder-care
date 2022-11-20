@@ -117,7 +117,9 @@ const Location = ({ navigation }) => {
               style={[styles.textInput]}
             >
               {fullDate.length > 0 ? (
-                <Text>{fullDate}</Text>
+                <Text style={[styles.selectDate, { color: "#111827" }]}>
+                  {fullDate}
+                </Text>
               ) : (
                 <Text style={styles.selectDate}>Select Date</Text>
               )}

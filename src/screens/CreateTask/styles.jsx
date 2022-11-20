@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 18,
     color: "#4B5563",
-    marginTop: 4,
+    marginTop: 8,
   },
 });
 

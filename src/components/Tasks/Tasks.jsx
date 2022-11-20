@@ -55,9 +55,7 @@ const Tasks = ({ item, openModal }) => {
               </View>
             </View>
           </View>
-          <Text style={style.taskText}>
-            Hands-on Care Needed For Myself In New York
-          </Text>
+          <Text style={style.taskText}>{item.description}</Text>
         </>
       </TouchableHighlight>
     </>

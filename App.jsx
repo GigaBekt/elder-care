@@ -28,6 +28,7 @@ import DetailsTaker from "./src/screens/SignUp/CareTaker/Details";
 import CareTypeTask from "./src/screens/CreateTask/components/CareTypes";
 import TaskDuration from "./src/screens/CreateTask/components/Duration";
 import TaskDetails from "./src/screens/CreateTask/components/Details";
+import MessageDetails from "./src/screens/MessageDetails/MessageDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,7 @@ const App = () => {
   const getTasks = async () => {
     const token = await AsyncStorage.getItem("token");
     if (token) {
+      console.log(token);
       setAuthorized(true);
     } else setAuthorized(false);
   };
@@ -89,6 +91,9 @@ const App = () => {
           <Stack.Screen name="Caretypes" component={CareTypes} />
           <Stack.Screen name="Experiance" component={Experiance} />
           <Stack.Screen name="Verify" component={Verify} />
+
+          <Stack.Screen name="message details" component={MessageDetails} />
+
           <Stack.Screen component={SendProposal} name="SendProposal" />
         </Stack.Navigator>
       </NavigationContainer>

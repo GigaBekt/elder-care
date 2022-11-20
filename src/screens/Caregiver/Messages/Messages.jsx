@@ -1,9 +1,8 @@
 import axios from "axios";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
-  SafeAreaView,
   FlatList,
   Image,
   TouchableOpacity,
@@ -90,7 +89,6 @@ const Messages = () => {
   useEffect(() => {
     getMessages("Active");
     return () => {
-      setLoader(true);
       abortController.abort();
     };
   }, []);
@@ -141,7 +139,6 @@ const Messages = () => {
               <Placeholder
                 style={{ marginTop: 24 }}
                 Animation={Fade}
-                // Left={PlaceholderMedia}
                 Left={(props) => (
                   <PlaceholderMedia isRound={true} style={[props.style]} />
                 )}
@@ -152,7 +149,6 @@ const Messages = () => {
               <Placeholder
                 style={{ marginTop: 24 }}
                 Animation={Fade}
-                // Left={PlaceholderMedia}
                 Left={(props) => (
                   <PlaceholderMedia isRound={true} style={[props.style]} />
                 )}
