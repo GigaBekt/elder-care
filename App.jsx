@@ -1,4 +1,5 @@
 import * as React from "react";
+import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -24,7 +25,7 @@ import CareTaker from "./src/screens/Caretaker/HomeScreen";
 import LocationTaker from "./src/screens/SignUp/CareTaker/Location";
 import DetailsTaker from "./src/screens/SignUp/CareTaker/Details";
 
-// Create Task
+// // Create Task
 import CareTypeTask from "./src/screens/CreateTask/components/CareTypes";
 import TaskDuration from "./src/screens/CreateTask/components/Duration";
 import TaskDetails from "./src/screens/CreateTask/components/Details";
@@ -53,6 +54,8 @@ const App = () => {
             <Stack.Screen name="Login" component={Auth} />
           </Stack.Group> */}
 
+          <Stack.Screen name="Details" component={Details} />
+
           {authorized ? (
             <Stack.Screen
               name="HomeScreenTaker"
@@ -62,14 +65,11 @@ const App = () => {
           ) : (
             <Stack.Screen name="Login" component={Auth} />
           )}
-
-          {/* <Stack.Screen name="Login" component={Auth} /> */}
+          <Stack.Screen name="Login" component={Auth} />
           <Stack.Screen name="SignUp" component={SignUp} />
-
           <Stack.Screen name="createTask first" component={CareTypeTask} />
           <Stack.Screen name="createTask second" component={TaskDuration} />
           <Stack.Screen name="createTask third" component={TaskDetails} />
-
           <Stack.Screen
             name="HomeScreen"
             component={Caregiver}
@@ -80,25 +80,27 @@ const App = () => {
             component={CareTaker}
             options={{ headerShown: false }}
           /> */}
-
           <Stack.Screen name="CareGiver location" component={Location} />
           <Stack.Screen name="CareTaker location" component={LocationTaker} />
-
-          <Stack.Screen name="Details" component={Details} />
           <Stack.Screen name="Details Taker" component={DetailsTaker} />
-
           <Stack.Screen name="Upload" component={Upload} />
           <Stack.Screen name="Caretypes" component={CareTypes} />
           <Stack.Screen name="Experiance" component={Experiance} />
           <Stack.Screen name="Verify" component={Verify} />
-
           <Stack.Screen name="message details" component={MessageDetails} />
-
           <Stack.Screen component={SendProposal} name="SendProposal" />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
   );
 };
+
+// const App = () => {
+//   return (
+//     <View>
+//       <Text>Hello World</Text>
+//     </View>
+//   );
+// };
 
 export default App;

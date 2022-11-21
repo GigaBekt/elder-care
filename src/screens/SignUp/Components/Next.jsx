@@ -5,7 +5,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import styles from "../styles";
 const Next = ({ navigate, bgColor }) => {
   return (
-    <View style={{ paddingHorizontal: 13 }}>
+    <View style={{ paddingHorizontal: 13, paddingTop: 10 }}>
       <TouchableOpacity
         onPress={navigate}
         style={[
