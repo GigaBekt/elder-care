@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  Image,
   SafeAreaView,
   TouchableOpacity,
   FlatList,
@@ -11,16 +10,20 @@ import { Plus } from "phosphor-react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SkeletonContent from "react-native-skeleton-content";
 // Components
-import style from "./style";
-import Tasks from "../../../Api/tasks";
 import TasksComp from "../../../components/Tasks";
 import NoTasks from "./components/NoTasks";
+import CareCheck from "../../../components/CareCheck";
+// API
+import Tasks from "../../../Api/tasks";
+// CSS
+import style from "./style";
 
 const Home = ({ navigation, route }) => {
   const tasks = new Tasks();
 
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(true);
+  const [carecheck, setCareCheck] = useState(true);
 
   const getTasks = async () => {
     const token = await AsyncStorage.getItem("token");
@@ -41,6 +44,8 @@ const Home = ({ navigation, route }) => {
   console.log("Home Running");
   return (
     <>
+      <CareCheck show={carecheck} close={setCareCheck} />
+
       <SafeAreaView style={{ flex: 1, backgroundColor: "#F9FAFB" }}>
         <View style={style.headingBox}>
           <Text style={style.heading}>My Tasks</Text>

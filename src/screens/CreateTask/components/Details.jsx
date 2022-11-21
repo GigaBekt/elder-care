@@ -88,8 +88,6 @@ const Details = ({ navigation }) => {
         address: term,
       };
 
-      // console.log(dateTime, parseInt(duration), careServiceId, location, token);
-
       if (dateTime && careServiceId && duration !== null) {
         tasks
           .createTask(

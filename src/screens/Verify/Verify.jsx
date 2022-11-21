@@ -7,13 +7,14 @@ import {
   SafeAreaView,
 } from "react-native";
 
-import SmoothPinCodeInput from "react-native-smooth-pincode-input";
-// import {
-//   CodeField,
-//   Cursor,
-//   useBlurOnFulfill,
-//   useClearByFocusCell,
-// } from "react-native-confirmation-code-field";
+import {
+  CodeField,
+  Cursor,
+  useBlurOnFulfill,
+  useClearByFocusCell,
+} from "react-native-confirmation-code-field";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 // import * as Haptics from "expo-haptics";
 
 // Componenets
@@ -24,7 +25,7 @@ import Auth from "../../Api/auth";
 
 // CSS
 import styles from "./styles";
-
+const CELL_COUNT = 5;
 const Verify = ({ navigation, route }) => {
   const auth = new Auth();
   const [password, setPassword] = useState("");
@@ -42,15 +43,33 @@ const Verify = ({ navigation, route }) => {
   }, [counter]);
 
   useEffect(() => {
-    setNumber(route?.params.number);
+    setNumber(route?.params?.number);
   }, []);
 
+  const saveInformation = async (value) => {
+    console.log(value, "value");
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("information", jsonValue);
+      navigation.navigate("HomeScreenTaker");
+    } catch (e) {
+      console.log(e, "save info");
+    }
+  };
+
   const verify = () => {
+    console.log(value);
     auth
-      .verify(number, password)
+      .verify(number, value)
       .then((res) => {
         if (res.status === 200) {
-          navigation.navigate("SignUp");
+          // console.log(res.data.data);
+          if (res.data.data.id) {
+            console.log("running");
+            saveInformation(res.data.data);
+          } else {
+            navigation.navigate("SignUp");
+          }
         }
       })
       .catch((err) => {
@@ -66,6 +85,14 @@ const Verify = ({ navigation, route }) => {
       })
       .catch((err) => console.log(err?.response));
   };
+
+  const [value, setValue] = useState("");
+  const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
+  const [props, getCellOnLayoutHandler] = useClearByFocusCell({
+    value,
+    setValue,
+  });
+
   return (
     <SafeAreaView style={styles.height}>
       <View style={{ paddingVertical: 24, paddingHorizontal: 13 }}>
@@ -77,24 +104,32 @@ const Verify = ({ navigation, route }) => {
           We sent code on your phone number:{" "}
           <Text style={styles.textNumber}>{number}</Text>
         </Text>
-        <SmoothPinCodeInput
-          cellStyle={{
-            borderWidth: 1,
-            borderRadius: 8,
-            borderColor: "#CFD4D9",
-            backgroundColor: "#FFFFFF",
-          }}
-          cellSpacing={20}
-          cellSize={50}
-          codeLength={5}
-          value={password}
-          onTextChange={(password) => {
-            setPassword(password);
-            setFull(false);
-          }}
-          autoFocus={true}
-          returnKeyType="done"
-          onFulfill={() => setFull(true)}
+
+        <CodeField
+          isFocused={true}
+          ref={ref}
+          {...props}
+          value={value}
+          onChangeText={setValue}
+          cellCount={CELL_COUNT}
+          rootStyle={styles.codeFieldRoot}
+          keyboardType="number-pad"
+          textContentType="oneTimeCode"
+          renderCell={({ index, symbol, isFocused }) => (
+            <View
+              key={index}
+              style={[
+                styles.cell,
+                isFocused && styles.focusCell,
+                full && { backgroundColor: "reed" },
+              ]}
+              onLayout={getCellOnLayoutHandler(index)}
+            >
+              <Text style={styles.textCell}>
+                {symbol || (isFocused ? <Cursor /> : "-")}
+              </Text>
+            </View>
+          )}
         />
         <TouchableHighlight
           underlayColor={"none"}
@@ -117,18 +152,24 @@ const Verify = ({ navigation, route }) => {
         enabled
       >
         <View
-          style={
-            full
+          style={[
+            value.length === 5
               ? { backgroundColor: "#1249CB" }
-              : { backgroundColor: "#D1D5DB" }
-          }
+              : { backgroundColor: "#D1D5DB" },
+            { paddingVertical: 14 },
+          ]}
         >
           <TouchableHighlight
             style={{ paddingVertical: 14 }}
             underlayColor="none"
             onPress={() => verify()}
           >
-            <Text style={[styles.textInputButton, full && { color: "#fff" }]}>
+            <Text
+              style={[
+                styles.textInputButton,
+                value.length === 5 && { color: "#fff" },
+              ]}
+            >
               Verify
             </Text>
           </TouchableHighlight>

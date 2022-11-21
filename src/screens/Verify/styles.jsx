@@ -43,6 +43,35 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     textAlign: "center",
   },
+
+  root: { flex: 1, padding: 20 },
+  title: { textAlign: "center", fontSize: 30 },
+  // codeFieldRoot: { marginTop: 20 },
+  cell: {
+    width: 62,
+    height: 48,
+
+    textAlign: "center",
+    marginHorizontal: 4,
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+
+    borderWidth: 1,
+    borderColor: "#E5E7EB",
+  },
+
+  textCell: {
+    color: "#111827",
+
+    fontSize: 20,
+    lineHeight: 22,
+  },
+  focusCell: {
+    // border: 1px solid ;
+    borderWidth: 1,
+    borderColor: "#9CA3AF",
+  },
 });
 
 export default styles;

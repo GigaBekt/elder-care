@@ -31,7 +31,6 @@ const Details = ({ navigation }) => {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem("information", jsonValue);
     } catch (e) {
-      // saving error
       console.log(e, "save info");
     }
   };

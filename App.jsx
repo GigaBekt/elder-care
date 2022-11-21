@@ -52,17 +52,25 @@ const App = () => {
           {/* <Stack.Group screenOptions={{ presentation: "modal" }}>
             <Stack.Screen name="Login" component={Auth} />
           </Stack.Group> */}
-
           {authorized ? (
             <Stack.Screen
-              name="HomeScreenTaker"
+              name="HomeScreenTaker New"
               component={CareTaker}
               options={{ headerShown: false }}
             />
           ) : (
-            <Stack.Screen name="Login" component={Auth} />
+            <Stack.Screen name="Login New" component={Auth} />
           )}
+          {/* <Stack.Screen name="Login" component={Auth} /> */}
           <Stack.Screen name="Login" component={Auth} />
+
+          <Stack.Screen
+            name="HomeScreenTaker"
+            component={CareTaker}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen name="Verify" component={Verify} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="createTask first" component={CareTypeTask} />
           <Stack.Screen name="createTask second" component={TaskDuration} />
@@ -79,7 +87,6 @@ const App = () => {
           <Stack.Screen name="Upload" component={Upload} />
           <Stack.Screen name="Caretypes" component={CareTypes} />
           <Stack.Screen name="Experiance" component={Experiance} />
-          <Stack.Screen name="Verify" component={Verify} />
           <Stack.Screen name="message details" component={MessageDetails} />
           <Stack.Screen component={SendProposal} name="SendProposal" />
         </Stack.Navigator>
