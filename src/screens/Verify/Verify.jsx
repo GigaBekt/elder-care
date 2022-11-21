@@ -8,7 +8,12 @@ import {
 } from "react-native";
 
 import SmoothPinCodeInput from "react-native-smooth-pincode-input";
-
+// import {
+//   CodeField,
+//   Cursor,
+//   useBlurOnFulfill,
+//   useClearByFocusCell,
+// } from "react-native-confirmation-code-field";
 // import * as Haptics from "expo-haptics";
 
 // Componenets

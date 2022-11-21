@@ -9,7 +9,7 @@ const Tasks = ({ item, openModal }) => {
   const date = result.getDate();
   const hours = result.getHours().toString().padStart(2, "0");
   const min = result.getMinutes().toString().padStart(2, "0");
-  const month = result.toLocaleString("default", { month: "long" });
+  const month = result.toLocaleString("en-US", { month: "long" });
   const fullDate = date + " " + month + ", " + hours + ":" + min;
 
   return (

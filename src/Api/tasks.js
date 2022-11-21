@@ -12,7 +12,14 @@ class Tasks {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
-  createTask(datetime, duration_minutes, care_service_id, location, token) {
+  createTask(
+    datetime,
+    duration_minutes,
+    care_service_id,
+    location,
+    description,
+    token
+  ) {
     return api.getAxiosInstance().post(
       "/tasks",
       {
@@ -20,6 +27,7 @@ class Tasks {
         duration_minutes,
         care_service_id,
         location,
+        description,
       },
       {
         headers: { Authorization: `Bearer ${token}` },

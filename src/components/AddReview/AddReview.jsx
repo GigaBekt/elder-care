@@ -6,7 +6,9 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import StarRating from "react-native-star-rating";
+// import StarRating from "react-native-star-rating";
+import StarRating from "react-native-star-rating-widget";
+
 import { SafeAreaView } from "react-native-safe-area-context";
 // Components
 import ModalHeader from "../Header/ModalHeader";
@@ -58,6 +60,10 @@ const AddReview = ({ item, show, close }) => {
 
           <View style={{ paddingHorizontal: 66 }}>
             <StarRating
+              rating={2}
+              // onChange={setRating}
+            />
+            {/* <StarRating
               disabled={false}
               emptyStar={require("../../Assets/VectorEmpty.png")}
               fullStar={require("../../Assets/Vector.png")}
@@ -65,7 +71,7 @@ const AddReview = ({ item, show, close }) => {
               rating={count}
               selectedStar={(rating) => onStarRatingPress(rating)}
               starSize={44}
-            />
+            /> */}
           </View>
 
           <View style={{ marginTop: 29, paddingHorizontal: 13 }}>

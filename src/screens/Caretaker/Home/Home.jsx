@@ -38,6 +38,7 @@ const Home = ({ navigation, route }) => {
     getTasks();
   }, []);
 
+  console.log("Home Running");
   return (
     <>
       <SafeAreaView style={{ flex: 1, backgroundColor: "#F9FAFB" }}>

@@ -97,6 +97,7 @@ const Details = ({ navigation }) => {
             parseInt(duration),
             careServiceId,
             location,
+            details,
             token
           )
           .then((res) => {

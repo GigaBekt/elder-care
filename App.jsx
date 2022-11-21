@@ -1,5 +1,4 @@
 import * as React from "react";
-import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -25,7 +24,7 @@ import CareTaker from "./src/screens/Caretaker/HomeScreen";
 import LocationTaker from "./src/screens/SignUp/CareTaker/Location";
 import DetailsTaker from "./src/screens/SignUp/CareTaker/Details";
 
-// // Create Task
+// Create Task
 import CareTypeTask from "./src/screens/CreateTask/components/CareTypes";
 import TaskDuration from "./src/screens/CreateTask/components/Duration";
 import TaskDetails from "./src/screens/CreateTask/components/Details";
@@ -54,8 +53,6 @@ const App = () => {
             <Stack.Screen name="Login" component={Auth} />
           </Stack.Group> */}
 
-          <Stack.Screen name="Details" component={Details} />
-
           {authorized ? (
             <Stack.Screen
               name="HomeScreenTaker"
@@ -75,11 +72,7 @@ const App = () => {
             component={Caregiver}
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen
-            name="HomeScreenTaker"
-            component={CareTaker}
-            options={{ headerShown: false }}
-          /> */}
+          <Stack.Screen name="Details" component={Details} />
           <Stack.Screen name="CareGiver location" component={Location} />
           <Stack.Screen name="CareTaker location" component={LocationTaker} />
           <Stack.Screen name="Details Taker" component={DetailsTaker} />
