@@ -92,7 +92,7 @@ const Details = ({ navigation }) => {
             console.log(res.data);
             saveToken(res.data.data.access_token);
             saveInformation(res.data.data);
-            navigation.navigate("HomeScreenTaker");
+            navigation.navigate("HomeScreenTaker", { modal: true });
           })
           .catch((err) => console.log(err?.response));
 

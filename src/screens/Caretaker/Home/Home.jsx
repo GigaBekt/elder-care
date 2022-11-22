@@ -18,7 +18,7 @@ import Tasks from "../../../Api/tasks";
 // CSS
 import style from "./style";
 
-const Home = ({ navigation, route }) => {
+const Home = ({ navigation, route, openModal }) => {
   const tasks = new Tasks();
 
   const [data, setData] = useState([]);
@@ -39,9 +39,9 @@ const Home = ({ navigation, route }) => {
   };
   useEffect(() => {
     getTasks();
+    openModal ? setCareCheck(true) : setCareCheck(false);
   }, []);
 
-  console.log("Home Running");
   return (
     <>
       <CareCheck show={carecheck} close={setCareCheck} />

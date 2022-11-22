@@ -70,26 +70,6 @@ const Home = ({ navigation, route }) => {
         "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
       status: "started",
     },
-    {
-      id: 2,
-      firstName: "Peter",
-      lastName: "Parker",
-      type: "personal care",
-      date: "26 January, 12:38 PM",
-      hours: 1,
-      description:
-        "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
-    },
-    {
-      id: 3,
-      firstName: "I am",
-      lastName: "Ironman",
-      type: "personal care",
-      date: "26 January, 12:38 PM",
-      hours: 1,
-      description:
-        "Personal care tasks may not be performed at this level. Level II – Home Management Personal Home Aide Services at this level are intended to provide support to individuals ",
-    },
   ];
 
   const [index, setIndex] = useState(0);
