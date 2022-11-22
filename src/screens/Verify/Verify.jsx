@@ -14,8 +14,7 @@ import {
   useClearByFocusCell,
 } from "react-native-confirmation-code-field";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-// import * as Haptics from "expo-haptics";
+import * as Haptics from "expo-haptics";
 
 // Componenets
 import Header from "../../components/Header";
@@ -63,9 +62,7 @@ const Verify = ({ navigation, route }) => {
       .verify(number, value)
       .then((res) => {
         if (res.status === 200) {
-          // console.log(res.data.data);
           if (res.data.data.id) {
-            console.log("running");
             saveInformation(res.data.data);
           } else {
             navigation.navigate("SignUp");
@@ -73,8 +70,8 @@ const Verify = ({ navigation, route }) => {
         }
       })
       .catch((err) => {
-        // Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
         console.log(err?.response.data);
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       });
   };
   const reSend = () => {

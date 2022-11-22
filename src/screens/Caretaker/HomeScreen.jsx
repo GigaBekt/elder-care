@@ -51,7 +51,7 @@ const HomeScreen = ({ route }) => {
         tabBarInactiveTintColor: "#6B7280",
       })}
     >
-      <Tab.Screen name="Home">
+      <Tab.Screen name="Tasks">
         {(props) => <Home {...props} openModal={visible} />}
       </Tab.Screen>
       <Tab.Screen name="Messages" component={Messages} />
