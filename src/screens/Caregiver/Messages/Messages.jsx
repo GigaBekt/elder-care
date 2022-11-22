@@ -71,15 +71,14 @@ const Messages = () => {
   const [active, setActive] = useState("Active");
 
   const getMessages = (props) => {
-    console.log(props, "-- get messages");
     setLoader(true);
-    axios
-      .get("https://jsonplaceholder.typicode.com/comments/100")
-      .then((res) => {
-        return;
-      })
-      .catch((err) => console.log(err?.response))
-      .finally(() => setLoader(false));
+    // axios
+    //   .get("https://jsonplaceholder.typicode.com/comments/100")
+    //   .then((res) => {
+    //     return;
+    //   })
+    //   .catch((err) => console.log(err?.response))
+    //   .finally(() => setLoader(false));
   };
   const onChange = (props) => {
     setActive(props);

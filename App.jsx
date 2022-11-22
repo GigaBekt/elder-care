@@ -61,7 +61,7 @@ const App = () => {
           ) : (
             <Stack.Screen name="Login New" component={Auth} />
           )}
-          {/* <Stack.Screen name="Login" component={Auth} /> */}
+
           <Stack.Screen name="Login" component={Auth} />
 
           <Stack.Screen

@@ -14,7 +14,6 @@ import styles from "../styles";
 
 const Upload = ({ navigation }) => {
   const [selectedImage, setSelectedImage] = useState(null);
-
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
@@ -26,6 +25,35 @@ const Upload = ({ navigation }) => {
     } else {
       alert("You did not select any image.");
     }
+  };
+  const save = () => {
+    // const data = new FormData();
+    // data.append("phone_number", "+995598337729");
+    // data.append("user_type_id", "eb4fe646-b515-47fd-8643-fd8081563455");
+    // data.append("care_services[0]", "4d97d88e-2bca-4421-865a-a70b6bc4d25e");
+    // data.append("care_services[1]", "d389b7b7-55a1-49a4-91be-8e0a2d209587");
+    // data.append("care_experiences[0]", "a747566e-300e-40b2-91bc-b49afe203534");
+    // data.append(
+    //   "care_certifications[0]",
+    //   "e5dbf709-709e-4ccd-94ef-7d0e0cb44c50"
+    // );
+    // data.append("profile[first_name]", "Otto");
+    // data.append("profile[last_name]", "Mamestsarashvili");
+    // data.append(
+    //   "profile[working_experience_id]",
+    //   "649b7510-e6b0-4f1c-b707-0bc705dfb03f"
+    // );
+    // data.append(
+    //   "profile[image]",
+    //   fs.createReadStream("/Users/mrtunii/Downloads/AGX_v3.png")
+    // );
+    // data.append("profile[non_smoker]", "0");
+    // data.append("profile[has_car]", "1");
+    // data.append("profile[college_degree]", "1");
+    // data.append("profile[comfortable_with_pets]", "0");
+    // data.append("location[zip]", "1234");
+    // data.append("location[address]", "Some address");
+    // data.append("location[travel_radius]", "50");
   };
 
   return (

@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-// import StarRating from "react-native-star-rating";
 import StarRating from "react-native-star-rating-widget";
 
 import { SafeAreaView } from "react-native-safe-area-context";

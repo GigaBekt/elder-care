@@ -14,7 +14,7 @@ import {
   useClearByFocusCell,
 } from "react-native-confirmation-code-field";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Haptics from "expo-haptics";
+// import * as Haptics from "expo-haptics";
 
 // Componenets
 import Header from "../../components/Header";
@@ -71,7 +71,7 @@ const Verify = ({ navigation, route }) => {
       })
       .catch((err) => {
         console.log(err?.response.data);
-        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+        // Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
       });
   };
   const reSend = () => {

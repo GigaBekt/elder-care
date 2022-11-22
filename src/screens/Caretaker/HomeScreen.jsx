@@ -43,6 +43,11 @@ const HomeScreen = ({ route }) => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        tabBarStyle: {
+          height: 100,
+        },
+        tabBarItemStyle: { paddingTop: 10 },
+
         headerShown: false,
         tabBarIcon: ({ focused }) => {
           return renderIcon(focused, route);

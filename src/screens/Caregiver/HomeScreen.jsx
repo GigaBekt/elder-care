@@ -14,7 +14,7 @@ import Home from "./Home";
 const Tab = createBottomTabNavigator();
 
 const HomeScreen = ({ route }) => {
-  const renderIcon = (route, fouces) => {
+  const renderIcon = (route, focused) => {
     let iconName;
     if (route.name === "Home") {
       iconName = focused ? (
