@@ -46,7 +46,6 @@ const Verify = ({ navigation, route }) => {
   }, []);
 
   const saveInformation = async (value) => {
-    console.log(value, "value");
     try {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem("information", jsonValue);
@@ -57,7 +56,6 @@ const Verify = ({ navigation, route }) => {
   };
 
   const verify = () => {
-    console.log(value);
     auth
       .verify(number, value)
       .then((res) => {

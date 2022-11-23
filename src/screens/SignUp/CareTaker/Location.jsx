@@ -24,7 +24,6 @@ import Next from "../Components/Next";
 const Location = ({ navigation }) => {
   const [open, setOpen] = useState(false);
   const [term, setTerm] = useState("");
-  const [zipCode, setZipCode] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const GOOGLE_PACES_API_BASE_URL =
     "https://maps.googleapis.com/maps/api/place";
@@ -44,8 +43,6 @@ const Location = ({ navigation }) => {
       console.log(value, "location");
     } catch (e) {
       console.log(e, "location");
-
-      // save error
     }
   };
   const getLocations = () => {

@@ -35,24 +35,28 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   const [authorized, setAuthorized] = React.useState(false);
   const getTasks = async () => {
-    const token = await AsyncStorage.getItem("token");
-    if (token) {
-      console.log(token);
+    const information = await AsyncStorage.getItem("token");
+    console.log(information, "@");
+
+    if (information) {
       setAuthorized(true);
+      if (information.type.id === "eb4fe646-b515-47fd-8643-fd8081563455") {
+        console.log("care giver ");
+      } else {
+        console.log("care taker");
+      }
     } else setAuthorized(false);
   };
 
   React.useEffect(() => {
     getTasks();
   }, []);
+
   return (
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {/* <Stack.Group screenOptions={{ presentation: "modal" }}>
-            <Stack.Screen name="Login" component={Auth} />
-          </Stack.Group> */}
-          {authorized ? (
+          {/* {authorized ? (
             <Stack.Screen
               name="HomeScreenTaker New"
               component={CareTaker}
@@ -60,9 +64,13 @@ const App = () => {
             />
           ) : (
             <Stack.Screen name="Login New" component={Auth} />
-          )}
-
+          )} */}
+          <Stack.Screen name="Caretypes" component={CareTypes} />
+          <Stack.Screen name="Details" component={Details} />
           <Stack.Screen name="Login" component={Auth} />
+          <Stack.Screen name="Upload" component={Upload} />
+          <Stack.Screen name="CareGiver location" component={Location} />
+          <Stack.Screen name="Experiance" component={Experiance} />
 
           <Stack.Screen
             name="HomeScreenTaker"
@@ -80,13 +88,8 @@ const App = () => {
             component={Caregiver}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="Details" component={Details} />
-          <Stack.Screen name="CareGiver location" component={Location} />
           <Stack.Screen name="CareTaker location" component={LocationTaker} />
           <Stack.Screen name="Details Taker" component={DetailsTaker} />
-          <Stack.Screen name="Upload" component={Upload} />
-          <Stack.Screen name="Caretypes" component={CareTypes} />
-          <Stack.Screen name="Experiance" component={Experiance} />
           <Stack.Screen name="message details" component={MessageDetails} />
           <Stack.Screen component={SendProposal} name="SendProposal" />
         </Stack.Navigator>
@@ -94,13 +97,5 @@ const App = () => {
     </SafeAreaProvider>
   );
 };
-
-// const App = () => {
-//   return (
-//     <View>
-//       <Text>Hello World</Text>
-//     </View>
-//   );
-// };
 
 export default App;

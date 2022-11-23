@@ -89,7 +89,6 @@ const Details = ({ navigation }) => {
         auth
           .regisCareTaker(data)
           .then((res) => {
-            console.log(res.data);
             saveToken(res.data.data.access_token);
             saveInformation(res.data.data);
             navigation.navigate("HomeScreenTaker", { modal: true });

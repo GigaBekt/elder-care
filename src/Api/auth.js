@@ -29,5 +29,17 @@ class Auth {
       },
     });
   }
+
+  regisCareGiver(formData) {
+    return this.axiosInstance({
+      method: "post",
+      url: "/auth/user/caregiver",
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  }
 }
+
 export default Auth;

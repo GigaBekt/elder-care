@@ -9,10 +9,12 @@ import { useEffect, useState } from "react";
 import { View, Text, FlatList, TouchableHighlight } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SkeletonContent from "react-native-skeleton-content";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Componenets
 import Header from "../../../components/Header";
-import Next from "../Components/Next";
+import Next from "../Components/NextDot";
+
 // CSS
 import styles from "../styles";
 
@@ -37,20 +39,21 @@ const CareTypes = ({ navigation }) => {
     }
   };
 
+  const renderIcon = (item) => {
+    if (item.icon == "Car") {
+      return <Car weight="duotone" color="#1249CB" size={32} />;
+    } else if (item.icon == "ForkKnife") {
+      return <ForkKnife weight="duotone" color="#1249CB" size={32} />;
+    } else if (item.icon == "Heart") {
+      return <Heart weight="duotone" color="#1249CB" size={32} />;
+    } else if (item.icon == "MapPinLine") {
+      return <MapPinLine weight="duotone" color="#1249CB" size={32} />;
+    } else if (item.icon == "Bathtub") {
+      return <Bathtub weight="duotone" color="#1249CB" size={32} />;
+    }
+  };
+
   const typesList = ({ item }) => {
-    const renderIcon = () => {
-      if (item.icon == "Car") {
-        return <Car weight="duotone" color="#1249CB" size={32} />;
-      } else if (item.icon == "ForkKnife") {
-        return <ForkKnife weight="duotone" color="#1249CB" size={32} />;
-      } else if (item.icon == "Heart") {
-        return <Heart weight="duotone" color="#1249CB" size={32} />;
-      } else if (item.icon == "MapPinLine") {
-        return <MapPinLine weight="duotone" color="#1249CB" size={32} />;
-      } else if (item.icon == "Bathtub") {
-        return <Bathtub weight="duotone" color="#1249CB" size={32} />;
-      }
-    };
     return (
       <TouchableHighlight underlayColor="none" onPress={() => selectType(item)}>
         <View
@@ -59,7 +62,7 @@ const CareTypes = ({ navigation }) => {
             selected.includes(item.id) ? styles.active : "",
           ]}
         >
-          <View>{renderIcon()}</View>
+          <View>{renderIcon(item)}</View>
           <View
             style={{
               marginLeft: 16,
@@ -92,9 +95,20 @@ const CareTypes = ({ navigation }) => {
     getServices();
     return () => {
       abortController.abort();
-      setLoader(true);
     };
   }, []);
+
+  const save = async () => {
+    try {
+      const jsonValue = JSON.stringify(selected);
+      await AsyncStorage.setItem("care_services", jsonValue);
+      navigation.navigate("Experiance");
+    } catch (e) {
+      console.log(e, "catch care types");
+      // saving error
+    }
+  };
+
   return (
     <SafeAreaView
       style={{
@@ -107,10 +121,12 @@ const CareTypes = ({ navigation }) => {
         <View style={{ paddingVertical: 24, paddingHorizontal: 13 }}>
           <Header navigation={navigation} name="Sign Up" />
         </View>
-        <Text style={styles.headingText}>
+        <Text style={[styles.headingText, { paddingHorizontal: 13 }]}>
           What type of care do you want to provide?
         </Text>
-        <Text style={styles.spanText}>You can select multiple</Text>
+        <Text style={[styles.spanText, { paddingHorizontal: 13 }]}>
+          You can select multiple
+        </Text>
 
         {loader ? (
           <SkeletonContent
@@ -123,10 +139,7 @@ const CareTypes = ({ navigation }) => {
               { width: "100%", height: 75, marginBottom: 14 },
               { width: "100%", height: 75, marginBottom: 14 },
             ]}
-          >
-            <Text style={styles.normalText}>Your content</Text>
-            <Text style={styles.bigText}>Other content</Text>
-          </SkeletonContent>
+          />
         ) : (
           <FlatList
             data={types}
@@ -137,7 +150,7 @@ const CareTypes = ({ navigation }) => {
         )}
       </View>
 
-      <Next active={2} navigate={() => navigation.navigate("Experiance")} />
+      <Next active={2} bgColor={selected.length > 0} navigate={() => save()} />
     </SafeAreaView>
   );
 };

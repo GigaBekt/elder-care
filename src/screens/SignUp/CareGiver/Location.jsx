@@ -9,17 +9,22 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import useDebounce from "../../../Debounce";
 // Componenets
 import Header from "../../../components/Header";
 import styles from "../styles";
-import Next from "../Components/Next";
+import Next from "../Components/NextDot";
+
 import axios from "axios";
 
 const Location = ({ navigation }) => {
   const [count, setCount] = useState(0);
   const [term, setTerm] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [open, setOpen] = useState(false);
+  const debouncedValue = useDebounce(term, 500);
 
   const counter = (type) => {
     if (type === "add") {
@@ -31,24 +36,21 @@ const Location = ({ navigation }) => {
     }
   };
 
-  const [test, setTest] = useState([]);
-
   const GOOGLE_PACES_API_BASE_URL =
     "https://maps.googleapis.com/maps/api/place";
   const getLocations = () => {
     axios
       .post(
-        `${GOOGLE_PACES_API_BASE_URL}/autocomplete/json?key=AIzaSyDybpu6XDK1m_pdDmIMM86bEwtiQ8CrUok&input=${term}`
+        `${GOOGLE_PACES_API_BASE_URL}/autocomplete/json?key=AIzaSyDybpu6XDK1m_pdDmIMM86bEwtiQ8CrUok&input=${term}&language=en`
       )
       .then((res) => {
-        setTest(res.data.predictions);
+        setSuggestions(res.data.predictions);
       })
       .catch((err) => {
         console.log(err?.response);
       });
   };
-
-  const onPredictionTapped = async (placeId, description) => {
+  const onPredictionTapped = async (placeId) => {
     const apiUrl = `${GOOGLE_PACES_API_BASE_URL}/details/json?key=AIzaSyDybpu6XDK1m_pdDmIMM86bEwtiQ8CrUok&language=en&place_id=${placeId}`;
     try {
       const result = await axios.request({
@@ -56,16 +58,21 @@ const Location = ({ navigation }) => {
         url: apiUrl,
       });
       if (result) {
-        console.log(result.data.result, "palce id");
-
         setOpen(false);
+
+        setTerm(result.data.result.formatted_address);
+        const zipCode = result.data.result.address_components.find(
+          (item) => item.types[0] === "postal_code"
+        );
+        // zipCode !== undefined && saveZipCode(zipCode.long_name);
+        // saveAddress(result.data.result.formatted_address);
+        zipCode !== undefined &&
+          saveLocation(zipCode.long_name, result.data.result.formatted_address);
       }
     } catch (e) {
       console.log(e);
     }
   };
-
-  const [open, setOpen] = useState(false);
 
   const onChange = (props) => {
     setOpen(true);
@@ -91,13 +98,29 @@ const Location = ({ navigation }) => {
     );
   };
 
-  const debouncedValue = useDebounce(term, 500);
+  const saveLocation = async (zipcode, location) => {
+    try {
+      await AsyncStorage.setItem("zipcode", zipcode);
+      await AsyncStorage.setItem("location", location);
+    } catch (e) {
+      console.log(e, "catch  save location ");
+    }
+  };
+  const saveCount = async () => {
+    try {
+      await AsyncStorage.setItem("radius", count.toString());
+    } catch (e) {
+      console.log(e, "catch  save radius ");
+    }
+  };
+  const save = () => {
+    saveCount();
+    navigation.navigate("Caretypes");
+  };
 
   useEffect(() => {
     getLocations();
   }, [debouncedValue]);
-
-  console.log(test);
 
   return (
     <SafeAreaView
@@ -126,9 +149,9 @@ const Location = ({ navigation }) => {
               <MapPin />
             </View>
 
-            {test.length > 0 && open && (
+            {suggestions.length > 0 && open && (
               <FlatList
-                data={test}
+                data={suggestions}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.place_id}
               />
@@ -173,7 +196,11 @@ const Location = ({ navigation }) => {
         </View>
       </View>
 
-      <Next active={1} navigate={() => navigation.navigate("Caretypes")} />
+      <Next
+        active={1}
+        bgColor={count > 0 && term.length > 0}
+        navigate={() => save()}
+      />
     </SafeAreaView>
   );
 };

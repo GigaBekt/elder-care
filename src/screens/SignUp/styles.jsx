@@ -81,13 +81,13 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 18,
     lineHeight: 21,
-    paddingHorizontal: 13,
+    // paddingHorizontal: 13,
   },
   box: {
     marginBottom: 24,
   },
   spanText: {
-    paddingHorizontal: 13,
+    // paddingHorizontal: 13,
     fontStyle: "normal",
     fontWeight: "400",
     fontSize: 13,

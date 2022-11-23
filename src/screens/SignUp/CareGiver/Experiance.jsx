@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { View, Text, FlatList, TouchableHighlight } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SkeletonContent from "react-native-skeleton-content";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 // Componenets
 import Header from "../../../components/Header";
-import Next from "../Components/Next";
+import Next from "../Components/NextDot";
 
 // CSS
 import styles from "../styles";
@@ -37,7 +39,6 @@ const Experiance = ({ navigation }) => {
     getExperiances();
     return () => {
       abortController.abort();
-      setLoader(true);
     };
   }, []);
   const experiances = ({ item }) => (
@@ -51,6 +52,15 @@ const Experiance = ({ navigation }) => {
       </View>
     </TouchableHighlight>
   );
+
+  const save = async () => {
+    try {
+      await AsyncStorage.setItem("care_experiences", activeDiv);
+      navigation.navigate("Details");
+    } catch (e) {
+      console.log(e, "catch  experiance location ");
+    }
+  };
   return (
     <SafeAreaView
       style={{
@@ -63,7 +73,7 @@ const Experiance = ({ navigation }) => {
         <View style={{ paddingVertical: 24, paddingHorizontal: 13 }}>
           <Header navigation={navigation} name="Sign Up" />
         </View>
-        <Text style={styles.headingText}>
+        <Text style={[styles.headingText, { paddingHorizontal: 13 }]}>
           How much paid senior caregiving experience do you have?
         </Text>
 
@@ -91,7 +101,7 @@ const Experiance = ({ navigation }) => {
         )}
       </View>
 
-      <Next active={3} navigate={() => navigation.navigate("Details")} />
+      <Next active={3} bgColor={activeDiv} navigate={() => save()} />
     </SafeAreaView>
   );
 };
