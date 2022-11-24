@@ -3,12 +3,13 @@ import { View, Text, TouchableHighlight } from "react-native";
 // CSS
 import style from "./styles";
 
-const Header = ({ props, setIndex, count, idx }) => {
+const Header = ({ setIndex, count, idx }) => {
   const data = [
     { id: 0, title: "Most Recent" },
     { id: 1, title: "urgent" },
     { id: 2, title: "active" },
   ];
+
   return (
     <View style={style.headerMainBox}>
       <View style={style.homeHeader}>

@@ -47,6 +47,7 @@ const Verify = ({ navigation, route }) => {
     try {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem("information", jsonValue);
+      await AsyncStorage.setItem("token", value.access_token);
       value?.type?.id === "eb4fe646-b515-47fd-8643-fd8081563455"
         ? navigation.navigate("HomeScreen")
         : navigation.navigate("HomeScreenTaker");

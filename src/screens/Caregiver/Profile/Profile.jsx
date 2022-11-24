@@ -1,9 +1,23 @@
-import { ArrowRight, CaretRight, CreditCard } from "phosphor-react-native";
-import { Text, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ArrowRight, CaretRight, CreditCard, SignOut } from "phosphor-react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import style from "./style";
 
-const Profile = () => {
+const Profile = ({ navigation }) => {
+  const logout = async () => {
+    try {
+      AsyncStorage.clear();
+      navigation.push("Login");
+    } catch (e) {
+      console.log(e, "eror, logout");
+    }
+  };
+  // 447458196482
+
+  // "resolutions": {
+  //   "react-native-reanimated": "^2.9.1"
+  // }
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F9FAFB" }}>
       <Text style={style.heading}>Profile</Text>
@@ -47,6 +61,23 @@ const Profile = () => {
             <CaretRight size={24} />
           </View>
         </View>
+
+        <TouchableOpacity onPress={logout} style={style.balanceBox}>
+          <View
+            style={[
+              style.singleBtn,
+              {
+                justifyContent: "space-between",
+                width: "100%",
+                paddingHorizontal: 13,
+                borderBottomWidth: 0,
+              },
+            ]}
+          >
+            <Text style={[style.profileText]}>Logout</Text>
+            <SignOut size={24} />
+          </View>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

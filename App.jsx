@@ -66,20 +66,20 @@ const App = () => {
               />
             )
           ) : (
-            <Stack.Screen name="Login" component={Auth} />
+            <Stack.Screen name="LoginComp" component={Auth} />
           )}
+
+          <Stack.Screen name="Login" component={Auth} />
           <Stack.Screen name="Caretypes" component={CareTypes} />
           <Stack.Screen name="Details" component={Details} />
           <Stack.Screen name="Upload" component={Upload} />
           <Stack.Screen name="CareGiver location" component={Location} />
           <Stack.Screen name="Experiance" component={Experiance} />
-
           <Stack.Screen
             name="HomeScreenTaker"
             component={CareTaker}
             options={{ headerShown: false }}
           />
-
           <Stack.Screen name="Verify" component={Verify} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="createTask first" component={CareTypeTask} />

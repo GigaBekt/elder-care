@@ -14,6 +14,7 @@ import Active from "./components/Active";
 import AddReview from "../../../components/AddReview/AddReview";
 import SendProposal from "../../../components/SendProposal";
 import Loader from "./Loader";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Home = ({ navigation, route }) => {
   const tasks = new Tasks();
@@ -21,9 +22,9 @@ const Home = ({ navigation, route }) => {
   const [loader, setLoader] = useState(true);
   const [isOpen, setOpen] = useState(false);
   const [id, setId] = useState("");
+  const [token, setToken] = useState("");
 
   const openModal = (id) => {
-    // console.log(id, "id");
     setId(id);
     setOpen(true);
   };
@@ -43,19 +44,6 @@ const Home = ({ navigation, route }) => {
     />
   );
 
-  const renderScene = ({ route }) => {
-    switch (route.key) {
-      case "recent":
-        return <MostRecentPage />;
-      case "urgent":
-        return <UrgentPage />;
-      case "active":
-        return <ActivePage />;
-      default:
-        return null;
-    }
-  };
-
   const [review, setReview] = useState({});
   const [openReview, setOpenReview] = useState(false);
   const [modal, setModal] = useState(false);
@@ -73,26 +61,29 @@ const Home = ({ navigation, route }) => {
       status: "started",
     },
   ];
-
   const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    { key: "recent", title: "Most Recent" },
-    { key: "urgent", title: "urgent" },
-    { key: "active", title: "active" },
-  ]);
-  const layout = useWindowDimensions();
+  const getToken = async () => {
+    try {
+      const token = await AsyncStorage.getItem("token");
+      console.log(token, "@token");
+      setToken(() => token);
+    } catch (e) {
+      console.log(e, "error phone number");
+    }
+  };
 
   useEffect(() => {
+    getToken();
     route?.params?.modal && setModal(true);
     return () => setModal(false);
   }, []);
 
   const getTasks = (type) => {
+    console.log(token, "token");
     setLoader(true);
     tasks
-      .getTasks(type, "1|0SgYZTMEPZoxWgmxnCQPVWagRaXl4rA38w25ZwXH")
+      .getTasks(type, token)
       .then((res) => {
-        console.log("running fatch,");
         if (res.status === 200) {
           setData(res.data.data);
         }
@@ -123,28 +114,11 @@ const Home = ({ navigation, route }) => {
         close={() => setOpenReview(false)}
       />
 
-      <View style={{ flex: 1, backgroundColor: "#F9FAFB", paddingTop: 50 }}>
+      <View style={{ flex: 1, backgroundColor: "#F9FAFB", paddingTop: 0 }}>
         <Header idx={index} setIndex={setIndex} count={1} />
         {index === 0 && MostRecentPage()}
         {index === 1 && UrgentPage()}
         {index === 2 && ActivePage()}
-
-        {/* <TabView
-          // lazy
-          swipeEnabled={false}
-          onTabPress={(props) => console.log(props)}
-          renderTabBar={(props) => (
-            <Header props={props} setIndex={setIndex} count={1} />
-          )}
-          navigationState={{ index, routes }}
-          renderScene={renderScene}
-          onIndexChange={setIndex}
-          initialLayout={{ width: layout.width }}
-          getAccessibilityLabel={({ route }) => {
-            route.accessibilityLabel;
-            console.log(route, "toure");
-          }}
-        /> */}
       </View>
     </>
   );

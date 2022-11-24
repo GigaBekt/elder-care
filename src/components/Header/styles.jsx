@@ -92,7 +92,6 @@ const styles = StyleSheet.create({
   headerMainBox: {
     backgroundColor: "#fff",
     paddingHorizontal: 13,
-
     borderBottomColor: "#E5E7EB",
     borderBottomWidth: 1,
     paddingTop: 50,
