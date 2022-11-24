@@ -5,10 +5,10 @@ import {
   TextInput,
   TouchableHighlight,
   View,
+  SafeAreaView,
 } from "react-native";
 import ModalHeader from "../../components/Header/ModalHeader";
 import { useEffect, useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 // Components
 import Input from "./Components/Input";
 import Details from "./Components/Details";
@@ -31,6 +31,17 @@ const SendProposal = ({ item, show, close }) => {
     return () => setActive(false);
   }, [price]);
 
+  // const getTaskInfo = () => {
+
+  // }
+  useEffect(() => {
+    if (show) {
+      // console.log(item, "item");
+    }
+  }, [show]);
+
+  const send = () => {};
+
   return (
     <Modal
       animationType="slide"
@@ -43,7 +54,7 @@ const SendProposal = ({ item, show, close }) => {
           <View style={{ paddingHorizontal: 13, paddingVertical: 24 }}>
             <ModalHeader name="Send Proposal" close={close} />
             <Text style={style.heading}>Task Details</Text>
-            <Details />
+            <Details item={item} />
           </View>
           <View style={style.line} />
           <View style={{ paddingHorizontal: 13 }}>
@@ -55,6 +66,7 @@ const SendProposal = ({ item, show, close }) => {
           </View>
         </ScrollView>
         <TouchableHighlight
+          onPress={() => send()}
           style={[style.btn, active && { backgroundColor: "#031647" }]}
         >
           <Text style={style.btnText}>Submit</Text>

@@ -27,8 +27,6 @@ import styles from "./styles";
 const CELL_COUNT = 5;
 const Verify = ({ navigation, route }) => {
   const auth = new Auth();
-  const [password, setPassword] = useState("");
-  const [full, setFull] = useState(false);
   const [number, setNumber] = useState("");
   const [counter, setCounter] = useState(20);
 
@@ -49,7 +47,9 @@ const Verify = ({ navigation, route }) => {
     try {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem("information", jsonValue);
-      navigation.navigate("HomeScreenTaker");
+      value?.type?.id === "eb4fe646-b515-47fd-8643-fd8081563455"
+        ? navigation.navigate("HomeScreen")
+        : navigation.navigate("HomeScreenTaker");
     } catch (e) {
       console.log(e, "save info");
     }
@@ -113,11 +113,7 @@ const Verify = ({ navigation, route }) => {
           renderCell={({ index, symbol, isFocused }) => (
             <View
               key={index}
-              style={[
-                styles.cell,
-                isFocused && styles.focusCell,
-                full && { backgroundColor: "reed" },
-              ]}
+              style={[styles.cell, isFocused && styles.focusCell]}
               onLayout={getCellOnLayoutHandler(index)}
             >
               <Text style={styles.textCell}>

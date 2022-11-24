@@ -5,10 +5,10 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  SafeAreaView,
+  Image,
 } from "react-native";
-import StarRating from "react-native-star-rating-widget";
 
-import { SafeAreaView } from "react-native-safe-area-context";
 // Components
 import ModalHeader from "../Header/ModalHeader";
 import Box from "./Box";
@@ -19,11 +19,33 @@ import style from "../Job/style";
 import { useState } from "react";
 
 const AddReview = ({ item, show, close }) => {
-  const [count, setCounter] = useState(0);
   const [review, setReview] = useState("");
+  const [defaultRating, setDefaultRating] = useState(2);
+  const [maxRating] = useState([1, 2, 3, 4, 5]);
 
-  const onStarRatingPress = (rating) => {
-    setCounter(rating);
+  const CustomRatingBar = () => {
+    return (
+      <View style={style.customRatingBarStyle}>
+        {maxRating.map((item) => {
+          return (
+            <TouchableOpacity
+              activeOpacity={0.7}
+              key={item}
+              onPress={() => setDefaultRating(item)}
+            >
+              <Image
+                style={style.starImageStyle}
+                source={
+                  item <= defaultRating
+                    ? require("../../Assets/Vector.png")
+                    : require("../../Assets/VectorEmpty.png")
+                }
+              />
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+    );
   };
 
   return (
@@ -58,19 +80,7 @@ const AddReview = ({ item, show, close }) => {
           </Text>
 
           <View style={{ paddingHorizontal: 66 }}>
-            <StarRating
-              rating={2}
-              // onChange={setRating}
-            />
-            {/* <StarRating
-              disabled={false}
-              emptyStar={require("../../Assets/VectorEmpty.png")}
-              fullStar={require("../../Assets/Vector.png")}
-              maxStars={5}
-              rating={count}
-              selectedStar={(rating) => onStarRatingPress(rating)}
-              starSize={44}
-            /> */}
+            <CustomRatingBar />
           </View>
 
           <View style={{ marginTop: 29, paddingHorizontal: 13 }}>

@@ -98,5 +98,15 @@ const style = StyleSheet.create({
     color: "#4B5563",
     marginTop: 16,
   },
+  customRatingBarStyle: {
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  starImageStyle: {
+    width: 44,
+    height: 44,
+    marginRight: 12,
+    resizeMode: "cover",
+  },
 });
 export default style;

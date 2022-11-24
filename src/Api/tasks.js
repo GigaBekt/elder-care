@@ -6,7 +6,6 @@ class Tasks {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
-
   myTasks(token) {
     return api.getAxiosInstance().get(`/tasks`, {
       headers: { Authorization: `Bearer ${token}` },

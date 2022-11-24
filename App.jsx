@@ -2,7 +2,6 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-// import { StatusBar } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Screens
@@ -34,17 +33,13 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [authorized, setAuthorized] = React.useState(false);
-  const getTasks = async () => {
-    const information = await AsyncStorage.getItem("token");
-    console.log(information, "@");
+  const [info, setInfo] = React.useState({});
 
+  const getTasks = async () => {
+    const information = await AsyncStorage.getItem("information");
     if (information) {
       setAuthorized(true);
-      if (information.type.id === "eb4fe646-b515-47fd-8643-fd8081563455") {
-        console.log("care giver ");
-      } else {
-        console.log("care taker");
-      }
+      setInfo(JSON.parse(information));
     } else setAuthorized(false);
   };
 
@@ -56,18 +51,25 @@ const App = () => {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {/* {authorized ? (
-            <Stack.Screen
-              name="HomeScreenTaker New"
-              component={CareTaker}
-              options={{ headerShown: false }}
-            />
+          {authorized ? (
+            info?.type?.id === "eb4fe646-b515-47fd-8643-fd8081563455" ? (
+              <Stack.Screen
+                name="HomeScreenFirst"
+                component={Caregiver}
+                options={{ headerShown: false }}
+              />
+            ) : (
+              <Stack.Screen
+                name="HomeScreenTakerFirst"
+                component={CareTaker}
+                options={{ headerShown: false }}
+              />
+            )
           ) : (
-            <Stack.Screen name="Login New" component={Auth} />
-          )} */}
+            <Stack.Screen name="Login" component={Auth} />
+          )}
           <Stack.Screen name="Caretypes" component={CareTypes} />
           <Stack.Screen name="Details" component={Details} />
-          <Stack.Screen name="Login" component={Auth} />
           <Stack.Screen name="Upload" component={Upload} />
           <Stack.Screen name="CareGiver location" component={Location} />
           <Stack.Screen name="Experiance" component={Experiance} />
@@ -91,7 +93,7 @@ const App = () => {
           <Stack.Screen name="CareTaker location" component={LocationTaker} />
           <Stack.Screen name="Details Taker" component={DetailsTaker} />
           <Stack.Screen name="message details" component={MessageDetails} />
-          <Stack.Screen component={SendProposal} name="SendProposal" />
+          <Stack.Screen name="SendProposal" component={SendProposal} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

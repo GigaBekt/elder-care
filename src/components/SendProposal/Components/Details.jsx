@@ -12,11 +12,7 @@ const Details = ({ item }) => {
       </View>
 
       <View style={style.body}>
-        <Text style={style.bodyText}>
-          Personal care tasks may not be performed at this level. Level II –
-          Home Management Personal Home Aide Services at this level are intended
-          to provide support to individuals
-        </Text>
+        <Text style={style.bodyText}>{item.description}</Text>
       </View>
 
       <View style={style.footer}>

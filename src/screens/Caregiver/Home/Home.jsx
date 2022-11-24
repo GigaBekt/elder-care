@@ -21,7 +21,9 @@ const Home = ({ navigation, route }) => {
   const [loader, setLoader] = useState(true);
   const [isOpen, setOpen] = useState(false);
   const [id, setId] = useState("");
+
   const openModal = (id) => {
+    // console.log(id, "id");
     setId(id);
     setOpen(true);
   };
