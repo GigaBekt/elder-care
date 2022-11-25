@@ -1,5 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ArrowRight, CaretRight, CreditCard, SignOut } from "phosphor-react-native";
+import {
+  ArrowRight,
+  CaretRight,
+  CreditCard,
+  SignOut,
+} from "phosphor-react-native";
 import { Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import style from "./style";

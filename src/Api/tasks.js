@@ -20,7 +20,7 @@ class Tasks {
     token
   ) {
     return api.getAxiosInstance().post(
-      "/tasks",
+      "/caretaker/tasks",
       {
         datetime,
         duration_minutes,

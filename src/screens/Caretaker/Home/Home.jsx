@@ -70,21 +70,22 @@ const Home = ({ navigation, route, openModal }) => {
         </View>
 
         {loader ? (
-          <SkeletonContent
-            containerStyle={{
-              flex: 1,
-              width: "100%",
-              marginTop: 24,
-              paddingHorizontal: 13,
-            }}
-            duration={1500}
-            layout={[
-              { width: "100%", height: 144, marginBottom: 12 },
-              { width: "100%", height: 144, marginBottom: 12 },
-              { width: "100%", height: 144, marginBottom: 12 },
-              { width: "100%", height: 144, marginBottom: 12 },
-            ]}
-          />
+          // <SkeletonContent
+          //   containerStyle={{
+          //     flex: 1,
+          //     width: "100%",
+          //     marginTop: 24,
+          //     paddingHorizontal: 13,
+          //   }}
+          //   duration={1500}
+          //   layout={[
+          //     { width: "100%", height: 144, marginBottom: 12 },
+          //     { width: "100%", height: 144, marginBottom: 12 },
+          //     { width: "100%", height: 144, marginBottom: 12 },
+          //     { width: "100%", height: 144, marginBottom: 12 },
+          //   ]}
+          // />
+          <Text>loading..</Text>
         ) : data.length > 0 ? (
           <FlatList
             style={{ paddingTop: 16 }}

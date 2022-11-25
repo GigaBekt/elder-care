@@ -49,6 +49,7 @@ const HomeScreen = ({ route }) => {
   useEffect(() => {
     route?.params?.modal && setVisible(true);
   }, []);
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({

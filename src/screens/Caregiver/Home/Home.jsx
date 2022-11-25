@@ -79,17 +79,18 @@ const Home = ({ navigation, route }) => {
   }, []);
 
   const getTasks = (type) => {
-    console.log(token, "token");
     setLoader(true);
-    tasks
-      .getTasks(type, token)
-      .then((res) => {
-        if (res.status === 200) {
-          setData(res.data.data);
-        }
-      })
-      .catch((err) => console.log(err?.response))
-      .finally(() => setLoader(false));
+    token.length > 0 &&
+      tasks
+        .getTasks(type, token)
+        .then((res) => {
+          if (res.status === 200) {
+            console.log(res.data, "res data");
+            setData(res.data.data);
+          }
+        })
+        .catch((err) => console.log(err?.response))
+        .finally(() => setLoader(false));
   };
 
   useEffect(() => {
@@ -101,7 +102,7 @@ const Home = ({ navigation, route }) => {
       console.log("canceld");
     }
     return () => abortController.abort();
-  }, [index]);
+  }, [index, token]);
 
   return (
     <>
@@ -116,7 +117,7 @@ const Home = ({ navigation, route }) => {
 
       <View style={{ flex: 1, backgroundColor: "#F9FAFB", paddingTop: 0 }}>
         <Header idx={index} setIndex={setIndex} count={1} />
-        {index === 0 && MostRecentPage()}
+        {/* {index === 0 && MostRecentPage()} */}
         {index === 1 && UrgentPage()}
         {index === 2 && ActivePage()}
       </View>

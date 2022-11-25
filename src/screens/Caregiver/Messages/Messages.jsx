@@ -8,12 +8,12 @@ import {
   TouchableOpacity,
   Pressable,
 } from "react-native";
-import {
-  Placeholder,
-  PlaceholderMedia,
-  PlaceholderLine,
-  Fade,
-} from "rn-placeholder";
+// import {
+//   Placeholder,
+//   PlaceholderMedia,
+//   PlaceholderLine,
+//   Fade,
+// } from "rn-placeholder";
 
 import style from "../../../components/Header/styles";
 import messageStyle from "./style";
@@ -135,7 +135,8 @@ const Messages = () => {
         <View style={{ backgroundColor: "#F9FAFB", paddingHorizontal: 13 }}>
           {loader ? (
             <>
-              <Placeholder
+              <Text>loading..</Text>
+              {/* <Placeholder
                 style={{ marginTop: 24 }}
                 Animation={Fade}
                 Left={(props) => (
@@ -154,7 +155,7 @@ const Messages = () => {
               >
                 <PlaceholderLine width={30} />
                 <PlaceholderLine width={100} />
-              </Placeholder>
+              </Placeholder> */}
             </>
           ) : (
             <FlatList
