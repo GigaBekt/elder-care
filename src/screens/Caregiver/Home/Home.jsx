@@ -79,6 +79,7 @@ const Home = ({ navigation, route }) => {
   }, []);
 
   const getTasks = (type) => {
+    console.log("get tasks running");
     setLoader(true);
     token.length > 0 &&
       tasks
@@ -99,6 +100,7 @@ const Home = ({ navigation, route }) => {
     } else if (index === 1) {
       getTasks("urgent");
     } else if (index === 2) {
+      abortController.abort();
       console.log("canceld");
     }
     return () => abortController.abort();
@@ -117,7 +119,7 @@ const Home = ({ navigation, route }) => {
 
       <View style={{ flex: 1, backgroundColor: "#F9FAFB", paddingTop: 0 }}>
         <Header idx={index} setIndex={setIndex} count={1} />
-        {/* {index === 0 && MostRecentPage()} */}
+        {index === 0 && MostRecentPage()}
         {index === 1 && UrgentPage()}
         {index === 2 && ActivePage()}
       </View>

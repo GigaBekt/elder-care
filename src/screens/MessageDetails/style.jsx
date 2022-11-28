@@ -23,6 +23,8 @@ const styles = StyleSheet.create({
   },
   mainBox: {
     paddingHorizontal: 13,
+    // maxHeight: "86%",
+    // paddingBottom: 240,
   },
   infoText: {
     flexDirection: "row",
@@ -60,11 +62,11 @@ const styles = StyleSheet.create({
   },
   inputBox: {
     backgroundColor: "#fff",
-    height: 60,
+    height: 80,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 12,
+    paddingHorizontal: 13,
   },
   input: {
     width: "85%",

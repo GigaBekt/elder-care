@@ -26,15 +26,15 @@ const Messages = ({ navigation }) => {
     console.log(props);
     setLoader(false);
     // axios
-    // .get("https://jsonplaceholder.typicode.com/posts")
-    // .then((res) => {
-    //   if (res.status === 200) {
-    //     console.log(res);
-    //     setData(res.data);
-    //   }
-    // })
-    // .catch((err) => console.log(err?.response))
-    // .finally(() => setLoader(false));
+    //   .get("https://jsonplaceholder.typicode.com/posts")
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       console.log(res);
+    //       setData(res.data);
+    //     }
+    //   })
+    //   .catch((err) => console.log(err?.response))
+    //   .finally(() => setLoader(false));
   };
   const onChange = (props) => {
     setLoader(true);

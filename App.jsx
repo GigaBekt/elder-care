@@ -34,6 +34,7 @@ import CareTypeTask from "./src/screens/CreateTask/components/CareTypes";
 import TaskDuration from "./src/screens/CreateTask/components/Duration";
 import TaskDetails from "./src/screens/CreateTask/components/Details";
 import MessageDetails from "./src/screens/MessageDetails/MessageDetails";
+import { StatusBar } from "expo-status-bar";
 
 const Stack = createNativeStackNavigator();
 
@@ -99,6 +100,7 @@ const App = () => {
   }, []);
   return (
     <SafeAreaProvider>
+      <StatusBar style={"dark"} />
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           {authorized ? (

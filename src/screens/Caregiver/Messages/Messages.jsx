@@ -18,7 +18,7 @@ import {
 import style from "../../../components/Header/styles";
 import messageStyle from "./style";
 
-const Messages = () => {
+const Messages = ({ navigation }) => {
   const abortController = new AbortController();
   const [loader, setLoader] = useState(true);
   const [data, setData] = useState([
@@ -42,7 +42,7 @@ const Messages = () => {
     },
   ]);
   const renderItem = ({ item, index }) => (
-    <Pressable onPress={() => console.log("click", item.id)}>
+    <Pressable onPress={() => navigation.navigate("message details")}>
       <View
         style={[
           messageStyle.messageMainBox,
@@ -72,13 +72,13 @@ const Messages = () => {
 
   const getMessages = (props) => {
     setLoader(true);
-    // axios
-    //   .get("https://jsonplaceholder.typicode.com/comments/100")
-    //   .then((res) => {
-    //     return;
-    //   })
-    //   .catch((err) => console.log(err?.response))
-    //   .finally(() => setLoader(false));
+    axios
+      .get("https://jsonplaceholder.typicode.com/comments/100")
+      .then((res) => {
+        return;
+      })
+      .catch((err) => console.log(err?.response))
+      .finally(() => setLoader(false));
   };
   const onChange = (props) => {
     setActive(props);
