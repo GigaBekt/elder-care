@@ -85,7 +85,7 @@ const SignUp = ({ navigation }) => {
                   activeId === item.id ? styles.active : "",
                 ]}
               >
-                {item.id !== "eb4fe646-b515-47fd-8643-fd8081563455"
+                {item.id === "eb4fe646-b515-47fd-8643-fd8081563455"
                   ? Heart()
                   : Handshake()}
 
@@ -94,8 +94,16 @@ const SignUp = ({ navigation }) => {
                     marginLeft: 16,
                   }}
                 >
-                  <Text style={styles.textHeader}>{item.name}</Text>
-                  <Text style={styles.text}>{item.description}</Text>
+                  <Text style={styles.textHeader}>
+                    {item.id === "eb4fe646-b515-47fd-8643-fd8081563455"
+                      ? "I need a caregiver"
+                      : "I want a care job"}
+                  </Text>
+                  <Text style={styles.text}>
+                    {item.id === "eb4fe646-b515-47fd-8643-fd8081563455"
+                      ? "Start your free search for care in your area."
+                      : "Create a profile and search for jobs."}
+                  </Text>
                 </View>
               </View>
             </TouchableHighlight>

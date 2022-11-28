@@ -59,15 +59,16 @@ const Location = ({ navigation }) => {
       });
       if (result) {
         setOpen(false);
-
         setTerm(result.data.result.formatted_address);
         const zipCode = result.data.result.address_components.find(
           (item) => item.types[0] === "postal_code"
         );
-        // zipCode !== undefined && saveZipCode(zipCode.long_name);
-        // saveAddress(result.data.result.formatted_address);
-        zipCode !== undefined &&
-          saveLocation(zipCode.long_name, result.data.result.formatted_address);
+        const latLong = result.data.result.geometry.location;
+        saveLocation(
+          zipCode?.long_name || "",
+          result.data.result.formatted_address,
+          latLong
+        );
       }
     } catch (e) {
       console.log(e);
@@ -98,10 +99,13 @@ const Location = ({ navigation }) => {
     );
   };
 
-  const saveLocation = async (zipcode, location) => {
+  const saveLocation = async (zipcode, location, latLong) => {
+    console.log(zipcode, location, latLong, "save location fnc");
     try {
       await AsyncStorage.setItem("zipcode", zipcode);
       await AsyncStorage.setItem("location", location);
+      const jsonLatLong = JSON.stringify(latLong);
+      await AsyncStorage.setItem("latLong", jsonLatLong);
     } catch (e) {
       console.log(e, "catch  save location ");
     }

@@ -45,7 +45,6 @@ Notifications.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
-// Navigation.getCurrentScreen()
 
 const App = () => {
   // const [route, setRoute] = useState(false);
@@ -65,13 +64,6 @@ const App = () => {
   useEffect(() => {
     getInfo();
   }, []);
-
-  // const navigationRef = useNavigationContainerRef();
-  // const route = navigationRef?.getCurrentRoute();
-
-  // useEffect(() => {
-  //   route && console.log(route, "route");
-  // }, [route]);
 
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) =>
@@ -120,11 +112,10 @@ const App = () => {
           ) : (
             <Stack.Screen name="LoginComp" component={Auth} />
           )}
-
+          <Stack.Screen name="Upload" component={Upload} />
           <Stack.Screen name="Login" component={Auth} />
           <Stack.Screen name="Caretypes" component={CareTypes} />
           <Stack.Screen name="Details" component={Details} />
-          <Stack.Screen name="Upload" component={Upload} />
           <Stack.Screen name="CareGiver location" component={Location} />
           <Stack.Screen name="Experiance" component={Experiance} />
           <Stack.Screen

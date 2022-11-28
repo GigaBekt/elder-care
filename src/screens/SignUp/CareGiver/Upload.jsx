@@ -78,6 +78,9 @@ const Upload = ({ navigation }) => {
       const addInfo = await AsyncStorage.getItem("addInfo");
       const newAddInfo = JSON.parse(addInfo);
 
+      const get_lat_long = await AsyncStorage.getItem("addInfo");
+      const LatLong = JSON.parse(get_lat_long);
+
       newAddInfo.forEach((elem) =>
         data.append(`profile[${elem.name}]`, elem.checked ? 1 : 0)
       );
@@ -107,6 +110,8 @@ const Upload = ({ navigation }) => {
         name: "image.jpg",
         uri: selectedImage,
       });
+      data.append("location[longitude]", LatLong.lng);
+      data.append("location[latitude]", LatLong.lat);
 
       auth
         .regisCareGiver(data)
@@ -120,7 +125,6 @@ const Upload = ({ navigation }) => {
           console.log(res.data.data);
         })
         .catch((err) => console.log(err?.response));
-      // navigation.navigate("HomeScreen", { modal: true });
     } catch (e) {
       console.log(e, "catch");
     }
