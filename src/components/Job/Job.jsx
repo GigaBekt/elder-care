@@ -16,7 +16,7 @@ const Job = ({ item, openModal }) => {
     <>
       <TouchableHighlight
         underlayColor="none"
-        onPress={() => openModal(item?.id)}
+        onPress={() => openModal(item)}
         style={style.box}
       >
         <>

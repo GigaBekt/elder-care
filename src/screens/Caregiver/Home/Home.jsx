@@ -21,11 +21,12 @@ const Home = ({ navigation, route }) => {
   const abortController = new AbortController();
   const [loader, setLoader] = useState(true);
   const [isOpen, setOpen] = useState(false);
-  const [id, setId] = useState("");
+  const [information, setInformation] = useState({});
   const [token, setToken] = useState("");
 
-  const openModal = (id) => {
-    setId(id);
+  const openModal = (item) => {
+    console.log(item, "item");
+    setInformation(item);
     setOpen(true);
   };
   const MostRecentPage = () =>
@@ -79,7 +80,6 @@ const Home = ({ navigation, route }) => {
   }, []);
 
   const getTasks = (type) => {
-    console.log("get tasks running");
     setLoader(true);
     token.length > 0 &&
       tasks
@@ -100,15 +100,18 @@ const Home = ({ navigation, route }) => {
     } else if (index === 1) {
       getTasks("urgent");
     } else if (index === 2) {
-      abortController.abort();
-      console.log("canceld");
+      getTasks("active");
     }
     return () => abortController.abort();
   }, [index, token]);
 
   return (
     <>
-      <SendProposal item={id} show={isOpen} close={() => setOpen(false)} />
+      <SendProposal
+        item={information}
+        show={isOpen}
+        close={() => setOpen(false)}
+      />
 
       <Hobbies show={modal} close={setModal} />
       <AddReview

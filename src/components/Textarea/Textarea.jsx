@@ -1,6 +1,6 @@
 import { TextInput, View, StyleSheet } from "react-native";
 
-const Textarea = ({ setText, value, placeholder }) => {
+const Textarea = ({ setText, value, placeholder, placeholderTextColor }) => {
   return (
     <View style={style.textarea}>
       <TextInput
@@ -9,7 +9,7 @@ const Textarea = ({ setText, value, placeholder }) => {
         onChangeText={(text) => setText(text)}
         multiline={true}
         style={{ minHeight: 140 }}
-        place
+        placeholderTextColor={placeholderTextColor}
       />
     </View>
   );

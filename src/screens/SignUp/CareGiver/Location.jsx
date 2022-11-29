@@ -148,6 +148,7 @@ const Location = ({ navigation }) => {
                 onChangeText={(text) => onChange(text)}
                 style={{ width: "90%" }}
                 placeholder="Enter Address"
+                placeholderTextColor="#9CA3AF"
               />
               <MapPin />
             </View>

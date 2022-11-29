@@ -5,6 +5,8 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -12,7 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // Componenets
 import Header from "../../../components/Header";
 import Next from "./Next";
-import { MapPin, Minus, Plus } from "phosphor-react-native";
+import { MapPin } from "phosphor-react-native";
 import useDebounce from "../../../Debounce";
 import Textarea from "../../../components/Textarea/Textarea";
 
@@ -122,92 +124,108 @@ const Details = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView
-      style={{
-        backgroundColor: "#f9fafb",
-        flex: 1,
-        justifyContent: "space-between",
-      }}
+    <KeyboardAvoidingView
+      keyboardDismissMode="on-drag"
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      // behavior="padding"
+      style={{ flex: 1 }}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      // contentContainerStyle={styles.container}
+      scrollEnabled={false}
     >
-      <ScrollView style={{ paddingHorizontal: 13 }}>
-        <View style={{ paddingVertical: 24 }}>
-          <Header navigation={navigation} name="Sign Up" />
-        </View>
-        <Text style={[styles.headingText, { paddingHorizontal: 0 }]}>
-          Give us more details
-        </Text>
-
-        <View style={{ marginTop: 24 }}>
-          <Textarea
-            placeholder="Details..."
-            value={details}
-            setText={setDetails}
-          />
-        </View>
-
-        <View style={{ marginTop: 8 }}>
-          <View style={styles.singleBoxList}>
-            <View style={styles.circle} />
-            <Text style={styles.listText}>First example of message</Text>
-          </View>
-
-          <View style={styles.singleBoxList}>
-            <View style={styles.circle} />
-            <Text style={styles.listText}>Second example goes here</Text>
-          </View>
-
-          <View style={styles.singleBoxList}>
-            <View style={styles.circle} />
-            <Text style={styles.listText}>
-              Third message example can go here
+      <SafeAreaView
+        style={{
+          backgroundColor: "#f9fafb",
+          flex: 1,
+          // justifyContent: "space-between",
+        }}
+      >
+        <View style={{ flex: 1 }}>
+          <ScrollView style={{ paddingHorizontal: 13 }}>
+            <View style={{ paddingVertical: 24 }}>
+              <Header navigation={navigation} name="Sign Up" />
+            </View>
+            <Text style={[styles.headingText, { paddingHorizontal: 0 }]}>
+              Give us more details
             </Text>
-          </View>
-        </View>
-        <Text
-          style={[styles.headingText, { paddingHorizontal: 0, marginTop: 24 }]}
-        >
-          Care Location
-        </Text>
-        <Text style={styles.paraText}>Set location of the job</Text>
 
-        <View style={styles.textInput}>
-          <TextInput
-            value={term}
-            onChangeText={(text) => onChange(text)}
-            style={{ width: "90%" }}
-            placeholder="Enter Address"
-          />
-          <MapPin />
-        </View>
+            <View style={{ marginTop: 24 }}>
+              <Textarea
+                placeholder="Details..."
+                value={details}
+                setText={setDetails}
+                placeholderTextColor="#9CA3AF"
+              />
+            </View>
 
-        {list.length > 0 &&
-          open &&
-          list.map((item, index) => (
-            <TouchableOpacity
-              key={index}
-              style={{
-                marginTop: 10,
-                paddingVertical: 10,
-                paddingHorizontal: 10,
-                borderWidth: 1,
-                borderColor: "#D1D5DB",
-                borderRadius: 8,
-              }}
-              onPress={() => {
-                onPredictionTapped(item.place_id, item.description);
-              }}
+            <View style={{ marginTop: 8 }}>
+              <View style={styles.singleBoxList}>
+                <View style={styles.circle} />
+                <Text style={styles.listText}>First example of message</Text>
+              </View>
+
+              <View style={styles.singleBoxList}>
+                <View style={styles.circle} />
+                <Text style={styles.listText}>Second example goes here</Text>
+              </View>
+
+              <View style={styles.singleBoxList}>
+                <View style={styles.circle} />
+                <Text style={styles.listText}>
+                  Third message example can go here
+                </Text>
+              </View>
+            </View>
+            <Text
+              style={[
+                styles.headingText,
+                { paddingHorizontal: 0, marginTop: 24 },
+              ]}
             >
-              <Text>{item.description}</Text>
-            </TouchableOpacity>
-          ))}
-      </ScrollView>
+              Care Location
+            </Text>
+            <Text style={styles.paraText}>Set location of the job</Text>
 
-      <Next
-        active={3}
-        bgColor={details.length > 0 && term.length > 0}
-        navigate={() => createTask()}
-      />
-    </SafeAreaView>
+            <View style={styles.textInput}>
+              <TextInput
+                value={term}
+                onChangeText={(text) => onChange(text)}
+                style={{ width: "90%" }}
+                placeholder="Enter Address"
+                placeholderTextColor="#9CA3AF"
+              />
+              <MapPin />
+            </View>
+
+            {list.length > 0 &&
+              open &&
+              list.map((item, index) => (
+                <TouchableOpacity
+                  key={index}
+                  style={{
+                    marginTop: 10,
+                    paddingVertical: 10,
+                    paddingHorizontal: 10,
+                    borderWidth: 1,
+                    borderColor: "#D1D5DB",
+                    borderRadius: 8,
+                  }}
+                  onPress={() => {
+                    onPredictionTapped(item.place_id, item.description);
+                  }}
+                >
+                  <Text>{item.description}</Text>
+                </TouchableOpacity>
+              ))}
+          </ScrollView>
+          <Next
+            active={3}
+            bgColor={details.length > 0 && term.length > 0}
+            navigate={() => createTask()}
+          />
+        </View>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 export default Details;

@@ -2,12 +2,12 @@ import { api } from "./api";
 
 class Tasks {
   getTasks(mode, token) {
-    return api.getAxiosInstance().get(`/tasks/${mode}`, {
+    return api.getAxiosInstance().get(`/caregiver/tasks/${mode}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
   }
   myTasks(token) {
-    return api.getAxiosInstance().get(`/tasks`, {
+    return api.getAxiosInstance().get(`/caretaker/tasks`, {
       headers: { Authorization: `Bearer ${token}` },
     });
   }

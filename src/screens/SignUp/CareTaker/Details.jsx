@@ -143,6 +143,7 @@ const Details = ({ navigation }) => {
               placeholder="Your name"
               value={name}
               onChangeText={(text) => setName(text)}
+              placeholderTextColor="#9CA3AF"
             />
           </View>
           <View>
@@ -151,6 +152,7 @@ const Details = ({ navigation }) => {
               placeholder="Your lastname"
               value={lastname}
               onChangeText={(text) => setLastname(text)}
+              placeholderTextColor="#9CA3AF"
             />
           </View>
         </View>
