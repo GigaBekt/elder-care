@@ -62,11 +62,14 @@ const style = StyleSheet.create({
     borderBottomColor: "#E5E7EB",
     borderBottomWidth: 1,
     paddingVertical: 16,
+    paddingHorizontal: 12,
+    marginTop: 12,
+    backgroundColor: "#fff",
   },
   nav: {
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
     // paddingVertical: 18,
-    paddingHorizontal: 12,
+    // paddingHorizontal: 12,
     paddingBottom: 6,
     shadowColor: "#000",
     shadowOffset: {

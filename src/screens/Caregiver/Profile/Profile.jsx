@@ -7,6 +7,9 @@ import {
 } from "phosphor-react-native";
 import { Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+
+// CSS
 import style from "./style";
 
 const Profile = ({ navigation }) => {
@@ -18,11 +21,7 @@ const Profile = ({ navigation }) => {
       console.log(e, "eror, logout");
     }
   };
-  // 447458196482
 
-  // "resolutions": {
-  //   "react-native-reanimated": "^2.9.1"
-  // }
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F9FAFB" }}>
       <Text style={style.heading}>Profile</Text>

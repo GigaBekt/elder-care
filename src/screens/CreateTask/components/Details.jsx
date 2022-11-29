@@ -30,6 +30,9 @@ const Details = ({ navigation }) => {
   const [zipCode, setZipCode] = useState("");
   const [latlng, setLatLng] = useState({});
 
+  const postUrl = process.env.BASE_URL;
+
+  console.log(postUrl);
   const GOOGLE_PACES_API_BASE_URL =
     "https://maps.googleapis.com/maps/api/place";
   const getLocations = () => {
@@ -87,10 +90,10 @@ const Details = ({ navigation }) => {
       const duration = await AsyncStorage.getItem("duration");
       const careServiceId = await AsyncStorage.getItem("care_service_id");
       const location = {
-        zip: zipCode?.long_name || "",
+        zip: zipCode?.long_name || null,
         address: term,
-        longitude: latlng.lng,
-        latitude: latlng.lat,
+        longitude: latlng.lng.toString(),
+        latitude: latlng.lat.toString(),
       };
       console.log(token, "token");
       if (dateTime && careServiceId && duration !== null) {
