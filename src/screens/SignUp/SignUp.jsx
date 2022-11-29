@@ -53,7 +53,7 @@ const SignUp = ({ navigation }) => {
   const next = () => {
     saveId(activeId);
     if (activeId.length > 0) {
-      activeId === "eb4fe646-b515-47fd-8643-fd8081563455"
+      activeId !== "eb4fe646-b515-47fd-8643-fd8081563455"
         ? navigation.navigate("CareGiver location")
         : navigation.navigate("CareTaker location");
     }

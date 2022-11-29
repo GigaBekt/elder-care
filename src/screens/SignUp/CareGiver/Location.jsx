@@ -100,7 +100,6 @@ const Location = ({ navigation }) => {
   };
 
   const saveLocation = async (zipcode, location, latLong) => {
-    console.log(zipcode, location, latLong, "save location fnc");
     try {
       await AsyncStorage.setItem("zipcode", zipcode);
       await AsyncStorage.setItem("location", location);

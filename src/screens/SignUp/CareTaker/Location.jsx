@@ -28,23 +28,17 @@ const Location = ({ navigation }) => {
   const GOOGLE_PACES_API_BASE_URL =
     "https://maps.googleapis.com/maps/api/place";
 
-  const saveZipCode = async (value) => {
+  const saveLocation = async (zipcode, location, latLong) => {
     try {
-      await AsyncStorage.setItem("zipcode", value);
-      console.log(value, "zipcode");
+      await AsyncStorage.setItem("zipcode", zipcode);
+      await AsyncStorage.setItem("location", location);
+      const jsonLatLong = JSON.stringify(latLong);
+      await AsyncStorage.setItem("latLong", jsonLatLong);
     } catch (e) {
-      console.log(e, "zipcode");
-      // save error
+      console.log(e, "catch  save location ");
     }
   };
-  const saveAddress = async (value) => {
-    try {
-      await AsyncStorage.setItem("location", value);
-      console.log(value, "location");
-    } catch (e) {
-      console.log(e, "location");
-    }
-  };
+
   const getLocations = () => {
     axios
       .post(
@@ -70,8 +64,13 @@ const Location = ({ navigation }) => {
         const zipCode = result.data.result.address_components.find(
           (item) => item.types[0] === "postal_code"
         );
-        zipCode !== undefined && saveZipCode(zipCode.long_name);
-        saveAddress(result.data.result.formatted_address);
+        const latLong = result.data.result.geometry.location;
+        console.log(latLong, "latLong");
+        saveLocation(
+          zipCode?.long_name || "",
+          result.data.result.formatted_address,
+          latLong
+        );
       }
     } catch (e) {
       console.log(e);

@@ -66,12 +66,11 @@ const Details = ({ navigation }) => {
       const user_type_id = await AsyncStorage.getItem("user_type_id");
       const zipcode = await AsyncStorage.getItem("zipcode");
       const location = await AsyncStorage.getItem("location");
-      if (
-        phone !== null &&
-        user_type_id !== null &&
-        location !== null &&
-        zipcode !== null
-      ) {
+
+      const get_lat_long = await AsyncStorage.getItem("latLong");
+      const LatLong = JSON.parse(get_lat_long);
+
+      if (phone !== null && user_type_id !== null && location !== null) {
         const data = new FormData();
         data.append("phone_number", phone);
         data.append("user_type_id", user_type_id);
@@ -85,6 +84,8 @@ const Details = ({ navigation }) => {
           });
         data.append("location[zip]", zipcode);
         data.append("location[address]", location);
+        data.append("location[longitude]", LatLong.lng);
+        data.append("location[latitude]", LatLong.lat);
 
         auth
           .regisCareTaker(data)
@@ -94,15 +95,9 @@ const Details = ({ navigation }) => {
             navigation.navigate("HomeScreenTaker", { modal: true });
           })
           .catch((err) => console.log(err?.response));
-
-        // value previously stored
-      } else {
-        console.log("error");
-        console.log(phone, user_type_id, location, zipcode, "@@");
       }
     } catch (e) {
       console.log(e, "catch");
-      // error reading value
     }
   };
   return (

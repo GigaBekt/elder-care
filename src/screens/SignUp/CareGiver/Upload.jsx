@@ -78,7 +78,7 @@ const Upload = ({ navigation }) => {
       const addInfo = await AsyncStorage.getItem("addInfo");
       const newAddInfo = JSON.parse(addInfo);
 
-      const get_lat_long = await AsyncStorage.getItem("addInfo");
+      const get_lat_long = await AsyncStorage.getItem("latLong");
       const LatLong = JSON.parse(get_lat_long);
 
       newAddInfo.forEach((elem) =>

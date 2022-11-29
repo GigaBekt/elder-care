@@ -8,7 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import { View, Text, FlatList, TouchableHighlight } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import SkeletonContent from "react-native-skeleton-content";
+// import SkeletonContent from "react-native-skeleton-content";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // Componenets
 import Header from "../../../components/Header";
@@ -36,15 +36,15 @@ const CareTypes = ({ navigation }) => {
   };
 
   const renderIcon = (item) => {
-    if (item.icon == "Car") {
+    if (item.icon == "transportation") {
       return <Car weight="duotone" color="#1249CB" size={32} />;
-    } else if (item.icon == "ForkKnife") {
+    } else if (item.icon == "houselhold") {
       return <ForkKnife weight="duotone" color="#1249CB" size={32} />;
-    } else if (item.icon == "Heart") {
+    } else if (item.icon == "companionship") {
       return <Heart weight="duotone" color="#1249CB" size={32} />;
-    } else if (item.icon == "MapPinLine") {
+    } else if (item.icon == "mobility_assistance") {
       return <MapPinLine weight="duotone" color="#1249CB" size={32} />;
-    } else if (item.icon == "Bathtub") {
+    } else if (item.icon == "personal_care") {
       return <Bathtub weight="duotone" color="#1249CB" size={32} />;
     }
   };
@@ -117,17 +117,18 @@ const CareTypes = ({ navigation }) => {
         </Text>
 
         {loader ? (
-          <SkeletonContent
-            containerStyle={{ flex: 1, width: "100%", marginTop: 24 }}
-            duration={1500}
-            layout={[
-              { width: "100%", height: 75, marginBottom: 14 },
-              { width: "100%", height: 75, marginBottom: 14 },
-              { width: "100%", height: 75, marginBottom: 14 },
-              { width: "100%", height: 75, marginBottom: 14 },
-              { width: "100%", height: 75, marginBottom: 14 },
-            ]}
-          />
+          // <SkeletonContent
+          //   containerStyle={{ flex: 1, width: "100%", marginTop: 24 }}
+          //   duration={1500}
+          //   layout={[
+          //     { width: "100%", height: 75, marginBottom: 14 },
+          //     { width: "100%", height: 75, marginBottom: 14 },
+          //     { width: "100%", height: 75, marginBottom: 14 },
+          //     { width: "100%", height: 75, marginBottom: 14 },
+          //     { width: "100%", height: 75, marginBottom: 14 },
+          //   ]}
+          // />
+          <Text>loading...</Text>
         ) : (
           <FlatList
             data={types}

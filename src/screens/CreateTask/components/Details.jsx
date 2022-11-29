@@ -28,6 +28,7 @@ const Details = ({ navigation }) => {
   const [term, setTerm] = useState("");
   const [list, setList] = useState([]);
   const [zipCode, setZipCode] = useState("");
+  const [latlng, setLatLng] = useState({});
 
   const GOOGLE_PACES_API_BASE_URL =
     "https://maps.googleapis.com/maps/api/place";
@@ -58,6 +59,8 @@ const Details = ({ navigation }) => {
           (item) => item.types[0] === "postal_code"
         );
         setZipCode(zipCode !== undefined && zipCode);
+        const latLong = results.data.result.geometry.location;
+        setLatLng(latLong);
       }
     } catch (e) {
       console.log(e);
@@ -84,8 +87,10 @@ const Details = ({ navigation }) => {
       const duration = await AsyncStorage.getItem("duration");
       const careServiceId = await AsyncStorage.getItem("care_service_id");
       const location = {
-        zip: zipCode.long_name,
+        zip: zipCode?.long_name || "",
         address: term,
+        longitude: latlng.lng,
+        latitude: latlng.lat,
       };
 
       if (dateTime && careServiceId && duration !== null) {
@@ -99,13 +104,12 @@ const Details = ({ navigation }) => {
             token
           )
           .then((res) => {
-            console.log(res);
             if (res.status === 200 || res.status === 201) {
               navigation.push("HomeScreenTaker");
             }
           })
           .catch((err) => {
-            console.log(err?.response);
+            console.log(err?.response.data);
           });
       }
     } catch (e) {

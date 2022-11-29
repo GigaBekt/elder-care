@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { Plus } from "phosphor-react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import SkeletonContent from "react-native-skeleton-content";
+// import SkeletonContent from "react-native-skeleton-content";
 // Components
 import TasksComp from "../../../components/Tasks";
 import NoTasks from "./components/NoTasks";

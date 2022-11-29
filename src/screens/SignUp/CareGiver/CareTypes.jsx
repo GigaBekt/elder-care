@@ -8,7 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import { View, Text, FlatList, TouchableHighlight } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import SkeletonContent from "react-native-skeleton-content";
+// import SkeletonContent from "react-native-skeleton-content";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Componenets
@@ -129,17 +129,18 @@ const CareTypes = ({ navigation }) => {
         </Text>
 
         {loader ? (
-          <SkeletonContent
-            containerStyle={{ flex: 1, width: "100%", marginTop: 24 }}
-            duration={1500}
-            layout={[
-              { width: "100%", height: 75, marginBottom: 14 },
-              { width: "100%", height: 75, marginBottom: 14 },
-              { width: "100%", height: 75, marginBottom: 14 },
-              { width: "100%", height: 75, marginBottom: 14 },
-              { width: "100%", height: 75, marginBottom: 14 },
-            ]}
-          />
+          // <SkeletonContent
+          //   containerStyle={{ flex: 1, width: "100%", marginTop: 24 }}
+          //   duration={1500}
+          //   layout={[
+          //     { width: "100%", height: 75, marginBottom: 14 },
+          //     { width: "100%", height: 75, marginBottom: 14 },
+          //     { width: "100%", height: 75, marginBottom: 14 },
+          //     { width: "100%", height: 75, marginBottom: 14 },
+          //     { width: "100%", height: 75, marginBottom: 14 },
+          //   ]}
+          // />
+          <Text>Loading..</Text>
         ) : (
           <FlatList
             data={types}
