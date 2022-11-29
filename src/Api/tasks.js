@@ -36,3 +36,15 @@ class Tasks {
 }
 
 export default Tasks;
+
+// {
+//   "datetime": "2022-12-04T13:07:21.000Z",
+//   "duration_minutes": 90,
+//   "care_service_id": "78984428-a8d6-4334-b766-a22d94b76ef3",
+//   "location": {
+//       "zip": "",
+//       "address": "New York, NY, USA",
+//       "longitude": "-74.0059728",
+//       "latitude": "40.7127753"
+//   }
+// }

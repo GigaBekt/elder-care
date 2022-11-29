@@ -92,7 +92,7 @@ const Details = ({ navigation }) => {
         longitude: latlng.lng,
         latitude: latlng.lat,
       };
-
+      console.log(token, "token");
       if (dateTime && careServiceId && duration !== null) {
         tasks
           .createTask(
@@ -109,7 +109,7 @@ const Details = ({ navigation }) => {
             }
           })
           .catch((err) => {
-            console.log(err?.response.data);
+            console.log(err?.response);
           });
       }
     } catch (e) {

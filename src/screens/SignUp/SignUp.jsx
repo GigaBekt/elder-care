@@ -45,19 +45,19 @@ const SignUp = ({ navigation }) => {
     try {
       await AsyncStorage.setItem("user_type_id", value);
     } catch (e) {
-      console.log(e, "user service id");
+      console.log(e, "user type id");
       // save error
     }
   };
 
   const next = () => {
+    console.log(activeId, "activeid");
     saveId(activeId);
     if (activeId.length > 0) {
       activeId !== "eb4fe646-b515-47fd-8643-fd8081563455"
-        ? navigation.navigate("CareGiver location")
-        : navigation.navigate("CareTaker location");
+        ? navigation.navigate("CareTaker location")
+        : navigation.navigate("CareGiver location");
     }
-    return;
   };
 
   return (
@@ -96,13 +96,13 @@ const SignUp = ({ navigation }) => {
                 >
                   <Text style={styles.textHeader}>
                     {item.id === "eb4fe646-b515-47fd-8643-fd8081563455"
-                      ? "I need a caregiver"
-                      : "I want a care job"}
+                      ? "I want a care job"
+                      : "I need a caregiver"}
                   </Text>
                   <Text style={styles.text}>
                     {item.id === "eb4fe646-b515-47fd-8643-fd8081563455"
-                      ? "Start your free search for care in your area."
-                      : "Create a profile and search for jobs."}
+                      ? "Create a profile and search for jobs."
+                      : "Start your free search for care in your area."}
                   </Text>
                 </View>
               </View>

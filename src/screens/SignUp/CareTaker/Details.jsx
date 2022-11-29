@@ -70,6 +70,8 @@ const Details = ({ navigation }) => {
       const get_lat_long = await AsyncStorage.getItem("latLong");
       const LatLong = JSON.parse(get_lat_long);
 
+      console.log(phone, user_type_id, zipcode, LatLong);
+
       if (phone !== null && user_type_id !== null && location !== null) {
         const data = new FormData();
         data.append("phone_number", phone);

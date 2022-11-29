@@ -98,14 +98,14 @@ const App = () => {
           {authorized ? (
             info?.type?.id === "eb4fe646-b515-47fd-8643-fd8081563455" ? (
               <Stack.Screen
-                name="HomeScreenTakerFirst"
-                component={CareTaker}
+                name="HomeScreenFirst"
+                component={Caregiver}
                 options={{ headerShown: false }}
               />
             ) : (
               <Stack.Screen
-                name="HomeScreenFirst"
-                component={Caregiver}
+                name="HomeScreenTakerFirst"
+                component={CareTaker}
                 options={{ headerShown: false }}
               />
             )
