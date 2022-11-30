@@ -2,9 +2,9 @@
   "expo": {
     "name": "Elder Care",
     "slug": "ElderCare",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/img.png",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
@@ -14,12 +14,11 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.gigaexpo.rn-starter-1"
+      "bundleIdentifier": "berespoElderCare",
+      "buildNumber": "0.1.0"
     },
     "android": {
       "adaptiveIcon": {
