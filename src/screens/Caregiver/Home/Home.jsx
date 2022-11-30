@@ -66,7 +66,6 @@ const Home = ({ navigation, route }) => {
   const getToken = async () => {
     try {
       const token = await AsyncStorage.getItem("token");
-      console.log(token, "@token");
       setToken(() => token);
     } catch (e) {
       console.log(e, "error phone number");
